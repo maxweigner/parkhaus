@@ -28,4 +28,6 @@ public class Ticket implements TicketIF{
     public TimeIF getEnde() {
         return this.ende;
     }
+
+    public void setEnde(TimeIF ende) { this.ende = ende;}
 }

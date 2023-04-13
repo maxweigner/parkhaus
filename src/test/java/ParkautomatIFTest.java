@@ -19,9 +19,16 @@ class ParkautomatIFTest {
 
     @Test
     void bezahlenTest() {
+        TicketIF ticket1 = automat.erstellen();
+        automat.bezahlen(ticket1);
+        assertNotEquals(null, ticket1.getEnde());
     }
 
     @Test
     void entwertenTest() {
+        TicketIF ticket1 = automat.erstellen();
+        assertFalse(automat.entwerten(ticket1));
+        automat.bezahlen(ticket1);
+        assertTrue(automat.entwerten(ticket1));
     }
 }

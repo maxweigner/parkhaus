@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Parkautomat implements ParkautomatIF {
     static int id = 1;
+    Random rd = new Random();
 
     /**
      * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
@@ -9,29 +10,43 @@ public class Parkautomat implements ParkautomatIF {
      */
     @Override
     public TicketIF erstellen() {
-        Random rd = new Random(); // zufällige Einfahrtszeit
+        // zufällige Einfahrtszeit
         int hours = rd.nextInt(24);
         int minutes = rd.nextInt(60);
 
         TimeIF now = new Time(hours, minutes); // erstellt Zeitstempel
         TicketIF ticket = new Ticket(id++, 2, now); // erstellt Ticket
-        Schranke.setSchranke("einfahrt");
-        Schranke.open();
+        Schranke s = new Schranke();
+        s.setSchranke("einfahrt");
+        s.open();
+        s.close();
         return ticket;
     }
 
+    /**
+     * Zahlungsvorgang, um mit einem Ticket die Schranke zu öffnen
+     * @param ticket: gültiges Ticket
+     */
     @Override
-    public boolean bezahlen(TicketIF ticket) {
-        return false;
+    public void bezahlen(TicketIF ticket) {
+        // zufällige Ausfahrtszeit
+        int hours = rd.nextInt(24);
+        int minutes = rd.nextInt(60);
+        TimeIF now = new Time(hours, minutes); // erstellt Zeitstempel
+
+        ticket.setEnde(now);
+        int preis = (ticket.getEnde().getHours() - ticket.getStart().getHours()) * ticket.getPreis();
     }
 
     @Override
-    public boolean entwerten() {
-        return false;
-    }
-
-    @Override
-    public int getID() {
-        return 0;
+    public boolean entwerten(TicketIF ticket) {
+        if (ticket.getEnde() != null){ // Ticket ist bezahlt
+            Schranke s = new Schranke();
+            s.setSchranke("ausfahrt");
+            s.open();
+            s.close();
+            return true;
+        }
+        return false; // Komplikation bei Ausfahrt
     }
 }

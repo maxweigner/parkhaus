@@ -22,4 +22,10 @@ public interface TicketIF {
      * @return: Zeitstempel von TimeIF
      */
     TimeIF getEnde();
+
+    /**
+     * Setzt Zeitpunkt der Zahlung
+     * @param time: Zeitstempel von TimeIF
+     */
+    void setEnde(TimeIF time);
 }
