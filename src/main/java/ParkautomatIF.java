@@ -17,4 +17,10 @@ public interface ParkautomatIF {
      * @return true für entwertetes Ticket, false für Komplikationen bei der Ausfahrt
      */
     boolean entwerten();
+
+    /**
+     * Gibt nächstgültige ID heraus
+     * @return: ID als int
+     */
+    int getID();
 }

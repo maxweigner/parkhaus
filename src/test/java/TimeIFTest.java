@@ -27,4 +27,8 @@ class TimeIFTest {
     @Test
     void getHours() {
     }
+
+    @Test
+    void getTimeStamp() {
+    }
 }
