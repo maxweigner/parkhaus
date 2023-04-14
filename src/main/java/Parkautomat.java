@@ -15,7 +15,7 @@ public class Parkautomat implements ParkautomatIF {
         int minutes = rd.nextInt(60);
 
         TimeIF now = new Time(hours, minutes); // erstellt Zeitstempel
-        TicketIF ticket = new Ticket(id++, 2, now); // erstellt Ticket
+        TicketIF ticket = new Ticket(id++, 2, now, null); // erstellt Ticket
         Schranke s = new Schranke();
         s.setSchranke("einfahrt");
         s.open();

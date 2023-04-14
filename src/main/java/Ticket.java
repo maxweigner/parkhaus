@@ -1,17 +1,23 @@
-public class Ticket implements TicketIF{
-    private int id;
-    private int preis;
-    private TimeIF start;
-    private TimeIF ende;
 
-    public Ticket(int id, int preis, TimeIF start){
-        this.id = id;
+import java.util.Random;
+
+public class Ticket implements TicketIF{
+    private int ID;
+    private int preis;
+    private TimeIF einfahrtZeit;
+    private TimeIF ausfahrtZeit;
+
+    public Ticket(int ID, int preis, TimeIF einfahrtZeit, TimeIF ausfahrtZeit){
+        this.ID = ID;
         this.preis = preis;
-        this.start = start;
+        this.einfahrtZeit = einfahrtZeit;
+        this.ausfahrtZeit = ausfahrtZeit;
     }
+
+
     @Override
     public int getID() {
-        return this.id;
+        return this.ID;
     }
 
     @Override
@@ -21,13 +27,16 @@ public class Ticket implements TicketIF{
 
     @Override
     public TimeIF getStart() {
-        return this.start;
+        return this.einfahrtZeit;
     }
 
     @Override
     public TimeIF getEnde() {
-        return this.ende;
+        return this.ausfahrtZeit;
     }
 
-    public void setEnde(TimeIF ende) { this.ende = ende;}
+    @Override
+    public void setEnde(TimeIF time) {
+        this.ausfahrtZeit = time;
+    }
 }

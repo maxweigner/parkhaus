@@ -1,32 +1,46 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicketIFTest {
-
+    TicketIF ticket;
     @BeforeEach
-    void setUp() {
+    void setup(){
+        ticket = new Ticket(1, 2, new Time(12,0), new Time(13,0));
     }
-
-    @AfterEach
-    void tearDown() {
+    @Test
+    void getIDTest() {
+        int eID = 1;
+        int id = ticket.getID();
+        assertEquals(eID, id);
     }
 
     @Test
-    void getID() {
+    void getPreisTest() {
+        int ePreis = 2;
+        int preis = ticket.getPreis();
+        assertEquals(ePreis, preis);
     }
 
     @Test
-    void getPreis() {
+    void getStartTest() {
+        TimeIF eTime = new Time(12,0);
+        TimeIF t1 = ticket.getStart();
+        assertEquals(t1.toString(), eTime.toString());
     }
 
     @Test
-    void getStart() {
+    void getEndeTest() {
+        TimeIF eTime = new Time(13,0);
+        TimeIF t1 = ticket.getEnde();
+        assertEquals(t1.toString(), eTime.toString());
     }
 
     @Test
-    void getEnde() {
+    void setEndeTest(){
+        Ticket tmp = new Ticket(1,2,new Time(12,1), null);
+        Time t = new Time(13,1);
+        tmp.setEnde(t);
+        assertEquals(t.toString(), tmp.getEnde().toString());
     }
 }
