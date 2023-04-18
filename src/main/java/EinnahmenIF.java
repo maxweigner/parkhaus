@@ -1,7 +1,15 @@
 public interface EinnahmenIF {
 
-    void addIncome(float amount);
+    /**
+     * summiert die eingehenden Beträge auf
+     * @param betrag
+     */
+    void addIncome(float betrag);
 
+    /**
+     * Gibt die gesamten Einnahmen an
+     * @return
+     */
     float totalIncome();
 
 }
