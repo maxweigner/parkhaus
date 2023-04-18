@@ -41,13 +41,9 @@ public class Parkautomat implements ParkautomatIF {
 
     @Override
     public boolean entwerten(TicketIF ticket) {
-        if (ticket.getEnde() != null){ // Ticket ist bezahlt
-            Schranke s = new Schranke();
-            s.setSchranke("ausfahrt");
-            s.open();
-            s.close();
-            return true;
-        }
-        return false; // Komplikation bei Ausfahrt
+        if (ticket == null) {return false;}
+
+        ticket = null;
+        return true;
     }
 }
