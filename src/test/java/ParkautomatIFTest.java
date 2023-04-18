@@ -31,8 +31,28 @@ class ParkautomatIFTest {
     @Test
     void ticketEntwertenTest() {
         TicketIF ticket1 = automat.erstellen();
-        assertFalse(automat.entwerten(ticket1));
+        assertFalse(SchrankeIF.ausfahrt(ticket1, new Schranke()));
         automat.bezahlen(ticket1);
         assertTrue(automat.entwerten(ticket1));
     }
+
+    @Test
+    @DisplayName("Die Anzahl der freien Plätze kann gesetzt und abgerufen werden")
+    void setSpacesAmount() {
+        automat = new Parkautomat();
+        automat.setSpacesAmount(1500);
+        assertEquals(1500, automat.freeSpaces());
+    }
+
+
+    @Test
+    @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
+    void einfahrt() {
+        automat = new Parkautomat();
+        automat.setSpacesAmount(1500);
+        automat.einfahrt();
+
+        assertEquals(1499, automat.freeSpaces());
+    }
+
 }
