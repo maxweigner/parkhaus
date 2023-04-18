@@ -2,8 +2,9 @@ public class Einnahmen implements EinnahmenIF{
 
     private double summe = 0;
 
-    public void addIncome(float ticketpreis) {
-       summe += ticketpreis;
+    @Override
+    public void addIncome(float betrag) {
+       summe += betrag;
     }
 
     public float totalIncome() {
