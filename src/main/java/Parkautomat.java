@@ -1,14 +1,11 @@
 import java.util.Random;
 
 public class Parkautomat implements ParkautomatIF {
-    static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
-    static int revenue = 0; // totale Einnahmen
-    Random rd = new Random();
+    private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
+    private static int revenue = 0; // totale Einnahmen
+    private Random rd = new Random();
+    private int spacesFreeAmount = 0;
 
-    /**
-     * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
-     * @return Ticket
-     */
     @Override
     public TicketIF erstellen() {
         // zufällige Einfahrtszeit
@@ -24,10 +21,7 @@ public class Parkautomat implements ParkautomatIF {
         return ticket;
     }
 
-    /**
-     * Zahlungsvorgang, um mit einem Ticket die Schranke zu öffnen
-     * @param ticket: gültiges Ticket
-     */
+
     @Override
     public void bezahlen(TicketIF ticket) {
         // zufällige Ausfahrtszeit
@@ -45,5 +39,20 @@ public class Parkautomat implements ParkautomatIF {
 
         ticket = null;
         return true;
+    }
+
+    @Override
+    public void einfahrt() {
+        spacesFreeAmount--;
+    }
+
+    @Override
+    public int freeSpaces() {
+        return spacesFreeAmount;
+    }
+
+    @Override
+    public void setSpacesAmount(int spaces) {
+        spacesFreeAmount = spaces;
     }
 }
