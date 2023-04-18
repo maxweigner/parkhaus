@@ -1,7 +1,8 @@
 import java.util.Random;
 
 public class Parkautomat implements ParkautomatIF {
-    static int id = 1;
+    static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
+    static int revenue = 0; // totale Einnahmen
     Random rd = new Random();
 
     /**
