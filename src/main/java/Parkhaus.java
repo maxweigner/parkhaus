@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Parkhaus implements ParkhausIF {
     private Random rd = new Random();
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
-    private int freiePlaetze = 0; // Anzahl freier Plaetze
-    private Schranke[] schranken = null; // Alle verfügbaren Schranken
+    private int freiePlaetze; // Anzahl freier Plaetze
+    private Schranke[] schranken; // Alle verfügbaren Schranken
 
     /**
      * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
@@ -19,39 +20,62 @@ public class Parkhaus implements ParkhausIF {
     }
 
     @Override
-    public TicketIF einfahrt() {
-        // zufällige Einfahrtszeit
-        int hours = rd.nextInt(24);
-        int minutes = rd.nextInt(60);
-
+    public Ticket einfahrt(SchrankeIF schranke) {
         if (this.freiePlaetze > 0) {
-            TimeIF now = new Time(hours, minutes); // erstellt Zeitstempel
-            TicketIF ticket = new Ticket(id++, 2, now, null); // erstellt Ticket
-            this.schranken[0].open();
-            this.schranken[1].close();
-            this.freiePlaetze--;
-            return ticket;
+            Ticket ticket = new Ticket(id++, 2); // erstellt Ticket
+
+            // Schranke auf/zu
+            schranke.open();
+            schranke.close();
+
+            this.freiePlaetze--; // freie Plätze anpassen
+
+            return ticket; // ticket ausgeben
         }
         return null;
     }
 
     @Override
-    public boolean ausfahrt(TicketIF ticket) {
-        if (ticket == null) {return false;}
-        if (ticket.getEnde() == null){
-            return false;
+    public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
+        if (ticket.istBezahlt()) {
+            schranke.open();
+            schranke.close();
+            return true;
         }
-        ticket = null;
-        this.schranken[1].open();
-        this.schranken[1].close();
-        this.freiePlaetze++;
-        return true;
+        return false;
     }
 
     @Override
     public void setAnzahlPlaetze(int plaetze) {
         this.freiePlaetze = plaetze;
     }
+
+    @Override
+    public Schranke[] getEinfahrtSchranken() {
+        return getSchranken("einfahrt");
+    }
+
+    @Override
+    public Schranke[] getAusfahrtSchranken() {
+        return getSchranken("ausfahrt");
+    }
+
+
+    /**
+     * Gibt ein Array mit Schranken aus die vom angegebenen Typ sind
+     * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
+     * @return Array mit Schranken
+     */
+    private Schranke[] getSchranken(String einfahrtAusfahrt) {
+        ArrayList<Schranke> schrankenList = new ArrayList<Schranke>();
+        for(Schranke s: schranken) {
+            if(s.getSchranke().equals(einfahrtAusfahrt))
+                schrankenList.add(s);
+        }
+
+        return schrankenList.toArray(new Schranke[10]);
+    }
+
     @Override
     public int getAnzahlFreiePlaetze() {
         return this.freiePlaetze;

@@ -11,27 +11,30 @@ class ParkhausIFTest {
     private ParkhausIF parkhaus;
     private BezahlautomatIF automat;
     private Random rd = new Random();
+    Schranke schranke;
 
     @BeforeEach
     void setUp(){
         parkhaus = new Parkhaus();
         automat = new Bezahlautomat();
+        schranke = parkhaus.getEinfahrtSchranken()[0];
     }
     @Test
     @DisplayName("Unterschiedliche Tickets haben unterschiedliche IDs")
     void ticketErstellenTest() {
-        TicketIF ticket1 = parkhaus.einfahrt();
-        TicketIF ticket2 = parkhaus.einfahrt();
+        TicketIF ticket1 = parkhaus.einfahrt(schranke);
+        TicketIF ticket2 = parkhaus.einfahrt(schranke);
         assertNotEquals(ticket1.getID(), ticket2.getID());
     }
 
     @Test
     @DisplayName("Automat erkennt bezahlte Tickets")
     void ticketEntwertenTest() {
-        TicketIF ticket1 = parkhaus.einfahrt();
-        assertFalse(SchrankeIF.ausfahrt(ticket1, new Schranke()));
-        automat.bezahlen(ticket1);
-        assertTrue(parkhaus.ausfahrt(ticket1));
+        TicketIF ticket = parkhaus.einfahrt(schranke);
+        automat.einzahlen(1000);
+        automat.bezahlen(ticket);
+
+        assertTrue(ticket.istBezahlt());
     }
 
     @Test
@@ -49,7 +52,7 @@ class ParkhausIFTest {
         parkhaus.setAnzahlPlaetze(parkhausKapazität);
         int einfahrten = rd.nextInt(1, 100);
         for (int i = einfahrten; 0 < i; i--){
-            parkhaus.einfahrt();
+            parkhaus.einfahrt(schranke);
         }
         assertEquals(parkhausKapazität - einfahrten, parkhaus.getAnzahlFreiePlaetze());
     }
