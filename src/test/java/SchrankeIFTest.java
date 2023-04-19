@@ -67,7 +67,7 @@ class SchrankeIFTest {
     @Test
     @DisplayName("Bei bezahlten Tickets öffnet sich die Schranke")
     void ausfahrt_bezahlt_öffnet() {
-        TicketIF ticket = park.erstellen();
+        TicketIF ticket = park.einfahrt();
         automat.bezahlen(ticket);
         assertTrue(SchrankeIF.ausfahrt(ticket, schranke));
     }
@@ -75,7 +75,7 @@ class SchrankeIFTest {
     @Test
     @DisplayName("Bei unbezahlten Tickets öffnet sich die Schranke nicht")
     void ausfahrt_nichtBezahlt_öffnetNicht() {
-        TicketIF ticket = park.erstellen();
+        TicketIF ticket = park.einfahrt();
 
         assertFalse(SchrankeIF.ausfahrt(ticket, schranke));
     }
@@ -83,8 +83,8 @@ class SchrankeIFTest {
     @Test
     @DisplayName("Bei entwerteten Tickets öffnet sich die Schranke nicht")
     void ausfahrt_entwertet_öffnetNicht() {
-        TicketIF ticket = park.erstellen();
-        park.entwerten(ticket);
+        TicketIF ticket = park.einfahrt();
+        park.ausfahrt(ticket);
 
         assertFalse(SchrankeIF.ausfahrt(ticket, schranke));
     }
