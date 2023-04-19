@@ -1,4 +1,4 @@
-public interface ParkautomatIF {
+public interface ParkhausIF {
 
     /**
      * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
@@ -9,12 +9,7 @@ public interface ParkautomatIF {
      * Zahlungsvorgang, um mit einem Ticket die Schranke zu öffnen
      * @param ticket: gültiges Ticket
      */
-    void bezahlen(TicketIF ticket);
 
-    /**
-     * entwertet Ticket, indem Auto ausfährt und die Schranke sich öffnet
-     * @return true für entwertetes Ticket, false für Komplikationen bei der Ausfahrt
-     */
     boolean entwerten(TicketIF ticket);
 
     /**

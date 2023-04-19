@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class SchrankeIFTest {
 
     SchrankeIF schranke;
-    ParkautomatIF park = new Parkautomat();
+    ParkhausIF park = new Parkhaus();
+    BezahlautomatIF automat = new Bezahlautomat();
 
     @BeforeEach
     void setUp() {
@@ -67,8 +68,7 @@ class SchrankeIFTest {
     @DisplayName("Bei bezahlten Tickets öffnet sich die Schranke")
     void ausfahrt_bezahlt_öffnet() {
         TicketIF ticket = park.erstellen();
-        park.bezahlen(ticket);
-
+        automat.bezahlen(ticket);
         assertTrue(SchrankeIF.ausfahrt(ticket, schranke));
     }
 
