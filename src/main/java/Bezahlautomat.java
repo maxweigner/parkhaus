@@ -1,16 +1,34 @@
-import java.util.Random;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Bezahlautomat implements BezahlautomatIF {
-    private Random rd = new Random();
+
+    private long guthaben = 0;
 
     @Override
-    public void bezahlen(TicketIF ticket) {
-        // zufällige Ausfahrtszeit
-        int hours = rd.nextInt(24);
-        int minutes = rd.nextInt(60);
-        TimeIF now = new Time(hours, minutes); // erstellt Zeitstempel
+    public boolean bezahlen(TicketIF ticket) {
+        // parkdauer in stunden * preis des tickets
+        int preis = (int)Duration.between(ticket.getZeit(), LocalDateTime.now()).toHours() * ticket.getPreis();
 
-        ticket.setEnde(now);
-        int preis = (ticket.getEnde().getHours() - ticket.getStart().getHours()) * ticket.getPreis();
+        if (guthaben >= preis) {
+            ticket.setZeit(LocalDateTime.now());
+            guthaben -= preis;
+            ticket.setBezahlt();
+
+            return true;
+        }
+
+        return false;
     }
+
+    @Override
+    public void einzahlen(long summe) {
+        guthaben += summe;
+    }
+
+    @Override
+    public long getGuthaben() {
+        return guthaben;
+    }
+
 }

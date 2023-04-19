@@ -18,8 +18,8 @@ class BezahlautomatIFTest {
     @DisplayName("Nach Bezahlvorgang wird Endstempel zur Berechtigung der Ausfahrt eingetragen")
     @Test
     void ticketBezahlenTest() {
-        TicketIF ticket1 = parkhaus.einfahrt();
-        automat.bezahlen(ticket1);
-        assertNotEquals(null, ticket1.getEnde());
+        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]);
+        automat.bezahlen(ticket);
+        assertTrue(ticket.istBezahlt());
     }
 }
