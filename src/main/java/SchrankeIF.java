@@ -23,23 +23,4 @@ public interface SchrankeIF {
      */
     String getSchranke();
 
-    /**
-     * Prüft ob ein Ticket bezahlt wurde und öffnet und schließt darauf die Schranke. Ein Ticket gilt als bezahlt,
-     * wenn innerhalb von 15 Minuten nach Bezahlzeitpunkt ausgefahren wird
-     * @param ticket Das zu prüfende Ticket
-     * @param schranke Die zu öffnende Schranke
-     * @return true wenn das Ticket bezahlt wurde und false wenn die Schranke geschlossen bleibt
-     */
-    static boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        if(ticket == null) { return false; }
-
-        if (ticket.getEnde() != null) {
-            schranke.open();
-            schranke.close();
-
-            return true;
-        }
-
-        return false;
-    }
 }
