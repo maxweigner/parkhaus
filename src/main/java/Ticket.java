@@ -1,17 +1,20 @@
-
-import java.util.Random;
+import java.time.LocalDateTime;
 
 public class Ticket implements TicketIF{
     private int ID;
     private int preis;
-    private TimeIF einfahrtZeit;
-    private TimeIF ausfahrtZeit;
+    private LocalDateTime einfahrtZeit;
+    private boolean bezahlt = false;
 
-    public Ticket(int ID, int preis, TimeIF einfahrtZeit, TimeIF ausfahrtZeit){
+    /**
+     *
+     * @param ID Identifikationsnummer des Tickets
+     * @param preis Preis des Tickets
+     */
+    public Ticket(int ID, int preis){
         this.ID = ID;
         this.preis = preis;
-        this.einfahrtZeit = einfahrtZeit;
-        this.ausfahrtZeit = ausfahrtZeit;
+        this.einfahrtZeit = LocalDateTime.now();
     }
 
 
@@ -26,17 +29,23 @@ public class Ticket implements TicketIF{
     }
 
     @Override
-    public TimeIF getStart() {
+    public LocalDateTime getZeit() {
         return this.einfahrtZeit;
     }
 
+
     @Override
-    public TimeIF getEnde() {
-        return this.ausfahrtZeit;
+    public void setZeit(LocalDateTime time) {
+        this.einfahrtZeit = time;
     }
 
     @Override
-    public void setEnde(TimeIF time) {
-        this.ausfahrtZeit = time;
+    public void setBezahlt() {
+        bezahlt = true;
+    }
+
+    @Override
+    public boolean istBezahlt() {
+        return bezahlt;
     }
 }

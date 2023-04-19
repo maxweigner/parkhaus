@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public interface TicketIF {
     /**
      * eindeutiger Schlüssel
@@ -12,20 +14,22 @@ public interface TicketIF {
     int getPreis();
 
     /**
-     * Einfahrtszeitpunkt ins Parkhaus
+     * Einfahrtszeitpunkt / Bezahlzeitpunkt im Parkhaus
+     * abhängig davon ob schon gezahlt wurde
      * @return: Zeitstempel von TimeIF
      */
-    TimeIF getStart();
-
-    /**
-     * Zahlungszeitpunkt am Automaten
-     * @return: Zeitstempel von TimeIF
-     */
-    TimeIF getEnde();
+    LocalDateTime getZeit();
 
     /**
      * Setzt Zeitpunkt der Zahlung
      * @param time: Zeitstempel von TimeIF
      */
-    void setEnde(TimeIF time);
+    void setZeit(LocalDateTime time);
+
+    /**
+     * Setzt den Status des tickets auf bezahlt
+     */
+    void setBezahlt();
+
+    boolean istBezahlt();
 }
