@@ -19,7 +19,7 @@ public interface SchrankeIF {
 
     /**
      * Gibt zurück ob die Schranke für Einfahrt oder Ausfahrt genutzt werden kann
-     * @return
+     * @return String "einfahrt" oder "ausfahrt"
      */
     String getSchranke();
 

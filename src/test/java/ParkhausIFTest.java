@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParkhausIFTest {
     private ParkhausIF parkhaus;
     private BezahlautomatIF automat;
-    private Random rd = new Random();
+    private final Random rd = new Random();
     Schranke schranke;
 
     @BeforeEach
@@ -39,7 +39,7 @@ class ParkhausIFTest {
 
     @Test
     @DisplayName("Die Anzahl der freien Plätze kann gesetzt und abgerufen werden")
-    void setSpacesAmount() {
+    void setAnzahlPlaetzeTest() {
         parkhaus.setAnzahlPlaetze(1500);
         assertEquals(1500, parkhaus.getAnzahlFreiePlaetze());
     }
@@ -47,13 +47,13 @@ class ParkhausIFTest {
 
     @RepeatedTest(10)
     @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
-    void einfahrt() {
-        int parkhausKapazität = rd.nextInt(100, 10000);
-        parkhaus.setAnzahlPlaetze(parkhausKapazität);
+    void reduzierungFreierPlaetzeTest() {
+        int parkhausKapazitaet = rd.nextInt(100, 10000);
+        parkhaus.setAnzahlPlaetze(parkhausKapazitaet);
         int einfahrten = rd.nextInt(1, 100);
         for (int i = einfahrten; 0 < i; i--){
             parkhaus.einfahrt(schranke);
         }
-        assertEquals(parkhausKapazität - einfahrten, parkhaus.getAnzahlFreiePlaetze());
+        assertEquals(parkhausKapazitaet - einfahrten, parkhaus.getAnzahlFreiePlaetze());
     }
 }

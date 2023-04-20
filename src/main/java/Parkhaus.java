@@ -1,14 +1,14 @@
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Parkhaus implements ParkhausIF {
-    private Random rd = new Random();
+    private final Random rd = new Random();
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
     private Schranke[] schranken; // Alle verfügbaren Schranken
 
     /**
-     * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
+     * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und eine Ein - und Ausfahrtsschranken initialisiert.
      */
     Parkhaus(){
         this.freiePlaetze = 100;
@@ -67,7 +67,7 @@ public class Parkhaus implements ParkhausIF {
      * @return Array mit Schranken
      */
     private Schranke[] getSchranken(String einfahrtAusfahrt) {
-        ArrayList<Schranke> schrankenList = new ArrayList<Schranke>();
+        ArrayList<Schranke> schrankenList = new ArrayList<>();
         for(Schranke s: schranken) {
             if(s.getSchranke().equals(einfahrtAusfahrt))
                 schrankenList.add(s);
