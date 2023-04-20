@@ -1,14 +1,16 @@
-import java.util.Random;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Parkhaus implements ParkhausIF {
-    private final Random rd = new Random();
+    private Random rd = new Random();
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
     private Schranke[] schranken; // Alle verfügbaren Schranken
 
     /**
-     * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und eine Ein - und Ausfahrtsschranken initialisiert.
+     * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
      */
     Parkhaus(){
         this.freiePlaetze = 100;
@@ -37,7 +39,8 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        if (ticket.istBezahlt()) {
+        if (ticket.istBezahlt() &&
+                ticket.getZeit().isAfter(LocalDateTime.now().minus(Duration.ofMinutes(15)))) {
             schranke.open();
             schranke.close();
             return true;
@@ -67,7 +70,7 @@ public class Parkhaus implements ParkhausIF {
      * @return Array mit Schranken
      */
     private Schranke[] getSchranken(String einfahrtAusfahrt) {
-        ArrayList<Schranke> schrankenList = new ArrayList<>();
+        ArrayList<Schranke> schrankenList = new ArrayList<Schranke>();
         for(Schranke s: schranken) {
             if(s.getSchranke().equals(einfahrtAusfahrt))
                 schrankenList.add(s);
