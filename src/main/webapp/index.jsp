@@ -1,17 +1,33 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Parkhaus</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<form method="GET" action="/hello_web_war_exploded/welcome-servlet">
-    <input type="text", id="name", name="name", placeholder="name">
-    <input type="submit">
-</form>
-<br/>
-<a href="welcome-servlet">Hello Servlet</a>
+<h2 id="ueberschrift">Parkhaus</h2>
+<div id="dashboard">
+    <div id="Einfahrt">
+        <h2>Einfahrt</h2>
+        <img>
+        <button>Check In</button>
+    </div>
+    <div id="Ausfahrt">
+        <h2>Ausfahrt</h2>
+        <img>
+        <form methode="GET" action="/demo_war_exploded/PFAD">
+            <input type="text" id="ticketIdAusfahrt" name="ticketIdAusfahrt" placeholder="TicketID">
+            <button id="outBtn" name="ausfahrtBtn">Check Out</button>
+
+        </form>
+    </div>
+    <div id="automat">
+        <h2>Bezahlautomat</h2>
+        <form methode="GET" action="/demo_war_exploded/PFAD">
+            <input type="text" id="ticketIdBezahlen" name="ticketIdBezahlen" placeholder="TicketID">
+            <input type="text" id="einzahlung" name="einzahlung" placeholder="Geld eingeben">
+            <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
+        </form>
+    </div>
+</div>
 </body>
-</html>
