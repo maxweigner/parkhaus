@@ -48,9 +48,9 @@ class ParkhausIFTest {
     @RepeatedTest(10)
     @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
     void reduzierungFreierPlaetzeTest() {
-        int parkhausKapazitaet = 100;
+        int parkhausKapazitaet = rd.nextInt(100, 10000);
         parkhaus.setAnzahlPlaetze(parkhausKapazitaet);
-        int einfahrten = 50;
+        int einfahrten = rd.nextInt(1, 100);
         for (int i = einfahrten; 0 < i; i--){
             parkhaus.einfahrt(schranke);
         }
