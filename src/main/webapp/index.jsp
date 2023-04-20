@@ -10,12 +10,15 @@
     <div id="Einfahrt">
         <h2>Einfahrt</h2>
         <img>
-        <button>Check In</button>
+        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/test">
+            <input type="hidden" name="checkIn" value="true">
+            <button>Check In</button>
+        </form>
     </div>
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>
         <img>
-        <form methode="GET" action="/demo_war_exploded/PFAD">
+        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/">
             <input type="text" id="ticketIdAusfahrt" name="ticketIdAusfahrt" placeholder="TicketID">
             <button id="outBtn" name="ausfahrtBtn">Check Out</button>
 
@@ -23,7 +26,7 @@
     </div>
     <div id="automat">
         <h2>Bezahlautomat</h2>
-        <form methode="GET" action="/demo_war_exploded/PFAD">
+        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/">
             <input type="text" id="ticketIdBezahlen" name="ticketIdBezahlen" placeholder="TicketID">
             <input type="text" id="einzahlung" name="einzahlung" placeholder="Geld eingeben">
             <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
