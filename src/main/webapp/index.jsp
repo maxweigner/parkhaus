@@ -10,7 +10,7 @@
     <div id="Einfahrt">
         <h2>Einfahrt</h2>
         <img>
-        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/test">
+        <form methode="GET" action="/demo4_war/test">
             <input type="hidden" name="checkIn" value="true">
             <button>Check In</button>
         </form>
