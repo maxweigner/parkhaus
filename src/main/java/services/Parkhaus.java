@@ -1,3 +1,5 @@
+package services;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,9 +12,9 @@ public class Parkhaus implements ParkhausIF {
     private Schranke[] schranken; // Alle verfügbaren Schranken
 
     /**
-     * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
+     * Konstruktur, der ein services.Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
      */
-    Parkhaus(){
+    public Parkhaus(){
         this.freiePlaetze = 100;
         this.schranken = new Schranke[2];
         this.schranken[0] = new Schranke();
@@ -24,9 +26,9 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public Ticket einfahrt(SchrankeIF schranke) {
         if (this.freiePlaetze > 0) {
-            Ticket ticket = new Ticket(id++, 2); // erstellt Ticket
+            Ticket ticket = new Ticket(id++, 2); // erstellt services.Ticket
 
-            // Schranke auf/zu
+            // services.Schranke auf/zu
             schranke.open();
             schranke.close();
 

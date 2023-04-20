@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import services.Einnahmen;
+import services.EinnahmenIF;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +10,7 @@ class EinnahmenIFTest {
     EinnahmenIF in;
 
     @Test
-    @DisplayName("Einnahmen können ein- und ausgegeben werden")
+    @DisplayName("services.Einnahmen können ein- und ausgegeben werden")
     void addIncome_equals() {
         in = new Einnahmen();
 
@@ -18,7 +20,7 @@ class EinnahmenIFTest {
         assertEquals(4.5f+3.86f, in.totalIncome());
     }
     @Test
-    @DisplayName("Einnahmen werden nicht verfälscht")
+    @DisplayName("services.Einnahmen werden nicht verfälscht")
     void addIncome_notEquals() {
         in = new Einnahmen();
 

@@ -1,7 +1,8 @@
+package services;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.io.*;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -29,7 +30,7 @@ import javax.servlet.annotation.*;
             this.checkIn = Boolean.parseBoolean(request.getParameter("checkIn"));
             if (checkIn){
                 //ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //todo Haben wir mehrere Einfahrtschranken?
-                System.out.println("Ticket erstellt");
+                System.out.println("services.Ticket erstellt");
             }
             PrintWriter out = response.getWriter();
             out.println("<html><body>");

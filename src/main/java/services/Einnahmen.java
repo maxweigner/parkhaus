@@ -1,3 +1,5 @@
+package services;
+
 public class Einnahmen implements EinnahmenIF{
 
     private double summe = 0;

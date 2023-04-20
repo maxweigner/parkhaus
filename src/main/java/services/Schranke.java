@@ -1,3 +1,5 @@
+package services;
+
 public class Schranke implements SchrankeIF{
 
     private boolean zustand = false; // true -> open, false -> closed

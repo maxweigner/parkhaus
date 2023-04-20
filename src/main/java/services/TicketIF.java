@@ -1,3 +1,5 @@
+package services;
+
 import java.time.LocalDateTime;
 
 public interface TicketIF {
@@ -14,7 +16,7 @@ public interface TicketIF {
     int getPreis();
 
     /**
-     * Einfahrtszeitpunkt / Bezahlzeitpunkt im Parkhaus
+     * Einfahrtszeitpunkt / Bezahlzeitpunkt im services.Parkhaus
      * abhängig davon, ob schon gezahlt wurde
      * @return : Zeitstempel von TimeIF
      */

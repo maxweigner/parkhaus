@@ -1,3 +1,5 @@
+package services;
+
 public interface EinnahmenIF {
 
     /**
@@ -7,7 +9,7 @@ public interface EinnahmenIF {
     void addIncome(float betrag);
 
     /**
-     * Gibt die gesamten Einnahmen an
+     * Gibt die gesamten services.Einnahmen an
      * @return
      */
     float totalIncome();

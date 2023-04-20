@@ -1,8 +1,10 @@
+package services;
+
 public interface BezahlautomatIF {
 
     /**
-     * entwertet Ticket, indem Auto ausfährt und die Schranke sich öffnet
-     * @return true für entwertetes Ticket, false für Komplikationen bei der Ausfahrt
+     * entwertet services.Ticket, indem Auto ausfährt und die services.Schranke sich öffnet
+     * @return true für entwertetes services.Ticket, false für Komplikationen bei der Ausfahrt
      */
     boolean bezahlen(TicketIF ticket);
 

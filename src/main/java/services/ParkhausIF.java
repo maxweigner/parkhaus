@@ -1,14 +1,16 @@
+package services;
+
 public interface ParkhausIF {
 
     /**
-     * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
-     * @return Ticket
+     * Erstellt ein neues services.Ticket zum Zeitpunkt der Einfahrt
+     * @return services.Ticket
      */
     TicketIF einfahrt(SchrankeIF schranke);
 
     /**
-     * Zahlungsvorgang, um mit einem Ticket die Schranke zu öffnen
-     * @param ticket: gültiges Ticket
+     * Zahlungsvorgang, um mit einem services.Ticket die services.Schranke zu öffnen
+     * @param ticket: gültiges services.Ticket
      */
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 
