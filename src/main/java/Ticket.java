@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Ticket implements TicketIF{
-    private int ID;
-    private int preis;
+    private final int ID;
+    private final int preis;
     private LocalDateTime einfahrtZeit;
     private boolean bezahlt = false;
 
@@ -41,11 +41,11 @@ public class Ticket implements TicketIF{
 
     @Override
     public void setBezahlt() {
-        bezahlt = true;
+        this.bezahlt = true;
     }
 
     @Override
     public boolean istBezahlt() {
-        return bezahlt;
+        return this.bezahlt;
     }
 }
