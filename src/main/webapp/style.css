@@ -1,0 +1,42 @@
+#ueberschrift{
+    text-align: center;
+}
+#dashboard{
+    display: flex;
+    width: 99%;
+    height: 80%;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+}
+
+#dashboard > *{
+    padding: 5%;
+    width: 20%;
+}
+
+#dashboard > div {
+    border-radius: 5px;
+}
+
+#Einfahrt{
+    border-style: dotted;
+    border-color: black;
+    text-align: center;
+}
+
+#Ausfahrt{
+    border-style: dotted;
+    border-color: black;
+    text-align: center;
+}
+
+#outBtn{
+    margin-top:2%;
+}
+
+#automat{
+    border-style: dotted;
+    border-color: black;
+    text-align: center;
+}
