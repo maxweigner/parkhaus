@@ -10,7 +10,7 @@
     <div id="Einfahrt">
         <h2>Einfahrt</h2>
         <img>
-        <form methode="GET" action="/demo4_war/checkIn">
+        <form methode="GET" action="/Team_4_sose23_war/checkIn">
             <input type="hidden" name="checkIn" value="true">
             <button>Check In</button>
 
@@ -19,7 +19,7 @@
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>
         <img>
-        <form methode="GET" action="/demo4_war/checkOut">
+        <form methode="GET" action="/Team_4_sose23_war/checkOut">
             <input type="text" id="ticketIdAusfahrt" name="id" placeholder="TicketID">
             <button id="outBtn">Check Out</button>
 
@@ -27,7 +27,7 @@
     </div>
     <div id="automat">
         <h2>Bezahlautomat</h2>
-        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/">
+        <form methode="GET" action="/Team_4_sose23_war/">
             <input type="text" id="ticketIdBezahlen" name="ticketIdBezahlen" placeholder="TicketID">
             <input type="text" id="einzahlung" name="einzahlung" placeholder="Geld eingeben">
             <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
@@ -40,7 +40,7 @@
         msg = "Please keep your id: ${param.id}";
     } else if (0 == ${param.id}){
         msg="Thanks for your visit!";
-    } else if ("nfe" == ${param.id}){
+    } else if (-1 == ${param.id}){
         msg="Sorry, invalid input";
     }
     alert(msg);
