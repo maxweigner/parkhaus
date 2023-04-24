@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import services.*;
 
-@WebServlet(name="services.ParkhausServlet", value="")
+@WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
-    Parkhaus parkhaus;
+    private static ParkhausIF parkhaus;
 
     /**
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
@@ -22,12 +22,11 @@ public class ParkhausServlet extends HttpServlet {
     }
 
     /**
-     * erster get-request landet hier und leitet auf startpage weiter
+     * erster get-request landet hier und leitet aufs das Dashboard weiter
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         res.sendRedirect(req.getContextPath()+"/index.jsp");
-        System.out.println(req.getContextPath());
     }
 
     @Override
@@ -40,5 +39,13 @@ public class ParkhausServlet extends HttpServlet {
      */
     private ServletContext getApplication(){
         return getServletConfig().getServletContext();
+    }
+
+    /**
+     * Zugang für alle Servlets zur Instanz des Parkhauses
+     * @return: aktuelles Parkhaus
+     */
+    public static ParkhausIF getParkhaus(){
+        return parkhaus;
     }
 }

@@ -10,17 +10,18 @@
     <div id="Einfahrt">
         <h2>Einfahrt</h2>
         <img>
-        <form methode="GET" action="/demo4_war/test">
+        <form methode="GET" action="/demo4_war/checkIn">
             <input type="hidden" name="checkIn" value="true">
             <button>Check In</button>
+
         </form>
     </div>
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>
         <img>
-        <form methode="GET" action="/inf_se1_ss23_Team_4_sose23_war/">
-            <input type="text" id="ticketIdAusfahrt" name="ticketIdAusfahrt" placeholder="TicketID">
-            <button id="outBtn" name="ausfahrtBtn">Check Out</button>
+        <form methode="GET" action="/demo4_war/checkOut">
+            <input type="text" id="ticketIdAusfahrt" name="id" placeholder="TicketID">
+            <button id="outBtn">Check Out</button>
 
         </form>
     </div>
@@ -33,4 +34,15 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    var msg = "";
+    if (0 < ${param.id}){
+        msg = "Please keep your id: ${param.id}";
+    } else if (0 == ${param.id}){
+        msg="Thanks for your visit!";
+    } else if ("nfe" == ${param.id}){
+        msg="Sorry, invalid input";
+    }
+    alert(msg);
+</script>
 </body>
