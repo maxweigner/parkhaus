@@ -1,5 +1,6 @@
 package controller;
 
+import services.Parkhaus;
 import services.ParkhausIF;
 import services.SchrankeIF;
 import services.TicketIF;
@@ -16,7 +17,7 @@ public class CheckInServlet extends HttpServlet {
     ParkhausIF parkhaus;
 
     public void init(){
-        this.parkhaus = ParkhausServlet.getParkhaus(); // hole aktuelle Instanz
+        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
     }
 
     /**
@@ -25,10 +26,26 @@ public class CheckInServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        SchrankeIF[] schranken = parkhaus.getEinfahrtSchranken(); // verfügbare Schranken
-        TicketIF ticket = parkhaus.einfahrt(schranken[0]); // Einfahrt bei ausgewählter Schranke
-        int id = ticket.getID(); // ID des soeben erzeugten Tickets
-        res.sendRedirect(req.getContextPath()+"/index.jsp?id="+id);
+        ParkhausServlet.addSchrankenParams(req);
+        req.getRequestDispatcher("index.jsp").forward(req, res);
+    }
+
+    public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        // einfahrtsschranken holen
+        SchrankeIF[] schranken = parkhaus.getEinfahrtSchranken();
+
+        // ausgewählte nummer für schranke holen
+        int schrankeNr = Integer.parseInt(req.getParameter("schranke"));
+
+        // einfahrt bei ausgewählter Schranke, erstellen von ticket
+        TicketIF ticket = parkhaus.einfahrt(schranken[schrankeNr]);
+
+        // dem request die anzahl der schranken mitgeben
+        ParkhausServlet.addSchrankenParams(req);
+        // dem request die nummer des tickets mitgeben
+        req.setAttribute("ticketID", ticket.getID());
+
+        req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 
     @Override

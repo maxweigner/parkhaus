@@ -17,8 +17,16 @@ public class ParkhausServlet extends HttpServlet {
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
      */
     public void init(){
-        this.parkhaus = new Parkhaus();
-        System.out.println("*** Parkhaus erfolgreich erstellt");
+        if (parkhaus == null) {
+            this.parkhaus = new Parkhaus();
+            getServletContext().setAttribute("parkhaus", this.parkhaus);
+            getServletContext().setAttribute("schranken-einfahrt", parkhaus.getEinfahrtSchranken());
+            getServletContext().setAttribute("schranken-ausfahrt", parkhaus.getAusfahrtSchranken());
+            System.out.println("*** Parkhaus erfolgreich erstellt ***");
+        } else {
+            this.parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
+        }
+
     }
 
     /**
@@ -26,26 +34,24 @@ public class ParkhausServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        res.sendRedirect(req.getContextPath()+"/index.jsp");
+        addSchrankenParams(req);
+        req.getRequestDispatcher("index.jsp").forward(req, res);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.sendRedirect("/checkIn");
     }
 
     @Override
     public void destroy() {
     }
 
-    /**
-     * Ermoeglicht Zugriff auf weitreichende Applikationselemente
-     * @return: laufende Instanz
-     */
-    private ServletContext getApplication(){
-        return getServletConfig().getServletContext();
-    }
+    public static void addSchrankenParams(HttpServletRequest req) {
+        int ase = parkhaus.getEinfahrtSchranken().length;
+        int asa = parkhaus.getAusfahrtSchranken().length;
 
-    /**
-     * Zugang für alle Servlets zur Instanz des Parkhauses
-     * @return: aktuelles Parkhaus
-     */
-    public static ParkhausIF getParkhaus(){
-        return parkhaus;
+        req.setAttribute("anzahl-schranken-einfahrt", ase);
+        req.setAttribute("anzahl-schranken-ausfahrt", asa);
     }
 }

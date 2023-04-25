@@ -1,5 +1,6 @@
 package controller;
 
+import services.Parkhaus;
 import services.ParkhausIF;
 import services.SchrankeIF;
 import services.TicketIF;
@@ -13,10 +14,10 @@ import java.io.IOException;
 
 @WebServlet(name="controller.CheckOutServlet", value="/checkOut")
 public class CheckOutServlet extends HttpServlet {
-    ParkhausIF parkhaus; // hole aktuelle Instanz
+    ParkhausIF parkhaus;
 
     public void init(){
-        this.parkhaus = ParkhausServlet.getParkhaus();
+        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
     }
 
     /**
@@ -24,6 +25,9 @@ public class CheckOutServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
+        // dem request die anzahl der schranken mitgeben
+        ParkhausServlet.addSchrankenParams(req);
+
         try {
             int id = Integer.parseInt(req.getParameter("id")); // übergebene ID
             /**

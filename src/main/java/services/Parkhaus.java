@@ -75,12 +75,15 @@ public class Parkhaus implements ParkhausIF {
      */
     private Schranke[] getSchranken(String einfahrtAusfahrt) {
         ArrayList<Schranke> schrankenList = new ArrayList<Schranke>();
+        int i = 0;
         for(Schranke s: schranken) {
-            if(s.getSchranke().equals(einfahrtAusfahrt))
+            if(s.getSchranke().equals(einfahrtAusfahrt)){
                 schrankenList.add(s);
+                i++;
+            }
         }
 
-        return schrankenList.toArray(new Schranke[10]);
+        return schrankenList.toArray(new Schranke[i]);
     }
 
     @Override
