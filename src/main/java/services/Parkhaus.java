@@ -10,8 +10,8 @@ public class Parkhaus implements ParkhausIF {
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
     private SchrankeIF[] schranken; // Alle verfügbaren Schranken
-
     private List<TicketIF> ticketListe = new LinkedList<>();
+    private BezahlautomatIF automat = new Bezahlautomat();
 
     /**
      * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
@@ -96,5 +96,10 @@ public class Parkhaus implements ParkhausIF {
 
     public List<TicketIF> getTicketListe(){
         return this.ticketListe;
+    }
+
+    @Override
+    public BezahlautomatIF getAutomat() {
+        return automat;
     }
 }

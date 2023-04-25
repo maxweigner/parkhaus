@@ -46,4 +46,11 @@ public interface ParkhausIF {
      * @return: Liste mit allen Tickets
      */
     List<TicketIF> getTicketListe();
+
+    /**
+     * Gibt den Bezahlautomaten des Parkhauses zurück
+     * @return Bezahlautomat Object
+     */
+    BezahlautomatIF getAutomat();
+
 }
