@@ -21,17 +21,19 @@ public class CheckOutServlet extends HttpServlet {
 
     /**
      * Beim Verlassen wird die Ausfahrt simuliert. Dafür muss der Verwender die ID des Tickets übergeben.
+     * @throws NumberFormatException: leeres Inputfeld
+     * @throws IndexOutOfBoundsException: Ticket konnte unter gegebener ID nicht gefunden werden
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
-
+            TicketIF ticket = parkhaus.getTicketListe().get(id - 1);
             /**
              * todo: LOGIK FEHLT
              */
             res.sendRedirect(req.getContextPath()+"/index.jsp?id=0"); // erfolgreiche Ausfahrt
-        } catch (NumberFormatException nfe){ // leeres Inputfeld
+        } catch (NumberFormatException | IndexOutOfBoundsException error){
             res.sendRedirect(req.getContextPath()+"/index.jsp?id=-1"); // Fehlermeldung
         }
     }
