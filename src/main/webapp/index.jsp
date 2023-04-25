@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<!DOCTYPE html lang='de'>
 <head>
     <title>Parkhaus</title>
     <link rel="stylesheet" href="style.css">
