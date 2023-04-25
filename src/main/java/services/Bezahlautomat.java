@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class Bezahlautomat implements BezahlautomatIF {
 
     private long guthaben = 0;
+    private EinnahmenIF einnahmen = new Einnahmen();
 
     @Override
     public boolean bezahlen(TicketIF ticket) {
@@ -16,6 +17,8 @@ public class Bezahlautomat implements BezahlautomatIF {
             ticket.setZeit(LocalDateTime.now());
             guthaben -= preis;
             ticket.setBezahlt();
+
+            einnahmen.addIncome(preis);
 
             return true;
         }
