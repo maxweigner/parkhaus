@@ -47,8 +47,4 @@ public class CheckInServlet extends HttpServlet {
 
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
-
-    @Override
-    public void destroy() {
-    }
 }

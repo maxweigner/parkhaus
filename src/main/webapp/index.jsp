@@ -38,7 +38,7 @@
         <h2>Ausfahrt</h2>
         <img>
         <form method="POST" action="/Team_4_sose23_war/checkOut">
-            <input type="text" id="ticketIdAusfahrt" name="id" placeholder="TicketID">
+            <input type="text" id="ticketIdAusfahrt" name="idAusfahrt" placeholder="TicketID">
             <button id="outBtn">Check Out</button>
 
         </form>
@@ -60,6 +60,8 @@
         msg="Thanks for your visit!";
     } else if (-1 == ${param.id}){
         msg="Sorry, invalid input";
+    } else if (-2 == ${param.id}){
+        msg="Pay for your ticket first!";
     }
     alert(msg);
 </script>

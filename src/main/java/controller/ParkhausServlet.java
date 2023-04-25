@@ -1,6 +1,5 @@
 package controller;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +19,6 @@ public class ParkhausServlet extends HttpServlet {
         if (parkhaus == null) {
             this.parkhaus = new Parkhaus();
             getServletContext().setAttribute("parkhaus", this.parkhaus);
-            getServletContext().setAttribute("schranken-einfahrt", parkhaus.getEinfahrtSchranken());
-            getServletContext().setAttribute("schranken-ausfahrt", parkhaus.getAusfahrtSchranken());
             System.out.println("*** Parkhaus erfolgreich erstellt ***");
         } else {
             this.parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");

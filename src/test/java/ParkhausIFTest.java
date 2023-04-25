@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import services.*;
 
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,11 +13,13 @@ class ParkhausIFTest {
     private ParkhausIF parkhaus;
     private BezahlautomatIF automat;
     private final Random rd = new Random();
-    Schranke schranke;
+    SchrankeIF schranke;
 
     @BeforeEach
     void setUp(){
         parkhaus = new Parkhaus();
+        int parkhausKapazitaet = rd.nextInt(899) + 100; // range(100, 999)
+        parkhaus.setAnzahlPlaetze(parkhausKapazitaet);
         automat = new Bezahlautomat();
         schranke = parkhaus.getEinfahrtSchranken()[0];
     }
@@ -45,15 +49,25 @@ class ParkhausIFTest {
     }
 
 
-    /**@RepeatedTest(10)
+    @RepeatedTest(10)
     @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
     void reduzierungFreierPlaetzeTest() {
-        int parkhausKapazitaet = rd.nextInt(100, 10000);
-        parkhaus.setAnzahlPlaetze(parkhausKapazitaet);
-        int einfahrten = rd.nextInt(1, 100);
-        for (int i = einfahrten; 0 < i; i--){
+        int einfahrten = rd.nextInt(100);
+        int kapazitaet = parkhaus.getAnzahlFreiePlaetze();
+        for (int i = 0; i < einfahrten; i++){
             parkhaus.einfahrt(schranke);
         }
-        assertEquals(parkhausKapazitaet - einfahrten, parkhaus.getAnzahlFreiePlaetze());
-    }*/
+        assertEquals(kapazitaet - einfahrten, parkhaus.getAnzahlFreiePlaetze());
+    }
+
+    @Test
+    @DisplayName("Tickets werden in einer Liste abgespeichert und bleiben erhalten")
+    void erstellungTicketListeTest(){
+        int einfahrten = rd.nextInt(100);
+        for (int i = 0; i < einfahrten; i++){
+            parkhaus.einfahrt(schranke);
+        }
+        List<TicketIF> ticketListe = parkhaus.getTicketListe();
+        assertEquals(einfahrten, ticketListe.size());
+    }
 }
