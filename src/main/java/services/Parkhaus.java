@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Parkhaus implements ParkhausIF {
-    private Random rd = new Random();
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
     private Schranke[] schranken; // Alle verfügbaren Schranken
@@ -45,6 +44,9 @@ public class Parkhaus implements ParkhausIF {
                 ticket.getZeit().isAfter(LocalDateTime.now().minus(Duration.ofMinutes(15)))) {
             schranke.open();
             schranke.close();
+
+            this.freiePlaetze++;
+
             return true;
         }
         return false;
