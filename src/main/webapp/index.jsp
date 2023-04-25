@@ -20,7 +20,7 @@
         <h2>Ausfahrt</h2>
         <img>
         <form methode="GET" action="/Team_4_sose23_war/checkOut">
-            <input type="text" id="ticketIdAusfahrt" name="id" placeholder="TicketID">
+            <input type="text" id="ticketIdAusfahrt" name="idAusfahrt" placeholder="TicketID">
             <button id="outBtn">Check Out</button>
 
         </form>

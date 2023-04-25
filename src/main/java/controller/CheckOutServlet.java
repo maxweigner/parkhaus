@@ -25,7 +25,8 @@ public class CheckOutServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         try {
-            int id = Integer.parseInt(req.getParameter("id")); // übergebene ID
+            int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
+
             /**
              * todo: LOGIK FEHLT
              */

@@ -1,5 +1,8 @@
 package services;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public interface ParkhausIF {
 
     /**
@@ -30,11 +33,17 @@ public interface ParkhausIF {
      * Gibt alle Einfahrtsschranken aus
      * @return Array mit allen Einfahrtsschranken
      */
-    Schranke[] getEinfahrtSchranken();
+    SchrankeIF[] getEinfahrtSchranken();
 
     /**
      * Gibt alle Ausfahrtsschranken aus
      * @return Array mit allen Ausfahrtsschranken
      */
-    Schranke[] getAusfahrtSchranken();
+    SchrankeIF[] getAusfahrtSchranken();
+
+    /**
+     * Gibt aller bisherigen Tickets aus
+     * @return: Liste mit allen Tickets
+     */
+    List<TicketIF> getTicketListe();
 }
