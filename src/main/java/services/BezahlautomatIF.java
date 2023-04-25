@@ -20,4 +20,11 @@ public interface BezahlautomatIF {
      */
     long getGuthaben();
 
+    /**
+     * Gibt das für die Einnahmenanalyse zuständige Objekt zurück
+     * @return Einnahmen Object
+     */
+    EinnahmenIF getEinnahmen();
+
+
 }

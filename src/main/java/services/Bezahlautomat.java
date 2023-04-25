@@ -36,4 +36,10 @@ public class Bezahlautomat implements BezahlautomatIF {
         return guthaben;
     }
 
+    @Override
+    public EinnahmenIF getEinnahmen() {
+        return this.einnahmen;
+    }
+
+
 }
