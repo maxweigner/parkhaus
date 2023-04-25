@@ -29,6 +29,7 @@ public class CheckOutServlet extends HttpServlet {
         try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
             TicketIF ticket = parkhaus.getTicketListe().get(id - 1);
+
             /**
              * todo: LOGIK FEHLT
              */
@@ -36,9 +37,5 @@ public class CheckOutServlet extends HttpServlet {
         } catch (NumberFormatException | IndexOutOfBoundsException error){
             res.sendRedirect(req.getContextPath()+"/index.jsp?id=-1"); // Fehlermeldung
         }
-    }
-
-    @Override
-    public void destroy() {
     }
 }

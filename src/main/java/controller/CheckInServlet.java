@@ -30,8 +30,4 @@ public class CheckInServlet extends HttpServlet {
         int id = ticket.getID(); // ID des soeben erzeugten Tickets
         res.sendRedirect(req.getContextPath()+"/index.jsp?id="+id);
     }
-
-    @Override
-    public void destroy() {
-    }
 }

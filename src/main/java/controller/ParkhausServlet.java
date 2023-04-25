@@ -29,10 +29,6 @@ public class ParkhausServlet extends HttpServlet {
         res.sendRedirect(req.getContextPath()+"/index.jsp");
     }
 
-    @Override
-    public void destroy() {
-    }
-
     /**
      * Ermoeglicht Zugriff auf weitreichende Applikationselemente
      * @return: laufende Instanz
