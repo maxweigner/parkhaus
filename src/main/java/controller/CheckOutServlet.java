@@ -28,12 +28,15 @@ public class CheckOutServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
-            TicketIF ticket = parkhaus.getTicketListe().get(id - 1);
-
-            /**
-             * todo: LOGIK FEHLT
-             */
-            res.sendRedirect(req.getContextPath()+"/index.jsp?id=0"); // erfolgreiche Ausfahrt
+            TicketIF ticket = parkhaus.getTicketListe().get(id - 1); // Ticket wird gesucht
+            SchrankeIF schranke = parkhaus.getAusfahrtSchranken()[0];
+            // todo: bezahlen fehlt. Aufgabe für den BezahlServlet
+            boolean erfolg = parkhaus.ausfahrt(ticket, schranke);
+            if (erfolg) { // Ticket bezahlt
+                res.sendRedirect(req.getContextPath()+"/index.jsp?id=0"); // erfolgreiche Ausfahrt
+            } else { // Ticket unbezahlt oder Bezahlung zu lange her
+                res.sendRedirect(req.getContextPath()+"/index.jsp?id=-2");
+            }
         } catch (NumberFormatException | IndexOutOfBoundsException error){
             res.sendRedirect(req.getContextPath()+"/index.jsp?id=-1"); // Fehlermeldung
         }

@@ -42,6 +42,8 @@
         msg="Thanks for your visit!";
     } else if (-1 == ${param.id}){
         msg="Sorry, invalid input";
+    } else if (-2 == ${param.id}){
+        msg="Pay for your ticket first!";
     }
     alert(msg);
 </script>
