@@ -1,8 +1,10 @@
 package controller;
 
+import services.Einnahmen;
 import services.ParkhausIF;
 import services.SchrankeIF;
 import services.TicketIF;
+import services.EinnahmenIF;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +16,17 @@ import java.io.IOException;
 @WebServlet(name="controller.AdminServlet", value="/admin")
 public class AdminServlet extends HttpServlet {
 
-    public void init(){
+    EinnahmenIF einnahmen;
 
+    public void init(){
+        einnahmen = ((ParkhausIF)getServletContext().getAttribute("parkhaus")).getAutomat().getEinnahmen();
     }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
-
+        req.setAttribute("VerkaufteTickets", einnahmen.soldTickets());
+        req.setAttribute("DurchschnittlicheEinnahmen", einnahmen.averageIncome());
+        req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());
+        req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 }
