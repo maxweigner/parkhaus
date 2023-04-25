@@ -5,7 +5,6 @@ public class Einnahmen implements EinnahmenIF{
     private double summe = 0;
     private int tickets = 0;
 
-
     @Override
     public void addIncome(float betrag) {
        summe += betrag;
@@ -14,7 +13,10 @@ public class Einnahmen implements EinnahmenIF{
 
     @Override
     public float averageIncome() {
-       return (float)(summe/tickets);
+       if (tickets == 0)
+           return 0;
+
+        return (float)(summe/tickets);
     }
 
     public int soldTickets() {
