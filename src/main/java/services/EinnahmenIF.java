@@ -9,6 +9,16 @@ public interface EinnahmenIF {
     void addIncome(float betrag);
 
     /**
+     * gibt den Durchschnittspreis der bezahlten Tickets an
+     */
+    float averageIncome();
+
+    /**
+     * gibt die Anzahl der verkauften Tickets an
+     */
+    int soldTickets();
+
+    /**
      * Gibt die gesamten services.Einnahmen an
      * @return
      */
