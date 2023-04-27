@@ -32,7 +32,15 @@ public class ParkhausServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        res.sendRedirect("/checkIn");
+        String aktion = req.getParameter("aktion");
+
+        if(aktion.equals("checkIn")){
+            req.getRequestDispatcher("/checkIn").forward(req, res);
+        } else if(aktion.equals("bezahlen")){
+            req.getRequestDispatcher("/bezahlen").forward(req, res);
+        } else if(aktion.equals("checkOut")){
+            req.getRequestDispatcher("/checkOut").forward(req, res);
+        }
     }
 
     @Override

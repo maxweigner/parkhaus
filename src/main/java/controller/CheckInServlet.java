@@ -2,6 +2,7 @@ package controller;
 
 import services.ParkhausIF;
 import services.SchrankeIF;
+import services.Ticket;
 import services.TicketIF;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
 @WebServlet(name="controller.CheckInServlet", value="/checkIn")
 public class CheckInServlet extends HttpServlet {
@@ -30,7 +34,7 @@ public class CheckInServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        // einfahrtsschranken holen
+        /* einfahrtsschranken holen
         SchrankeIF[] schranken = parkhaus.getEinfahrtSchranken();
 
         // ausgewählte nummer für schranke holen
@@ -42,7 +46,10 @@ public class CheckInServlet extends HttpServlet {
         ParkhausServlet.addSchrankenParams(req);
         // dem request die nummer des tickets mitgeben
         req.setAttribute("ticketID", ticket.getID());
-
+        */
+        LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
+        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
+        ticket.setZeit(time);
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

@@ -16,7 +16,7 @@ public class Ticket implements TicketIF{
     public Ticket(int ID, int preis){
         this.ID = ID;
         this.preis = preis;
-        this.einfahrtZeit = LocalDateTime.now();
+        //this.einfahrtZeit = LocalDateTime.now();
     }
 
 
