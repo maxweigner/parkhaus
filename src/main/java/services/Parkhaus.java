@@ -25,6 +25,27 @@ public class Parkhaus implements ParkhausIF {
         this.schranken[1].setSchranke("ausfahrt");
     }
 
+    /**
+     * Konstruktur mit individuellen Einstellungen
+     * @param kapazitaet: gesamte Anzahl an verfügbaren Parkplätzen
+     * @param anzahlEinfahrtSchranken: Anzahl an Einfahrtsschranken
+     * @param anzahlAusfahrtSchranken: Anzahl an Aussfahrtsschranken
+     */
+    public Parkhaus(int kapazitaet, int anzahlEinfahrtSchranken, int anzahlAusfahrtSchranken){
+        this.freiePlaetze = kapazitaet;
+        int anzahlSchranken = anzahlEinfahrtSchranken + anzahlAusfahrtSchranken;
+        this.schranken = new SchrankeIF[anzahlSchranken];
+        for (int i = 0; i < anzahlSchranken; i++){
+            SchrankeIF schranke = new Schranke();
+            if (i < anzahlEinfahrtSchranken){
+                schranke.setSchranke("einfahrt");
+            } else {
+                schranke.setSchranke("ausfahrt");
+            }
+            this.schranken[i] = schranke;
+        }
+    }
+
     @Override
     public Ticket einfahrt(SchrankeIF schranke) {
         if (this.freiePlaetze > 0) {
@@ -95,8 +116,8 @@ public class Parkhaus implements ParkhausIF {
         return this.freiePlaetze;
     }
 
-    public List<TicketIF> getTicketListe(){
-        return this.ticketListe;
+    public TicketIF getTicket(int id){
+        return this.ticketListe.get(id - 1);
     }
 
     @Override

@@ -41,10 +41,11 @@ public interface ParkhausIF {
     SchrankeIF[] getAusfahrtSchranken();
 
     /**
-     * Gibt aller bisherigen Tickets aus
+     * Sucht Ticket anhand der ID
+     * @param id: Nummer des geforderten Tickets
      * @return: Liste mit allen Tickets
      */
-    List<TicketIF> getTicketListe();
+    TicketIF getTicket(int id);
 
     /**
      * Gibt den Bezahlautomaten des Parkhauses zurück

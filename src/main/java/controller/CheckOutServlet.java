@@ -31,7 +31,7 @@ public class CheckOutServlet extends HttpServlet {
 
         try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
-            TicketIF ticket = parkhaus.getTicketListe().get(id - 1); // Ticket wird gesucht
+            TicketIF ticket = parkhaus.getTicket(id - 1); // Ticket wird gesucht
             SchrankeIF schranke = parkhaus.getAusfahrtSchranken()[0];
             // todo: bezahlen fehlt. Aufgabe für den BezahlServlet
             boolean erfolg = parkhaus.ausfahrt(ticket, schranke);
