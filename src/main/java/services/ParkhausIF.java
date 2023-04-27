@@ -1,5 +1,6 @@
 package services;
 
+import models.Ticket;
 import models.TicketIF;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,12 @@ public interface ParkhausIF {
      * @return models.Ticket
      */
     TicketIF einfahrt(SchrankeIF schranke);
+
+    /**
+     * Erstellt ein neues models.Ticket zum Zeitpunkt der Einfahrt
+     * @return models.Ticket
+     */
+    Ticket einfahrt(SchrankeIF schranke, int preis);
 
     /**
      * Zahlungsvorgang, um mit einem models.Ticket die services.Schranke zu öffnen

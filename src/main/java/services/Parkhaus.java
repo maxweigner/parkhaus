@@ -67,6 +67,23 @@ public class Parkhaus implements ParkhausIF {
     }
 
     @Override
+    public Ticket einfahrt(SchrankeIF schranke, int preis) {
+        if (this.freiePlaetze > 0) {
+            Ticket ticket = new Ticket(id++, preis); // erstellt models.Ticket
+
+            // Schranke auf/zu
+            schranke.open();
+            schranke.close();
+
+            this.freiePlaetze--; // freie Plätze anpassen
+            this.ticketListe.add(ticket);
+
+            return ticket; // ticket ausgeben
+        }
+        return null;
+    }
+
+    @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
         if (ticket.istBezahlt() &&
                 ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
