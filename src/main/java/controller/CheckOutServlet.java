@@ -41,6 +41,7 @@ public class CheckOutServlet extends HttpServlet {
                 req.setAttribute("error", "Ticket unbezahlt oder Nachzahlung notwendig");
                 req.getRequestDispatcher("/index.jsp").forward(req, res);
             }
+
         } catch (NumberFormatException | IndexOutOfBoundsException error){
             req.setAttribute("error", "ungültige Eingabe");
             req.getRequestDispatcher("/index.jsp").forward(req, res); // Fehlermeldung

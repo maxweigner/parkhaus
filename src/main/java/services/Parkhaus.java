@@ -138,17 +138,12 @@ public class Parkhaus implements ParkhausIF {
     }
 
     public TicketIF[] getAktiveTickets(){
-        TicketIF[] tickets = new Ticket[ticketListe.size()];
-        int i = 0;
-        for (TicketIF t: ticketListe){
-            if (t.istBezahlt() == false){
-                tickets[i] = t;
-                i++;
-                System.out.println("***Aktives Ticket: " + t.getID());
+        List<TicketIF> aktiveTickets = new LinkedList<>();
+        for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
+            if (!(ticket.istBezahlt())){ // falls das Ticket bezahlt ist
+                aktiveTickets.add(ticket);
             }
         }
-        return tickets;
+        return aktiveTickets.toArray(new TicketIF[aktiveTickets.size()]);
     }
-
-    //public String aktiveTicktsToString(TicketIF tickets)
 }

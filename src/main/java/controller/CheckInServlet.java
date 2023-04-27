@@ -52,6 +52,7 @@ public class CheckInServlet extends HttpServlet {
         ticket.setZeit(time);
         System.out.println("Ticket erstellt: " + ticket);
         req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
+        //req.setAttribute("bezahlteTickets", parkhaus.getBezTickets());
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

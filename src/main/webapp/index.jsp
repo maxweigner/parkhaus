@@ -24,6 +24,11 @@
         <form method="POST">
             <input type="hidden" name="aktion" value="checkOut">
             <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00">
+            <select name="ticket">
+                <c:forEach items="${bezahlteTickets}" var="bTickets">
+                    <option value="${bTickets.ID}"> Ticket ${bTickets.ID}</option>
+                </c:forEach>
+            </select>
             <button id="outBtn">Check Out</button>
 
         </form>
@@ -34,8 +39,8 @@
             <input type="hidden" name="aktion" value="bezahlen">
             <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
             <select name="ticket">
-                <c:forEach items="${aktiveTickets}" var="tickets">
-                    <option value="${tickets.ID}"> Ticket ${tickets.ID}</option>
+                <c:forEach items="${aktiveTickets}" var="aTickets">
+                    <option value="${aTickets.ID}"> Ticket ${aTickets.ID}</option>
                 </c:forEach>
             </select>
             <button id="bezahlBtn" name="bezahlBtn">Bezahlen</button>
