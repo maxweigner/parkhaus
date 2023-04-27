@@ -16,14 +16,9 @@ public class ParkhausServlet extends HttpServlet {
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
      */
     public void init(){
-        if (parkhaus == null) {
-            this.parkhaus = new Parkhaus();
-            getServletContext().setAttribute("parkhaus", this.parkhaus);
-            System.out.println("*** Parkhaus erfolgreich erstellt ***");
-        } else {
-            this.parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-        }
-
+        this.parkhaus = new Parkhaus();
+        getServletContext().setAttribute("parkhaus", this.parkhaus);
+        System.out.println("*** Parkhaus erfolgreich erstellt ***");
     }
 
     /**
