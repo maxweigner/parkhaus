@@ -48,7 +48,7 @@ public class CheckInServlet extends HttpServlet {
         // dem request die nummer des tickets mitgeben
         req.setAttribute("ticketID", ticket.getID());
         */
-        LocalDateTime time = LocalDateTime.parse(req.getParameter("zeitpunkt"), ISO_LOCAL_DATE_TIME);
+        LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
         TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
         ticket.setZeit(time);
         req.getRequestDispatcher("/index.jsp").forward(req, res);

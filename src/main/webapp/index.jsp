@@ -13,7 +13,7 @@
         <img>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
-            <input type="datetime-local" step="1" name="checkInTime" value="2023-04-20T09:00:00"><input type="submit">
+            <input type="datetime-local" step="1" name="checkInTime" value="2023-04-20T09:00:00">
             <button>Check In</button> <br>
         </form>
     </div>
@@ -22,7 +22,7 @@
         <img>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkOut">
-            <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00"><input type="submit">
+            <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00">
             <button id="outBtn">Check Out</button>
 
         </form>
@@ -32,7 +32,7 @@
         <form method="POST">
             <input type="hidden" name="aktion" value="bezahlen">
             <input type="date">
-            <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00"><input type="submit">
+            <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
             <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
         </form>
     </div>
