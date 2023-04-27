@@ -27,8 +27,14 @@ public class CheckOutServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         // dem request die anzahl der schranken mitgeben
+
+        // todo braucht man das?
         ParkhausServlet.addSchrankenParams(req);
 
+
+        // todo wichtig ist es nach dem setzen von ticket.gueltigkeit = false, den Server die aktuelle Liste zu schicken mit: DANKE :)
+        //req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
+        //req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
         try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
             TicketIF ticket = parkhaus.getTicket(id - 1); // Ticket wird gesucht

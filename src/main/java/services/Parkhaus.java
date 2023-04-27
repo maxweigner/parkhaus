@@ -116,7 +116,7 @@ public class Parkhaus implements ParkhausIF {
     public TicketIF[] getBezahlteTickets() {
         List<TicketIF> bezahlteTickets = new LinkedList<>();
         for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (ticket.istBezahlt()){ // falls das Ticket bezahlt ist
+            if (ticket.istBezahlt() && ticket.istGueltig()){ // falls das Ticket bezahlt ist
                 bezahlteTickets.add(ticket);
             }
         }
@@ -140,7 +140,7 @@ public class Parkhaus implements ParkhausIF {
     public TicketIF[] getAktiveTickets(){
         List<TicketIF> aktiveTickets = new LinkedList<>();
         for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (!(ticket.istBezahlt())){ // falls das Ticket bezahlt ist
+            if (!(ticket.istBezahlt()) && ticket.istGueltig()){ // falls das Ticket bezahlt ist
                 aktiveTickets.add(ticket);
             }
         }

@@ -9,6 +9,7 @@ public class Ticket implements TicketIF{
 
     private LocalDateTime ausfahrtZeit;
     private boolean bezahlt = false;
+    private boolean gueltig = true;
 
     /**
      *
@@ -58,6 +59,14 @@ public class Ticket implements TicketIF{
 
     public void setAusfahrtZeit(LocalDateTime ausfahrtZeit) {
         this.ausfahrtZeit = ausfahrtZeit;
+    }
+
+    public void setGueltigkeit(boolean boo){
+        this.gueltig = boo;
+    }
+
+    public boolean istGueltig(){
+        return this.gueltig;
     }
     public String toString(){
         return "Ticket Nr: " + this.getID() + " Einfahrtzeit: " + this.getZeit() + " Ausfahrtzeit: :" + getAusfahrtZeit();
