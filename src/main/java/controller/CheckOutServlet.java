@@ -25,7 +25,7 @@ public class CheckOutServlet extends HttpServlet {
      * @throws IndexOutOfBoundsException: Ticket konnte unter gegebener ID nicht gefunden werden
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         // dem request die anzahl der schranken mitgeben
         ParkhausServlet.addSchrankenParams(req);
 

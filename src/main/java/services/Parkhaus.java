@@ -33,13 +33,13 @@ public class Parkhaus implements ParkhausIF {
      */
     public Parkhaus(int kapazitaet, int anzahlEinfahrtSchranken, int anzahlAusfahrtSchranken){
         this.freiePlaetze = kapazitaet;
-        int anzahlSchranken = anzahlEinfahrtSchranken + anzahlAusfahrtSchranken;
+        int anzahlSchranken = anzahlEinfahrtSchranken + anzahlAusfahrtSchranken; // Summe der Schranken
         this.schranken = new SchrankeIF[anzahlSchranken];
         for (int i = 0; i < anzahlSchranken; i++){
             SchrankeIF schranke = new Schranke();
-            if (i < anzahlEinfahrtSchranken){
+            if (i < anzahlEinfahrtSchranken){ // die ersten Schranken sind Einfahrtsschranken
                 schranke.setSchranke("einfahrt");
-            } else {
+            } else { // die darauffolgenden sind Ausfahrtsschranken
                 schranke.setSchranke("ausfahrt");
             }
             this.schranken[i] = schranke;
