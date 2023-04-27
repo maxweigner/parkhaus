@@ -100,15 +100,27 @@ public class Parkhaus implements ParkhausIF {
      */
     private SchrankeIF[] getSchranken(String einfahrtAusfahrt) {
         List<SchrankeIF> schrankenList = new ArrayList<>();
-        int i = 0;
         for(SchrankeIF s: schranken) {
             if (s.getSchranke().equals(einfahrtAusfahrt)) {
                 schrankenList.add(s);
-                i++;
             }
         }
+        return schrankenList.toArray(new SchrankeIF[schrankenList.size()]);
+    }
 
-        return schrankenList.toArray(new SchrankeIF[i]);
+    /**
+     * Von allen Tickets werden die bezahlten herausgegeben
+     * @return Ticketliste mit allen bezahlten Tickets
+     */
+    @Override
+    public TicketIF[] getBezahlteTickets() {
+        List<TicketIF> bezahlteTickets = new LinkedList<>();
+        for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
+            if (ticket.istBezahlt()){ // falls das Ticket bezahlt ist
+                bezahlteTickets.add(ticket);
+            }
+        }
+        return bezahlteTickets.toArray(new TicketIF[bezahlteTickets.size()]);
     }
 
     @Override
