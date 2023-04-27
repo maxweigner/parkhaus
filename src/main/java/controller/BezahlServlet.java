@@ -26,11 +26,17 @@ public class BezahlServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         // ticket id holen
-        int ticketNr = Integer.parseInt(req.getParameter("ticketIdBezahlen"));
+        String ticketNr = req.getParameter("ticket");
+        if (ticketNr == null) {
+            req.setAttribute("bezahlt", false);
+            req.getRequestDispatcher("index.jsp").forward(req, res);
+        }
+
+        // die aktuelle (gePOSTete Zeit) parsen
         LocalDateTime now = LocalDateTime.parse(req.getParameter("bezahlenTime"), DateTimeFormatter.ISO_DATE_TIME);
 
         // ticket bezahlen
-        parkhaus.getAutomat().bezahlen(parkhaus.getTicket(ticketNr), now);
+        parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), now);
         req.setAttribute("bezahlt", true);
 
         req.getRequestDispatcher("index.jsp").forward(req, res);
