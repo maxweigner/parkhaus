@@ -58,7 +58,7 @@ public class CheckOutServlet extends HttpServlet {
         System.out.println(id);
 
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
-        req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
+        req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

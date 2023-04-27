@@ -4,6 +4,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import services.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -61,5 +62,19 @@ class ParkhausIFTest {
         assertEquals(kapazitaet, parkhaus.getAnzahlFreiePlaetze());
         assertEquals(einfahrten, parkhaus.getEinfahrtSchranken().length);
         assertEquals(ausfahrten, parkhaus.getAusfahrtSchranken().length);
+    }
+
+    @Test
+    @DisplayName("Bezahlte Tickets werden richtig ermittelt")
+    void bezahlteTicketsErmitteln(){
+        SchrankeIF schranke = parkhaus.getAusfahrtSchranken()[0];
+        int einfahrten = rd.nextInt(9) + 1; // range(1,10)
+        for (int i = 0; i < einfahrten; i++){
+            parkhaus.einfahrt(schranke);
+        }
+        assertEquals(einfahrten, parkhaus.getUnbezahlteTickets().length);
+        parkhaus.getAutomat().bezahlen(parkhaus.getTicket(1), LocalDateTime.now());
+        assertEquals(1, parkhaus.getBezahlteTickets().length);
+        assertEquals(einfahrten - 1, parkhaus.getUnbezahlteTickets().length);
     }
 }

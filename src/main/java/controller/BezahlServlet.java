@@ -41,7 +41,7 @@ public class BezahlServlet extends HttpServlet {
 
         //Schickt der Seite die bezahlten Tickets mit
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
-        req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
+        req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
 
 
         req.getRequestDispatcher("index.jsp").forward(req, res);

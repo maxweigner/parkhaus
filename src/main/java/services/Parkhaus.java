@@ -77,22 +77,6 @@ public class Parkhaus implements ParkhausIF {
         return false;
     }
 
-    @Override
-    public void setAnzahlPlaetze(int plaetze) {
-        this.freiePlaetze = plaetze;
-    }
-
-    @Override
-    public SchrankeIF[] getEinfahrtSchranken() {
-        return getSchranken("einfahrt");
-    }
-
-    @Override
-    public SchrankeIF[] getAusfahrtSchranken() {
-        return getSchranken("ausfahrt");
-    }
-
-
     /**
      * Gibt ein Array mit Schranken aus die vom angegebenen Typ sind
      * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
@@ -112,15 +96,18 @@ public class Parkhaus implements ParkhausIF {
      * Von allen Tickets werden die bezahlten herausgegeben
      * @return Ticketliste mit allen bezahlten Tickets
      */
-    @Override
-    public TicketIF[] getBezahlteTickets() {
-        List<TicketIF> bezahlteTickets = new LinkedList<>();
+    private TicketIF[] getTicketListe(String bezahltUnbezahlt) {
+        List<TicketIF> tickets = new LinkedList<>();
         for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (ticket.istBezahlt() && ticket.istGueltig()){ // falls das Ticket bezahlt ist
-                bezahlteTickets.add(ticket);
+            if (ticket.istGueltig()){ // muss das Ticket gültig sein
+                if (ticket.istBezahlt() && "bezahlt".equals(bezahltUnbezahlt)){ // falls die bezahlten gesucht sind
+                    tickets.add(ticket);
+                } else if (!ticket.istBezahlt() && "unbezahlt".equals(bezahltUnbezahlt)){ // falls die unbezahlten gesucht sind
+                    tickets.add(ticket);
+                }
             }
         }
-        return bezahlteTickets.toArray(new TicketIF[bezahlteTickets.size()]);
+        return tickets.toArray(new TicketIF[tickets.size()]);
     }
 
     @Override
@@ -128,6 +115,7 @@ public class Parkhaus implements ParkhausIF {
         return this.freiePlaetze;
     }
 
+    @Override
     public TicketIF getTicket(int id){
         return this.ticketListe.get(id - 1);
     }
@@ -137,13 +125,28 @@ public class Parkhaus implements ParkhausIF {
         return automat;
     }
 
-    public TicketIF[] getAktiveTickets(){
-        List<TicketIF> aktiveTickets = new LinkedList<>();
-        for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (!(ticket.istBezahlt()) && ticket.istGueltig()){ // falls das Ticket bezahlt ist
-                aktiveTickets.add(ticket);
-            }
-        }
-        return aktiveTickets.toArray(new TicketIF[aktiveTickets.size()]);
+    @Override
+    public SchrankeIF[] getEinfahrtSchranken() {
+        return getSchranken("einfahrt");
+    }
+
+    @Override
+    public SchrankeIF[] getAusfahrtSchranken() {
+        return getSchranken("ausfahrt");
+    }
+
+    @Override
+    public TicketIF[] getBezahlteTickets(){
+        return getTicketListe("bezahlt");
+    }
+
+    @Override
+    public TicketIF[] getUnbezahlteTickets(){
+        return getTicketListe("unbezahlt");
+    }
+
+    @Override
+    public void setAnzahlPlaetze(int plaetze) {
+        this.freiePlaetze = plaetze;
     }
 }

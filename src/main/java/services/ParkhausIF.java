@@ -55,10 +55,15 @@ public interface ParkhausIF {
     TicketIF[] getBezahlteTickets();
 
     /**
+     * Sucht aus allen Tickets die unbezahlten heraus
+     * @return: Liste mit unbezahlten Tickets
+     */
+    TicketIF[] getUnbezahlteTickets();
+
+    /**
      * Gibt den Bezahlautomaten des Parkhauses zurück
      * @return Bezahlautomat Object
      */
     BezahlautomatIF getAutomat();
 
-    TicketIF[] getAktiveTickets();
 }
