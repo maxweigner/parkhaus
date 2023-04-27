@@ -36,4 +36,5 @@ public interface TicketIF {
     boolean istBezahlt();
 
     boolean istGueltig();
+    void setGueltigkeit(boolean boo);
 }

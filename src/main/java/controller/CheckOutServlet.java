@@ -35,7 +35,7 @@ public class CheckOutServlet extends HttpServlet {
         // todo wichtig ist es nach dem setzen von ticket.gueltigkeit = false, den Server die aktuelle Liste zu schicken mit: DANKE :)
         //req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
         //req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
-        try {
+        /*try {
             int id = Integer.parseInt(req.getParameter("idAusfahrt")); // übergebene ID
             TicketIF ticket = parkhaus.getTicket(id - 1); // Ticket wird gesucht
             SchrankeIF schranke = parkhaus.getAusfahrtSchranken()[0];
@@ -51,6 +51,14 @@ public class CheckOutServlet extends HttpServlet {
         } catch (NumberFormatException | IndexOutOfBoundsException error){
             req.setAttribute("error", "ungültige Eingabe");
             req.getRequestDispatcher("/index.jsp").forward(req, res); // Fehlermeldung
-        }
+        }*/
+
+        String id = req.getParameter("ticket");
+        parkhaus.getTicket(Integer.parseInt(id)).setGueltigkeit(false);
+        System.out.println(id);
+
+        req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
+        req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
+        req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }
