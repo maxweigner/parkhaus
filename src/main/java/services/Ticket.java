@@ -6,6 +6,8 @@ public class Ticket implements TicketIF{
     private final int ID;
     private final int preis;
     private LocalDateTime einfahrtZeit;
+
+    private LocalDateTime ausfahrtZeit;
     private boolean bezahlt = false;
 
     /**
@@ -49,5 +51,15 @@ public class Ticket implements TicketIF{
     @Override
     public boolean istBezahlt() {
         return this.bezahlt;
+    }
+    public LocalDateTime getAusfahrtZeit() {
+        return ausfahrtZeit;
+    }
+
+    public void setAusfahrtZeit(LocalDateTime ausfahrtZeit) {
+        this.ausfahrtZeit = ausfahrtZeit;
+    }
+    public String toString(){
+        return "Ticket Nr: " + this.getID() + "Einfahrtzeit: " + this.getZeit() + "Ausfahrtzeit: :" + getAusfahrtZeit();
     }
 }

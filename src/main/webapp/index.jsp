@@ -31,7 +31,6 @@
         <h2>Bezahlautomat</h2>
         <form method="POST">
             <input type="hidden" name="aktion" value="bezahlen">
-            <input type="date">
             <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
             <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
         </form>
