@@ -1,12 +1,21 @@
 package services;
 
+import java.time.LocalDateTime;
+
 public interface BezahlautomatIF {
 
     /**
-     * entwertet services.Ticket, indem Auto ausfährt und die services.Schranke sich öffnet
-     * @return true für entwertetes services.Ticket, false für Komplikationen bei der Ausfahrt
+     * bezahlt ein ticket wenn genug guthaben vorhanden ist
+     * @param ticket das ticket welches bezahlt werden soll
+     * @return true für entwertetes ticket
      */
     boolean bezahlen(TicketIF ticket);
+
+    /**
+     * bezahlt ein ticket ohne bedingung
+     * @return true für entwertetes ticket
+     */
+    boolean bezahlen(TicketIF ticket, LocalDateTime now);
 
     /**
      * Zahlt in den Automaten ein
