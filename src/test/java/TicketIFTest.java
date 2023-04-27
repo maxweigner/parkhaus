@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import services.Ticket;
-import services.TicketIF;
+import models.Ticket;
+import models.TicketIF;
 
 import java.time.LocalDateTime;
 

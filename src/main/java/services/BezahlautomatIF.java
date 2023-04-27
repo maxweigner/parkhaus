@@ -1,5 +1,7 @@
 package services;
 
+import models.TicketIF;
+
 import java.time.LocalDateTime;
 
 public interface BezahlautomatIF {

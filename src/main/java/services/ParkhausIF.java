@@ -1,19 +1,18 @@
 package services;
 
-import java.util.LinkedList;
-import java.util.List;
+import models.TicketIF;
 
 public interface ParkhausIF {
 
     /**
-     * Erstellt ein neues services.Ticket zum Zeitpunkt der Einfahrt
-     * @return services.Ticket
+     * Erstellt ein neues models.Ticket zum Zeitpunkt der Einfahrt
+     * @return models.Ticket
      */
     TicketIF einfahrt(SchrankeIF schranke);
 
     /**
-     * Zahlungsvorgang, um mit einem services.Ticket die services.Schranke zu öffnen
-     * @param ticket: gültiges services.Ticket
+     * Zahlungsvorgang, um mit einem models.Ticket die services.Schranke zu öffnen
+     * @param ticket: gültiges models.Ticket
      */
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 

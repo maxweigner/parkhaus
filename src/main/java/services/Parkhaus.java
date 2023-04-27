@@ -1,5 +1,8 @@
 package services;
 
+import models.Ticket;
+import models.TicketIF;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,7 +52,7 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public Ticket einfahrt(SchrankeIF schranke) {
         if (this.freiePlaetze > 0) {
-            Ticket ticket = new Ticket(id++, 2); // erstellt services.Ticket
+            Ticket ticket = new Ticket(id++, 2); // erstellt models.Ticket
 
             // Schranke auf/zu
             schranke.open();

@@ -1,9 +1,7 @@
 package controller;
 
 import services.ParkhausIF;
-import services.SchrankeIF;
-import services.Ticket;
-import services.TicketIF;
+import models.TicketIF;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
