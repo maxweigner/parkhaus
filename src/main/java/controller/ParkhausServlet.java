@@ -35,11 +35,11 @@ public class ParkhausServlet extends HttpServlet {
         String aktion = req.getParameter("aktion");
 
         if(aktion.equals("checkIn")){
-
+            req.getRequestDispatcher("/checkIn").forward(req, res);
         } else if(aktion.equals("bezahlen")){
-
+            req.getRequestDispatcher("/bezahlen").forward(req, res);
         } else if(aktion.equals("checkOut")){
-
+            req.getRequestDispatcher("/checkOut").forward(req, res);
         }
     }
 
