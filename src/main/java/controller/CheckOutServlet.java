@@ -36,12 +36,14 @@ public class CheckOutServlet extends HttpServlet {
             // todo: bezahlen fehlt. Aufgabe für den BezahlServlet
             boolean erfolg = parkhaus.ausfahrt(ticket, schranke);
             if (erfolg) { // Ticket bezahlt
-                res.sendRedirect(req.getContextPath()+"/index.jsp?id=0"); // erfolgreiche Ausfahrt
+                req.getRequestDispatcher("/index.jsp").forward(req, res); // erfolgreiche Ausfahrt
             } else { // Ticket unbezahlt oder Bezahlung zu lange her
-                res.sendRedirect(req.getContextPath()+"/index.jsp?id=-2");
+                req.setAttribute("error", "Ticket unbezahlt oder Nachzahlung notwendig");
+                req.getRequestDispatcher("/index.jsp").forward(req, res);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException error){
-            res.sendRedirect(req.getContextPath()+"/index.jsp?id=-1"); // Fehlermeldung
+            req.setAttribute("error", "ungültige Eingabe");
+            req.getRequestDispatcher("/index.jsp").forward(req, res); // Fehlermeldung
         }
     }
 }
