@@ -1,5 +1,6 @@
 package services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public interface ParkhausIF {
@@ -46,6 +47,12 @@ public interface ParkhausIF {
      * @return: Liste mit allen Tickets
      */
     TicketIF getTicket(int id);
+
+    /**
+     * Sucht aus allen Tickets die bezahlten heraus
+     * @return: Liste mit bezahlten Tickets
+     */
+    TicketIF[] getBezahlteTickets();
 
     /**
      * Gibt den Bezahlautomaten des Parkhauses zurück
