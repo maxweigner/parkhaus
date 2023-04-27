@@ -1,5 +1,6 @@
 package controller;
 
+import models.TicketIF;
 import services.ParkhausIF;
 
 import javax.servlet.ServletException;
@@ -53,10 +54,18 @@ public class CheckOutServlet extends HttpServlet {
 
         String id = req.getParameter("ticket");
         parkhaus.getTicket(Integer.parseInt(id)).setGueltigkeit(false);
-        System.out.println(id);
 
-        req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
-        req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
+        TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
+        TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
+        boolean deaktiviereAusfahrt = true;
+
+        if (bezahlteTickets.length > 0){
+            deaktiviereAusfahrt = false;
+        }
+
+        req.setAttribute("deaktiviereAusfahrt", deaktiviereAusfahrt);
+        req.setAttribute("bezahlteTickets", bezahlteTickets);
+        req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

@@ -4,6 +4,7 @@
 <head>
     <title>Parkhaus</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
     <meta http-equiv="refresh" content="180; url=">
 </head>
 <body>
@@ -30,7 +31,12 @@
                 </c:forEach>
             </select>
             <button id="outBtn">Check Out</button>
+            <script>
+                const disableButton = ${deaktiviereAusfahrt}; //change this value to false and the button will be clickable
+                const button = document.getElementById("outBtn");
 
+                if (disableButton) button.disabled = "disabled";
+            </script>
         </form>
     </div>
     <div id="automat">
