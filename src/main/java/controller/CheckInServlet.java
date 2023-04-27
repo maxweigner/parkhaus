@@ -51,6 +51,7 @@ public class CheckInServlet extends HttpServlet {
         TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
         ticket.setZeit(time);
         System.out.println("Ticket erstellt: " + ticket);
+        req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

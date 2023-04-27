@@ -62,4 +62,6 @@ public class Ticket implements TicketIF{
     public String toString(){
         return "Ticket Nr: " + this.getID() + "Einfahrtzeit: " + this.getZeit() + "Ausfahrtzeit: :" + getAusfahrtZeit();
     }
+
+
 }

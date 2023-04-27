@@ -53,4 +53,6 @@ public interface ParkhausIF {
      */
     BezahlautomatIF getAutomat();
 
+    TicketIF[] getAktiveTickets();
+
 }

@@ -124,4 +124,19 @@ public class Parkhaus implements ParkhausIF {
     public BezahlautomatIF getAutomat() {
         return automat;
     }
+
+    public TicketIF[] getAktiveTickets(){
+        TicketIF[] tickets = new Ticket[ticketListe.size()];
+        for (TicketIF t: ticketListe){
+            if (t.istBezahlt() == false){
+                int i = 0;
+                tickets[i] = t;
+                i++;
+                System.out.println("***Aktives Ticket: " + t.getID());
+            }
+        }
+        return tickets;
+    }
+
+    //public String aktiveTicktsToString(TicketIF tickets)
 }

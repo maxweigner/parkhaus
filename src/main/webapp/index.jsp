@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html lang='de'>
 <head>
@@ -29,10 +30,15 @@
     </div>
     <div id="automat">
         <h2>Bezahlautomat</h2>
-        <form method="POST">
+        <form method="post">
             <input type="hidden" name="aktion" value="bezahlen">
             <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
-            <button id="bezahlBtn" name="bezahlBtn">Check Out</button>
+            <select name="ticket">
+                <c:forEach items="${aktiveTickets}" var="tickets">
+                    <option value="${tickets.ID}"> Ticket ${tickets.ID}</option>
+                </c:forEach>
+            </select>
+            <button id="bezahlBtn" name="bezahlBtn">Bezahlen</button>
         </form>
     </div>
 </div>

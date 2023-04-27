@@ -41,6 +41,7 @@ public class ParkhausServlet extends HttpServlet {
         } else if(aktion.equals("checkOut")){
             req.getRequestDispatcher("/checkOut").forward(req, res);
         }
+        req.setAttribute("aktiveTickets", parkhaus.getAktiveTickets());
     }
 
     @Override
