@@ -37,17 +37,8 @@ class ParkhausIFTest {
         TicketIF ticket = parkhaus.einfahrt(schranke);
         automat.einzahlen(1000);
         automat.bezahlen(ticket);
-
         assertTrue(ticket.istBezahlt());
     }
-
-    @Test
-    @DisplayName("Die Anzahl der freien Plätze kann gesetzt und abgerufen werden")
-    void setAnzahlPlaetzeTest() {
-        parkhaus.setAnzahlPlaetze(1500);
-        assertEquals(1500, parkhaus.getAnzahlFreiePlaetze());
-    }
-
 
     @RepeatedTest(10)
     @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
@@ -61,13 +52,14 @@ class ParkhausIFTest {
     }
 
     @Test
-    @DisplayName("Tickets werden in einer Liste abgespeichert und bleiben erhalten")
-    void erstellungTicketListeTest(){
-        int einfahrten = rd.nextInt(100);
-        for (int i = 0; i < einfahrten; i++){
-            parkhaus.einfahrt(schranke);
-        }
-        List<TicketIF> ticketListe = parkhaus.getTicketListe();
-        assertEquals(einfahrten, ticketListe.size());
+    @DisplayName("indivudelles Parkhaus kann erstellt werden")
+    void erstellungParkhaus(){
+        int kapazitaet = rd.nextInt(1000) + 100; // range()
+        int einfahrten = rd.nextInt(9) + 1; // range(1,10)
+        int ausfahrten = rd.nextInt(9) + 1;
+        ParkhausIF parkhaus = new Parkhaus(kapazitaet, einfahrten, ausfahrten);
+        assertEquals(kapazitaet, parkhaus.getAnzahlFreiePlaetze());
+        assertEquals(einfahrten, parkhaus.getEinfahrtSchranken().length);
+        assertEquals(ausfahrten, parkhaus.getAusfahrtSchranken().length);
     }
 }

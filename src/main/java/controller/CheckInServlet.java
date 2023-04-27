@@ -38,7 +38,6 @@ public class CheckInServlet extends HttpServlet {
 
         // einfahrt bei ausgewählter Schranke, erstellen von ticket
         TicketIF ticket = parkhaus.einfahrt(schranken[schrankeNr]);
-
         // dem request die anzahl der schranken mitgeben
         ParkhausServlet.addSchrankenParams(req);
         // dem request die nummer des tickets mitgeben
