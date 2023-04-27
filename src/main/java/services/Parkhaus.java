@@ -139,9 +139,9 @@ public class Parkhaus implements ParkhausIF {
 
     public TicketIF[] getAktiveTickets(){
         TicketIF[] tickets = new Ticket[ticketListe.size()];
+        int i = 0;
         for (TicketIF t: ticketListe){
             if (t.istBezahlt() == false){
-                int i = 0;
                 tickets[i] = t;
                 i++;
                 System.out.println("***Aktives Ticket: " + t.getID());
