@@ -37,4 +37,7 @@ public interface TicketIF {
 
     boolean istGueltig();
     void setGueltigkeit(boolean boo);
+
+    void setAusfahrtZeit(LocalDateTime now);
+    public void setGesamtpreis(int gesamtpreis);
 }

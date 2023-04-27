@@ -30,10 +30,11 @@ public class Bezahlautomat implements BezahlautomatIF {
     public boolean bezahlen(TicketIF ticket, LocalDateTime now) {
         // berechnet kosten mit parkdauer in stunden * preis des tickets
         int preis = (int)Duration.between(ticket.getZeit(), now).toHours() * ticket.getPreis();
-
-        ticket.setZeit(now);
+        ticket.setAusfahrtZeit(now);
+        //ticket.setZeit(now);
         ticket.setBezahlt();
-
+        //System.out.println(ticket);
+        //ticket.setGesamtpreis(preis);
         einnahmen.addIncome(preis);
 
         return true;

@@ -40,7 +40,7 @@
             <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
             <select name="ticket">
                 <c:forEach items="${aktiveTickets}" var="aTickets">
-                    <option value="${aTickets.ID}"> Ticket ${aTickets.ID}</option>
+                    <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                 </c:forEach>
             </select>
             <button id="bezahlBtn" name="bezahlBtn">Bezahlen</button>

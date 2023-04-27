@@ -10,6 +10,7 @@ public class Ticket implements TicketIF{
     private LocalDateTime ausfahrtZeit;
     private boolean bezahlt = false;
     private boolean gueltig = true;
+    private int gesamtpreis = 0;
 
     /**
      *
@@ -22,6 +23,13 @@ public class Ticket implements TicketIF{
         this.einfahrtZeit = LocalDateTime.now();
     }
 
+    public int getGesamtpreis(){
+        return this.gesamtpreis;
+    }
+
+    public void setGesamtpreis(int gesamtpreis){
+        this.gesamtpreis = gesamtpreis;
+    }
 
     @Override
     public int getID() {
