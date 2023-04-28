@@ -3,8 +3,9 @@
 <!DOCTYPE html lang='de'>
 <head>
     <title>Parkhaus</title>
-    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta http-equiv="refresh" content="180; url=">
 </head>
 <body onload="javascript:enableButtons()">
