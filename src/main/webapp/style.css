@@ -25,6 +25,23 @@
     text-align: center;
 }
 
+#Auslastung{
+    border-style: dotted;
+    border-color: black;
+    text-align: center;
+}
+
+#Auslastung:hover #freiePlaetze{
+    display: block;
+    border-style: dotted;
+    border-color: black;
+    text-align: center;
+}
+
+#freiePlaetze{
+    display: none;
+}
+
 #Ausfahrt{
     border-style: dotted;
     border-color: black;

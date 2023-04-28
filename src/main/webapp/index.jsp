@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta http-equiv="refresh" content="180; url=">
 </head>
-<body onload="javascript:enableButtons()">
+<body onload="javascript:main(${freiePlaetze})">
 <h2 id="ueberschrift">Parkhaus</h2>
 <div id="dashboard">
     <div id="Einfahrt">
@@ -17,10 +17,15 @@
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
             <input type="datetime-local" step="1" name="checkInTime" value="2023-04-20T09:00:00">
-            <button>Check In</button> <br>
+            <button id="checkInBtn">Check In</button> <br>
         </form>
-        <h3>Auslastung</h3>
-        <h4>${auslastung}</h4>
+        <div id="Auslastung">
+            <h3>Auslastung</h3>
+            <h4>${auslastung}%</h4>
+            <div id="freiePlaetze">
+                <h4>freie Plätze: ${freiePlaetze}</h4>
+            </div>
+        </div>
     </div>
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>

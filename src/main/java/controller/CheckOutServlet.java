@@ -33,7 +33,6 @@ public class CheckOutServlet extends HttpServlet {
         ticket.setAusfahrtsZeit(time);
         if (parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0])){ // Ausfahrt misslungen
 
-
         }
         ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("/index.jsp").forward(req, res);

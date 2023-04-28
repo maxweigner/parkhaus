@@ -47,11 +47,16 @@ public class ParkhausServlet extends HttpServlet {
     public static void doOnEveryRequest(HttpServletRequest req){
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
+        int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
+        float belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
+        int auslastung = (int) ((belegtePlaetze / (belegtePlaetze + freiePlaetze))*100);
+
+
 
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
-        System.out.println(parkhaus.getAnzahlFreiePlaetze());
-        req.setAttribute("auslastung", parkhaus.getAnzahlFreiePlaetze());
+        req.setAttribute("freiePlaetze", freiePlaetze);
+        req.setAttribute("auslastung", auslastung);
         req.setAttribute("anzahl-schranken-einfahrt", parkhaus.getEinfahrtSchranken().length);
         req.setAttribute("anzahl-schranken-ausfahrt", parkhaus.getAusfahrtSchranken().length);
     }
