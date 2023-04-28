@@ -27,14 +27,12 @@ public class ParkhausServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         addSchrankenParams(req);
-        req.setAttribute("deaktiviereAusfahrt", true);
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         String aktion = req.getParameter("aktion");
-        req.setAttribute("deaktiviereAusfahrt", true);
         if(aktion.equals("checkIn")){
             req.getRequestDispatcher("/checkIn").forward(req, res);
         } else if(aktion.equals("bezahlen")){

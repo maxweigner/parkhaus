@@ -57,13 +57,7 @@ public class CheckOutServlet extends HttpServlet {
 
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
-        boolean deaktiviereAusfahrt = true;
 
-        if (bezahlteTickets.length > 0){
-            deaktiviereAusfahrt = false;
-        }
-
-        req.setAttribute("deaktiviereAusfahrt", deaktiviereAusfahrt);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.getRequestDispatcher("/index.jsp").forward(req, res);

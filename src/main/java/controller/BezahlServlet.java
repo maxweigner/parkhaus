@@ -39,7 +39,6 @@ public class BezahlServlet extends HttpServlet {
         parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), now);
         req.setAttribute("bezahlt", true);
 
-        req.setAttribute("deaktiviereAusfahrt", false);
         //Schickt der Seite die bezahlten Tickets mit
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
         req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());

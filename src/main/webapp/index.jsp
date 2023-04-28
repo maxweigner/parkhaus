@@ -7,7 +7,7 @@
     <script src="script.js"></script>
     <meta http-equiv="refresh" content="180; url=">
 </head>
-<body>
+<body onload="javascript:enableButtons()">
 <h2 id="ueberschrift">Parkhaus</h2>
 <div id="dashboard">
     <div id="Einfahrt">
@@ -25,18 +25,12 @@
         <form method="POST">
             <input type="hidden" name="aktion" value="checkOut">
             <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00">
-            <select name="ticket">
+            <select name="ticket" id="selectAusfahrt">
                 <c:forEach items="${bezahlteTickets}" var="bTickets">
                     <option value="${bTickets.ID}"> Ticket ${bTickets.ID}</option>
                 </c:forEach>
             </select>
-            <button id="outBtn">Check Out</button>
-            <script>
-                const disableButton = ${deaktiviereAusfahrt}; //change this value to false and the button will be clickable
-                const button = document.getElementById("outBtn");
-
-                if (disableButton) button.disabled = "disabled";
-            </script>
+            <button id="outBtn" disabled>Check Out</button>
         </form>
     </div>
     <div id="automat">
@@ -44,12 +38,12 @@
         <form method="post">
             <input type="hidden" name="aktion" value="bezahlen">
             <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
-            <select name="ticket">
+            <select name="ticket" id="selectBezahlen">
                 <c:forEach items="${aktiveTickets}" var="aTickets">
                     <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                 </c:forEach>
             </select>
-            <button id="bezahlBtn" name="bezahlBtn">Bezahlen</button>
+            <button id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
         </form>
     </div>
 </div>
