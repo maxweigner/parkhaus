@@ -69,14 +69,14 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
         if (ticket.istBezahlt() &&
-                ticket.getZeit().isAfter(LocalDateTime.now().minus(Duration.ofMinutes(15)))) {
+                ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
             schranke.open();
             schranke.close();
-
+            ticket.setGueltigkeit(false);
             this.freiePlaetze++;
-
             return true;
         }
+        ticket.setAusfahrtsZeit(null);
         return false;
     }
 

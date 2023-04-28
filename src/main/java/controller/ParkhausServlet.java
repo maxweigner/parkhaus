@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import models.TicketIF;
 import services.*;
 
 @WebServlet(name="controller.ParkhausServlet", value="")
@@ -26,8 +28,8 @@ public class ParkhausServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        addSchrankenParams(req);
-        req.getRequestDispatcher("index.jsp").forward(req, res);
+        doOnEveryRequest(req);
+        req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 
     @Override
@@ -42,15 +44,19 @@ public class ParkhausServlet extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
+    public static void doOnEveryRequest(HttpServletRequest req){
+        TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
+        TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
+
+        req.setAttribute("bezahlteTickets", bezahlteTickets);
+        req.setAttribute("aktiveTickets", unbezahlteTickets);
+        System.out.println(parkhaus.getAnzahlFreiePlaetze());
+        req.setAttribute("auslastung", parkhaus.getAnzahlFreiePlaetze());
+        req.setAttribute("anzahl-schranken-einfahrt", parkhaus.getEinfahrtSchranken().length);
+        req.setAttribute("anzahl-schranken-ausfahrt", parkhaus.getAusfahrtSchranken().length);
     }
 
-    public static void addSchrankenParams(HttpServletRequest req) {
-        int ase = parkhaus.getEinfahrtSchranken().length;
-        int asa = parkhaus.getAusfahrtSchranken().length;
-
-        req.setAttribute("anzahl-schranken-einfahrt", ase);
-        req.setAttribute("anzahl-schranken-ausfahrt", asa);
+    @Override
+    public void destroy() {
     }
 }

@@ -21,16 +21,6 @@ public class CheckInServlet extends HttpServlet {
         parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
     }
 
-    /**
-     * Beim Betätigen des CheckIn-Buttons wird die Einfahrt simuliert und ein Ticket erstellt.
-     * Die ID des Tickets wird dem Endnutzer angezeigt
-     */
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        ParkhausServlet.addSchrankenParams(req);
-        req.getRequestDispatcher("index.jsp").forward(req, res);
-    }
-
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         /* einfahrtsschranken holen
         SchrankeIF[] schranken = parkhaus.getEinfahrtSchranken();
@@ -47,11 +37,10 @@ public class CheckInServlet extends HttpServlet {
         */
         LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
         TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
-        ticket.setZeit(time);
+        ticket.setEinfahrtsZeit(time);
         System.out.println("Ticket erstellt: " + ticket);
-        req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
-        req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
-        //req.setAttribute("bezahlteTickets", parkhaus.getBezTickets());
+
+        ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }

@@ -77,4 +77,16 @@ class ParkhausIFTest {
         assertEquals(1, parkhaus.getBezahlteTickets().length);
         assertEquals(einfahrten - 1, parkhaus.getUnbezahlteTickets().length);
     }
+
+    @Test
+    @DisplayName("Kulanzfrist von 15 Minuten besteht zwischen Zahlung und Ausfahrt")
+    void kulanzfristBeiAusfahrt(){
+        TicketIF ticket = parkhaus.einfahrt(schranke);
+
+        LocalDateTime jetzt = LocalDateTime.now();
+        LocalDateTime zuLangsam = jetzt.plusMinutes(20);
+        parkhaus.getAutomat().bezahlen(ticket, jetzt);
+        ticket.setAusfahrtsZeit(zuLangsam);
+        assertEquals(false, parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
+    }
 }

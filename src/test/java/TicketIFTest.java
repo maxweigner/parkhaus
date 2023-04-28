@@ -14,7 +14,7 @@ class TicketIFTest {
     void setup(){
         ticket = new Ticket(1, 2);
         zeit = LocalDateTime.now();
-        ticket.setZeit(zeit);
+        ticket.setEinfahrtsZeit(zeit);
     }
     @Test
     void getIDTest() {
@@ -32,13 +32,13 @@ class TicketIFTest {
 
     @Test
     void getZeitTest() {
-        assertTrue(zeit.isEqual(ticket.getZeit()));
+        assertTrue(zeit.isEqual(ticket.getEinfahrtsZeit()));
     }
 
     @Test
     void setZeitTest(){
         LocalDateTime zeit = LocalDateTime.now();
-        ticket.setZeit(zeit);
-        assertEquals(zeit, ticket.getZeit());
+        ticket.setEinfahrtsZeit(zeit);
+        assertEquals(zeit, ticket.getEinfahrtsZeit());
     }
 }

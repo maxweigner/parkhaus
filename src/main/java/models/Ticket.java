@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 public class Ticket implements TicketIF{
     private final int ID;
     private final int preis;
-    private LocalDateTime einfahrtZeit;
+    private LocalDateTime einfahrtsZeit;
 
-    private LocalDateTime ausfahrtZeit;
+    private LocalDateTime zahlungsZeit;
+    private LocalDateTime ausfahrtsZeit;
     private boolean bezahlt = false;
     private boolean gueltig = true;
     private int gesamtpreis = 0;
@@ -20,7 +21,7 @@ public class Ticket implements TicketIF{
     public Ticket(int ID, int preis){
         this.ID = ID;
         this.preis = preis;
-        this.einfahrtZeit = LocalDateTime.now();
+        this.einfahrtsZeit = LocalDateTime.now();
     }
 
     public int getGesamtpreis(){
@@ -42,14 +43,33 @@ public class Ticket implements TicketIF{
     }
 
     @Override
-    public LocalDateTime getZeit() {
-        return this.einfahrtZeit;
+    public LocalDateTime getEinfahrtsZeit() {
+        return this.einfahrtsZeit;
     }
 
+    @Override
+    public LocalDateTime getZahlungsZeit() {
+        return this.zahlungsZeit;
+    }
 
     @Override
-    public void setZeit(LocalDateTime time) {
-        this.einfahrtZeit = time;
+    public LocalDateTime getAusfahrtsZeit() {
+        return this.ausfahrtsZeit;
+    }
+
+    @Override
+    public void setEinfahrtsZeit(LocalDateTime time) {
+        this.einfahrtsZeit = time;
+    }
+
+    @Override
+    public void setZahlungsZeit(LocalDateTime time) {
+        this.zahlungsZeit = time;
+    }
+
+    @Override
+    public void setAusfahrtsZeit(LocalDateTime time) {
+        this.ausfahrtsZeit = time;
     }
 
     @Override
@@ -61,23 +81,19 @@ public class Ticket implements TicketIF{
     public boolean istBezahlt() {
         return this.bezahlt;
     }
-    public LocalDateTime getAusfahrtZeit() {
-        return ausfahrtZeit;
-    }
-
-    public void setAusfahrtZeit(LocalDateTime ausfahrtZeit) {
-        this.ausfahrtZeit = ausfahrtZeit;
-    }
 
     public void setGueltigkeit(boolean boo){
         this.gueltig = boo;
     }
 
+
     public boolean istGueltig(){
         return this.gueltig;
     }
+
+    @Override
     public String toString(){
-        return "Ticket Nr: " + this.getID() + " Einfahrtzeit: " + this.getZeit() + " Ausfahrtzeit:" + getAusfahrtZeit();
+        return "Ticket Nr: " + this.getID() + " Einfahrtzeit: " + this.getEinfahrtsZeit() + " Ausfahrtzeit:" + getAusfahrtsZeit();
     }
 
 

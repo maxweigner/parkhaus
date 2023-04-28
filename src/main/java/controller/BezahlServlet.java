@@ -29,21 +29,20 @@ public class BezahlServlet extends HttpServlet {
         String ticketNr = req.getParameter("ticket");
         if (ticketNr == null) {
             req.setAttribute("bezahlt", false);
+            ParkhausServlet.doOnEveryRequest(req);
             req.getRequestDispatcher("index.jsp").forward(req, res);
         }
 
         // die aktuelle (gePOSTete Zeit) parsen
-        LocalDateTime now = LocalDateTime.parse(req.getParameter("bezahlenTime"), DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime time = LocalDateTime.parse(req.getParameter("bezahlenTime"), DateTimeFormatter.ISO_DATE_TIME);
 
         // ticket bezahlen
-        parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), now);
+        parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), time);
         req.setAttribute("bezahlt", true);
-
         //Schickt der Seite die bezahlten Tickets mit
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
         req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
-
-
+        ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 }

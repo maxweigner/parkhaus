@@ -12,11 +12,12 @@ public class Bezahlautomat implements BezahlautomatIF {
 
     @Override
     public boolean bezahlen(TicketIF ticket) {
+        LocalDateTime now = LocalDateTime.now();
         // parkdauer in stunden * preis des tickets
-        int preis = (int)Duration.between(ticket.getZeit(), LocalDateTime.now()).toHours() * ticket.getPreis();
+        int preis = (int) Duration.between(ticket.getEinfahrtsZeit(), now).toHours() * ticket.getPreis();
 
         if (guthaben >= preis) {
-            ticket.setZeit(LocalDateTime.now());
+            ticket.setZahlungsZeit(LocalDateTime.now());
             guthaben -= preis;
             ticket.setBezahlt();
 
@@ -29,14 +30,12 @@ public class Bezahlautomat implements BezahlautomatIF {
     }
 
     @Override
-    public boolean bezahlen(TicketIF ticket, LocalDateTime now) {
+    public boolean bezahlen(TicketIF ticket, LocalDateTime time) {
+        ticket.setZahlungsZeit(time);
         // berechnet kosten mit parkdauer in stunden * preis des tickets
-        int preis = (int)Duration.between(ticket.getZeit(), now).toHours() * ticket.getPreis();
-        ticket.setAusfahrtZeit(now);
-        //ticket.setZeit(now);
+        int preis = (int) Duration.between(ticket.getEinfahrtsZeit(), ticket.getZahlungsZeit()).toHours() * ticket.getPreis();
         ticket.setBezahlt();
-        //System.out.println(ticket);
-        //ticket.setGesamtpreis(preis);
+        ticket.setZahlungsZeit(time);
         einnahmen.addIncome(preis);
 
         return true;

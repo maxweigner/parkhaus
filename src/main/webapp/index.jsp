@@ -19,6 +19,8 @@
             <input type="datetime-local" step="1" name="checkInTime" value="2023-04-20T09:00:00">
             <button>Check In</button> <br>
         </form>
+        <h3>Auslastung</h3>
+        <h4>${auslastung}</h4>
     </div>
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>

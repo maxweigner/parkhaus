@@ -16,17 +16,39 @@ public interface TicketIF {
     int getPreis();
 
     /**
-     * Einfahrtszeitpunkt / Bezahlzeitpunkt im services.Parkhaus
-     * abhängig davon, ob schon gezahlt wurde
+     * Gibt Einfahrtszeitpunkt
      * @return : Zeitstempel von TimeIF
      */
-    LocalDateTime getZeit();
+    LocalDateTime getEinfahrtsZeit();
+
+    /**
+     * Gibt Zahlungszeitpunkt
+     * @return : Zeitstempel von TimeIF
+     */
+    LocalDateTime getZahlungsZeit();
+
+    /**
+     * Gibt Ausfahrtszeitpunkt
+     * @return : Zeitstempel von TimeIF
+     */
+    LocalDateTime getAusfahrtsZeit();
+
+    /**
+     * Setzt Zeitpunkt der Einfahrt
+     * @param time: Zeitstempel von TimeIF
+     */
+    void setEinfahrtsZeit(LocalDateTime time);
 
     /**
      * Setzt Zeitpunkt der Zahlung
      * @param time: Zeitstempel von TimeIF
      */
-    void setZeit(LocalDateTime time);
+    void setZahlungsZeit(LocalDateTime time);
+    /**
+     * Setzt Zeitpunkt der Ausfahrt
+     * @param time: Zeitstempel von TimeIF
+     */
+    void setAusfahrtsZeit(LocalDateTime time);
 
     /**
      * Setzt den Status des tickets auf bezahlt
@@ -38,6 +60,5 @@ public interface TicketIF {
     boolean istGueltig();
     void setGueltigkeit(boolean boo);
 
-    void setAusfahrtZeit(LocalDateTime now);
     public void setGesamtpreis(int gesamtpreis);
 }
