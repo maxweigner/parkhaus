@@ -15,6 +15,15 @@
     Gesamteinnahmen: <%=
         request.getAttribute("Gesamteinnahmen")
     %> <br> <br>
+    Anzahl Einfahrten: <%=
+        request.getAttribute("AnzahlEinfahrten")
+    %> <br>
+    Anzahl Ausfahrten: <%=
+        request.getAttribute("AnzahlAusfahrten")
+    %> <br>
+    Auslastung: <%=
+        request.getAttribute("Auslastung")
+    %> % <br> <br>
 
     <form method="POST">
         <input type="hidden" name="aktion" value="admin">
