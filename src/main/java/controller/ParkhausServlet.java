@@ -48,8 +48,8 @@ public class ParkhausServlet extends HttpServlet {
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
-        float belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
-        int auslastung = (int) ((belegtePlaetze / (belegtePlaetze + freiePlaetze))*100);
+        int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
+        int auslastung = (belegtePlaetze / (belegtePlaetze + freiePlaetze))*100;
 
 
 
