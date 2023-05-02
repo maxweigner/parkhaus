@@ -14,6 +14,14 @@ function enableButtons() {
     }
 }
 
+function enableButtonsAdmin() {
+    if (document.getElementById('selectTicket').options.length > 0) { // falls Liste nicht leer
+        const button = document.getElementById("outBtn");
+        button.disabled = false; // dann werden die Buttons aktiviert
+    }
+
+}
+
 function disableCheckIn(number){
     const button = document.getElementById("checkInBtn");
     if (number == 0){
