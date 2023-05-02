@@ -1,5 +1,6 @@
 package controller;
 
+import models.TicketIF;
 import services.ParkhausIF;
 import services.EinnahmenIF;
 
@@ -14,16 +15,41 @@ import java.io.IOException;
 public class AdminServlet extends HttpServlet {
 
     EinnahmenIF einnahmen;
+    ParkhausIF parkhaus;
 
     public void init(){
-        einnahmen = ((ParkhausIF)getServletContext().getAttribute("parkhaus")).getAutomat().getEinnahmen();
+        parkhaus = (ParkhausIF)getServletContext().getAttribute("parkhaus");
+        einnahmen = parkhaus.getAutomat().getEinnahmen();
     }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
+        addIncomeParams(req);
+        ParkhausServlet.doOnEveryRequest(req);
+        req.getRequestDispatcher("admin.jsp").forward(req, res);
+    }
+
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // ticket id holen
+        String ticketNr = req.getParameter("ticket");
+        String ticketPreis = req.getParameter("preis");
+        if (ticketNr == null || ticketPreis == null) {
+            ParkhausServlet.doOnEveryRequest(req);
+            req.getRequestDispatcher("admin.jsp").forward(req, res);
+        }
+
+        parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
+
+        addIncomeParams(req);
+        ParkhausServlet.doOnEveryRequest(req);
+        req.getRequestDispatcher("admin.jsp").forward(req, res);
+    }
+
+    private void addIncomeParams(HttpServletRequest req) {
         req.setAttribute("VerkaufteTickets", einnahmen.soldTickets());
         req.setAttribute("DurchschnittlicheEinnahmen", einnahmen.averageIncome());
         req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());
-        req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 }
