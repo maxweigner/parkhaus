@@ -52,19 +52,19 @@ public interface ParkhausIF {
     /**
      * Sucht Ticket anhand der ID
      * @param id: Nummer des geforderten Tickets
-     * @return: Liste mit allen Tickets
+     * @return Liste mit allen Tickets
      */
     TicketIF getTicket(int id);
 
     /**
      * Sucht aus allen Tickets die bezahlten heraus
-     * @return: Liste mit bezahlten Tickets
+     * @return Liste mit bezahlten Tickets
      */
     TicketIF[] getBezahlteTickets();
 
     /**
      * Sucht aus allen Tickets die unbezahlten heraus
-     * @return: Liste mit unbezahlten Tickets
+     * @return Liste mit unbezahlten Tickets
      */
     TicketIF[] getUnbezahlteTickets();
 
@@ -74,4 +74,15 @@ public interface ParkhausIF {
      */
     BezahlautomatIF getAutomat();
 
+    /**
+     * Gibt die Anzahl derer aus, die zwar schon bezahlt haben, aber noch nicht ausgefahren sind
+     * @return TicketIF Array
+     */
+    TicketIF[] getBezahltNichtAusgefahren();
+
+    /**
+     * Gibt die Kapazität des Parkhauses zurück
+     * @return int Anzahl Gesamtplätze
+     */
+    int getKapazitaet();
 }
