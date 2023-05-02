@@ -24,7 +24,7 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
-        addIncomeParams(req);
+        addParams(req);
         ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
@@ -42,14 +42,17 @@ public class AdminServlet extends HttpServlet {
 
         parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
 
-        addIncomeParams(req);
+        addParams(req);
         ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 
-    private void addIncomeParams(HttpServletRequest req) {
+    private void addParams(HttpServletRequest req) {
         req.setAttribute("VerkaufteTickets", einnahmen.soldTickets());
         req.setAttribute("DurchschnittlicheEinnahmen", einnahmen.averageIncome());
         req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());
+        req.setAttribute("AnzahlEinfahrten", einnahmen.soldTickets() + parkhaus.getUnbezahlteTickets().length);
+        req.setAttribute("AnzahlAusfahrten", einnahmen.soldTickets() - parkhaus.getBezahltNichtAusgefahren().length);
+        req.setAttribute("Auslastung", (parkhaus.getUnbezahlteTickets().length + parkhaus.getBezahltNichtAusgefahren().length) / (float)parkhaus.getKapazitaet() * 100);
     }
 }
