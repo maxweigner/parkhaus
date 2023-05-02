@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Ticket implements TicketIF{
     private final int ID;
-    private final int preis;
+    private int preis;
     private LocalDateTime einfahrtsZeit;
 
     private LocalDateTime zahlungsZeit;
@@ -40,6 +40,11 @@ public class Ticket implements TicketIF{
     @Override
     public int getPreis() {
         return this.preis;
+    }
+
+    @Override
+    public void setPreis(int preis) {
+        this.preis = preis;
     }
 
     @Override

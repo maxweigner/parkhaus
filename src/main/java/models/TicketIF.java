@@ -16,6 +16,11 @@ public interface TicketIF {
     int getPreis();
 
     /**
+     * Setzt den Preis pro Stunde für das Ticket
+     */
+    void setPreis(int preis);
+
+    /**
      * Gibt Einfahrtszeitpunkt
      * @return : Zeitstempel von TimeIF
      */
