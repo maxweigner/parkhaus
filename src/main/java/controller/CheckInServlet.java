@@ -22,19 +22,6 @@ public class CheckInServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        /* einfahrtsschranken holen
-        SchrankeIF[] schranken = parkhaus.getEinfahrtSchranken();
-
-        // ausgewählte nummer für schranke holen
-        int schrankeNr = Integer.parseInt(req.getParameter("schranke"));
-
-        // einfahrt bei ausgewählter Schranke, erstellen von ticket
-        TicketIF ticket = parkhaus.einfahrt(schranken[schrankeNr]);
-        // dem request die anzahl der schranken mitgeben
-        ParkhausServlet.addSchrankenParams(req);
-        // dem request die nummer des tickets mitgeben
-        req.setAttribute("ticketID", ticket.getID());
-        */
         LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
         TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
         ticket.setEinfahrtsZeit(time);
