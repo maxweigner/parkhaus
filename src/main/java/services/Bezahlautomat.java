@@ -36,6 +36,7 @@ public class Bezahlautomat implements BezahlautomatIF {
         int preis = (int) Duration.between(ticket.getEinfahrtsZeit(), ticket.getZahlungsZeit()).toHours() * ticket.getPreis();
         ticket.setBezahlt();
         ticket.setZahlungsZeit(time);
+        ticket.setGesamtpreis(preis);
         einnahmen.addIncome(preis);
 
         return true;
