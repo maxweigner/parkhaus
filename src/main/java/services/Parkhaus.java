@@ -12,6 +12,7 @@ import java.util.List;
 public class Parkhaus implements ParkhausIF {
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
+    private final int kapazitaet; // Die Gesamtzahl der vorhandenen Parkplätze
     private SchrankeIF[] schranken; // Alle verfügbaren Schranken
     private List<TicketIF> ticketListe = new LinkedList<>();
     private BezahlautomatIF automat = new Bezahlautomat();
@@ -21,6 +22,7 @@ public class Parkhaus implements ParkhausIF {
      */
     public Parkhaus(){
         this.freiePlaetze = 100;
+        this.kapazitaet = 100;
         this.schranken = new Schranke[2];
         this.schranken[0] = new Schranke();
         this.schranken[0].setSchranke("einfahrt");
@@ -36,6 +38,7 @@ public class Parkhaus implements ParkhausIF {
      */
     public Parkhaus(int kapazitaet, int anzahlEinfahrtSchranken, int anzahlAusfahrtSchranken){
         this.freiePlaetze = kapazitaet;
+        this.kapazitaet = kapazitaet;
         int anzahlSchranken = anzahlEinfahrtSchranken + anzahlAusfahrtSchranken; // Summe der Schranken
         this.schranken = new SchrankeIF[anzahlSchranken];
         for (int i = 0; i < anzahlSchranken; i++){
@@ -143,6 +146,27 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public BezahlautomatIF getAutomat() {
         return automat;
+    }
+
+    @Override
+    public TicketIF[] getBezahltNichtAusgefahren() {
+        TicketIF[] bezahlteTickets = getBezahlteTickets();
+        LinkedList<TicketIF> bezahltNichtAusgefahren = new LinkedList<>();
+        int count = 0;
+        for (TicketIF ticket : bezahlteTickets){
+            if (ticket.istGueltig()) {
+                bezahltNichtAusgefahren.add(ticket);
+                count++;
+            }
+        }
+        TicketIF[] ret = new TicketIF[count];
+        bezahltNichtAusgefahren.toArray(ret);
+        return ret;
+    }
+
+    @Override
+    public int getKapazitaet() {
+        return kapazitaet;
     }
 
     @Override
