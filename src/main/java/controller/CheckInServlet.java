@@ -23,8 +23,11 @@ public class CheckInServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
-        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0]); //EinfahrtSchranke
+        int preis = (Integer) getServletContext().getAttribute("globalPreis");
+
+        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0], preis); //EinfahrtSchranke
         ticket.setEinfahrtsZeit(time);
+
         System.out.println("Ticket erstellt: " + ticket);
 
         ParkhausServlet.doOnEveryRequest(req);

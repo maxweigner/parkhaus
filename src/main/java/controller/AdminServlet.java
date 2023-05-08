@@ -32,18 +32,28 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // benötigte parameter einfügen
+        ParkhausServlet.doOnEveryRequest(req);
+        addParams(req);
+
         // ticket id holen
         String ticketNr = req.getParameter("ticket");
         String ticketPreis = req.getParameter("preis");
-        if (ticketNr == null || ticketPreis == null) {
-            ParkhausServlet.doOnEveryRequest(req);
+        String globalPreis = req.getParameter("preisGlobal");
+
+        // wenn die eingabe unvollständig ist
+        if ((ticketNr == null || ticketPreis == null) && globalPreis == null) {
             req.getRequestDispatcher("admin.jsp").forward(req, res);
+            return;
         }
 
-        parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
+        if(globalPreis != null) {
+            getServletContext().setAttribute("globalPreis", Integer.parseInt(globalPreis));
+        } else {
+            parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
 
-        addParams(req);
-        ParkhausServlet.doOnEveryRequest(req);
+        }
+
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 

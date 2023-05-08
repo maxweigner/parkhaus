@@ -25,6 +25,7 @@
         request.getAttribute("Auslastung")
     %> % <br> <br>
 
+    Preis fuer ein bestimmtes Ticket setzen <br>
     <form method="POST">
         <input type="hidden" name="aktion" value="admin">
         <input type="number" name="preis">
@@ -42,6 +43,12 @@
             // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
             // todo fabian schau mal bitte js ist ja dein ding
         %>
+    </form> <br> <br>
+
+    Preis global für alle in Zukunft erstellte Tickets setzen <br>
+    <form method="POST">
+        <input type="number" name="preisGlobal">
+        <button id="gBtn">Submit</button>
     </form>
 
 </body>

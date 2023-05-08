@@ -20,6 +20,7 @@ public class ParkhausServlet extends HttpServlet {
     public void init(){
         this.parkhaus = new Parkhaus();
         getServletContext().setAttribute("parkhaus", this.parkhaus);
+        getServletContext().setAttribute("globalPreis", 2);
         System.out.println("*** Parkhaus erfolgreich erstellt ***");
     }
 
