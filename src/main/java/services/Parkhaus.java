@@ -149,22 +149,6 @@ public class Parkhaus implements ParkhausIF {
     }
 
     @Override
-    public TicketIF[] getBezahltNichtAusgefahren() {
-        TicketIF[] bezahlteTickets = getBezahlteTickets();
-        LinkedList<TicketIF> bezahltNichtAusgefahren = new LinkedList<>();
-        int count = 0;
-        for (TicketIF ticket : bezahlteTickets){
-            if (ticket.istGueltig()) {
-                bezahltNichtAusgefahren.add(ticket);
-                count++;
-            }
-        }
-        TicketIF[] ret = new TicketIF[count];
-        bezahltNichtAusgefahren.toArray(ret);
-        return ret;
-    }
-
-    @Override
     public int getKapazitaet() {
         return kapazitaet;
     }
