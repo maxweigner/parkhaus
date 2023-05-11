@@ -62,7 +62,7 @@ public class AdminServlet extends HttpServlet {
         req.setAttribute("DurchschnittlicheEinnahmen", einnahmen.averageIncome());
         req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());
         req.setAttribute("AnzahlEinfahrten", einnahmen.soldTickets() + parkhaus.getUnbezahlteTickets().length);
-        req.setAttribute("AnzahlAusfahrten", einnahmen.soldTickets() - parkhaus.getBezahltNichtAusgefahren().length);
-        req.setAttribute("Auslastung", (parkhaus.getUnbezahlteTickets().length + parkhaus.getBezahltNichtAusgefahren().length) / (float)parkhaus.getKapazitaet() * 100);
+        req.setAttribute("AnzahlAusfahrten", einnahmen.soldTickets() - parkhaus.getBezahlteTickets().length);
+        req.setAttribute("Auslastung", (parkhaus.getUnbezahlteTickets().length + parkhaus.getBezahlteTickets().length) / (float)parkhaus.getKapazitaet() * 100);
     }
 }
