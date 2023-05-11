@@ -8,20 +8,20 @@ import java.time.LocalDateTime;
 public interface ParkhausIF {
 
     /**
-     * Erstellt ein neues models.Ticket zum Zeitpunkt der Einfahrt
-     * @return models.Ticket
+     * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
+     * @return Ticket
      */
     TicketIF einfahrt(SchrankeIF schranke);
 
     /**
-     * Erstellt ein neues models.Ticket zum Zeitpunkt der Einfahrt
-     * @return models.Ticket
+     * Erstellt ein neues Ticket zum Zeitpunkt der Einfahrt
+     * @return Ticket
      */
     Ticket einfahrt(SchrankeIF schranke, int preis);
 
     /**
-     * Zahlungsvorgang, um mit einem models.Ticket die services.Schranke zu öffnen
-     * @param ticket: gültiges models.Ticket
+     * Ticket prüfen und Schranke öffnen, wenn in den letzten 15 Minuten bezahlt wurde
+     * @param ticket: gültiges Ticket
      */
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 
@@ -57,8 +57,8 @@ public interface ParkhausIF {
     TicketIF getTicket(int id);
 
     /**
-     * Sucht aus allen Tickets die bezahlten heraus
-     * @return Liste mit bezahlten Tickets
+     * Sucht aus allen Tickets die bezahlten heraus, die sich aber noch im Parkhaus befinden
+     * @return Liste mit bezahlten und gültigen Tickets
      */
     TicketIF[] getBezahlteTickets();
 
@@ -73,12 +73,6 @@ public interface ParkhausIF {
      * @return Bezahlautomat Object
      */
     BezahlautomatIF getAutomat();
-
-    /**
-     * Gibt die Anzahl derer aus, die zwar schon bezahlt haben, aber noch nicht ausgefahren sind
-     * @return TicketIF Array
-     */
-    TicketIF[] getBezahltNichtAusgefahren();
 
     /**
      * Gibt die Kapazität des Parkhauses zurück
