@@ -26,7 +26,7 @@
         <div id="Ladestation">
             <h2>Ladestation</h2>
             <form method="post">
-                <input type="hidden" name="aktion" value="ladestation">
+                <input type="hidden" name="aktion" value="startLaden">
                 <input type="datetime-local" step="1" name="startChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStartCharge">
                     <c:forEach items="${aktiveTickets}" var="aTickets">
@@ -36,10 +36,10 @@
                 <button id="startChargeBtn" name="startChargeBtn">Start</button>
             </form>
             <form method="post">
-                <input type="hidden" name="aktion" value="bezahlen">
+                <input type="hidden" name="aktion" value="stopLaden">
                 <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStopCharge">
-                    <c:forEach items="${aktiveTickets}" var="aTickets">
+                    <c:forEach items="${ladendeTickets}" var="aTickets">
                         <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                     </c:forEach>
                 </select>

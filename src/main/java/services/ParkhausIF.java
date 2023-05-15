@@ -26,16 +26,22 @@ public interface ParkhausIF {
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 
     /**
+     * Startet den Ladevorgang an einer Ladesäule
+     * @param ticket: Ticket, dass zur Abrechnung genutzt wird
+     */
+    void startLaden(TicketIF ticket);
+
+    /**
+     * Stoppt den Ladevorgang an einer Ladesäule
+     * @param ticket: Ticket, dass zur Abrechnung genutzt wird
+     */
+    void stopLaden(TicketIF ticket);
+
+    /**
      * Gibt die Anzahl an noch verfügbaren Plätzen aus
      * @return Anzahl noch freier Plätze
      */
     int getAnzahlFreiePlaetze();
-
-    /**
-     * Setzt die Anzahl an verfügbaren Plätzen
-     * @param spaces Die neue Anzahl der freien Plätze
-     */
-    void setAnzahlPlaetze(int spaces);
 
     /**
      * Gibt alle Einfahrtsschranken aus
@@ -69,6 +75,12 @@ public interface ParkhausIF {
     TicketIF[] getUnbezahlteTickets();
 
     /**
+     * Sucht aus allen Tickets die an einer Ladestation heraus
+     * @return Liste mit Tickets, dessen zugehöriges Fahrzeug geladen wird
+     */
+    TicketIF[] getLadendeTickets();
+
+    /**
      * Gibt den Bezahlautomaten des Parkhauses zurück
      * @return Bezahlautomat Object
      */
@@ -79,4 +91,10 @@ public interface ParkhausIF {
      * @return int Anzahl Gesamtplätze
      */
     int getKapazitaet();
+
+    /**
+     * Setzt die Anzahl an verfügbaren Plätzen
+     * @param spaces Die neue Anzahl der freien Plätze
+     */
+    void setAnzahlPlaetze(int spaces);
 }

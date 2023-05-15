@@ -11,8 +11,11 @@ import java.util.List;
 public class Parkhaus implements ParkhausIF {
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
-    private final int kapazitaet; // Die Gesamtzahl der vorhandenen Parkplätze
-    private SchrankeIF[] schranken; // Alle verfügbaren Schranken
+    private final int kapazitaet; // Gesamtzahl der vorhandenen Parkplätze
+    private SchrankeIF[] schranken; // alle verfügbaren Schranken
+
+    private LadestationIF[] ladestationen; // alle verfügbaren Ladestationen
+
     private List<TicketIF> ticketListe = new LinkedList<>();
     private BezahlautomatIF automat = new Bezahlautomat();
 
@@ -27,6 +30,7 @@ public class Parkhaus implements ParkhausIF {
         this.schranken[0].setSchranke("einfahrt");
         this.schranken[1] = new Schranke();
         this.schranken[1].setSchranke("ausfahrt");
+        this.ladestationen = new Ladestation[kapazitaet];
     }
 
     /**
@@ -99,6 +103,16 @@ public class Parkhaus implements ParkhausIF {
         return false;
     }
 
+    @Override
+    public void startLaden(TicketIF ticket) {
+
+    }
+
+    @Override
+    public void stopLaden(TicketIF ticket) {
+
+    }
+
     /**
      * Gibt ein Array mit Schranken aus die vom angegebenen Typ sind
      * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
@@ -169,6 +183,10 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public TicketIF[] getUnbezahlteTickets(){
+        return getTicketListe("unbezahlt");
+    }
+
+    public TicketIF[] getLadendeTickets(){
         return getTicketListe("unbezahlt");
     }
 

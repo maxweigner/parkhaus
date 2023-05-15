@@ -42,16 +42,22 @@ public class ParkhausServlet extends HttpServlet {
             req.getRequestDispatcher("/bezahlen").forward(req, res);
         } else if(aktion.equals("checkOut")){
             req.getRequestDispatcher("/checkOut").forward(req, res);
+        } else if(aktion.equals("startLaden")){
+            req.getRequestDispatcher("/startLaden").forward(req, res);
+        } else if(aktion.equals("stopLaden")){
+            req.getRequestDispatcher("/stopLaden").forward(req, res);
         }
     }
 
     public static void doOnEveryRequest(HttpServletRequest req){
+        TicketIF[] ladendeTickets = parkhaus.getLadendeTickets();
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
         float belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
         int auslastung = (int) ((belegtePlaetze / (belegtePlaetze + freiePlaetze))*100);
 
+        req.setAttribute("ladendeTickets", ladendeTickets);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);
