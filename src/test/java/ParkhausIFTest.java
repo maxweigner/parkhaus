@@ -1,3 +1,4 @@
+import models.Ticket;
 import models.TicketIF;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import services.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,5 +90,15 @@ class ParkhausIFTest {
         parkhaus.getAutomat().bezahlen(ticket, jetzt);
         ticket.setAusfahrtsZeit(zuLangsam);
         assertEquals(false, parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
+    }
+
+    @Test
+    @DisplayName("Belegte Ladestationen werden richtig ermittelt")
+    void belegteLadestationenTest(){
+        TicketIF t1 = new Ticket(1, 1);
+        TicketIF t2 = new Ticket(2, 1);
+        parkhaus.startLaden(t1);
+        parkhaus.startLaden(t2);
+        assertEquals(2, parkhaus.getLadendeTickets().length);
     }
 }

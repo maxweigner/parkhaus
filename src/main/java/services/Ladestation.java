@@ -35,7 +35,17 @@ public class Ladestation implements LadestationIF {
     }
 
     @Override
+    public int getAbrechnungsnummer() {
+        return this.ticket.getID();
+    }
+
+    @Override
     public boolean getBelegt() {
         return this.belegt;
+    }
+
+    @Override
+    public TicketIF getTicket() {
+        return this.ticket;
     }
 }

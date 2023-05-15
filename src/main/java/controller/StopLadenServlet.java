@@ -22,7 +22,7 @@ public class StopLadenServlet extends HttpServlet {
             ParkhausServlet.doOnEveryRequest(req);
             req.getRequestDispatcher("index.jsp").forward(req, res); // soll unverändert zurückgeleitet werden
         }
-
+        parkhaus.stopLaden(parkhaus.getTicket(Integer.parseInt(ticket)));
         ParkhausServlet.doOnEveryRequest(req); // Endroutine
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }

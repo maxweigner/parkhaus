@@ -18,6 +18,14 @@ public interface LadestationIF {
      */
     boolean stopLaden(TicketIF ticket);
 
+    /**
+     * Gibt die Abrechnungsnummer zurück, die der Ticket-ID entspricht
+     * @return: Abrechnungsnummer
+     */
+    int getAbrechnungsnummer();
+
     boolean getBelegt();
+
+    TicketIF getTicket();
 
 }
