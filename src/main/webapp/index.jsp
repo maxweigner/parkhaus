@@ -33,7 +33,7 @@
                         <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                     </c:forEach>
                 </select>
-                <button id="startChargeBtn" name="startChargeBtn">Start</button>
+                <button id="startChargeBtn" name="startChargeBtn" disabled>Start</button>
             </form>
             <form method="post">
                 <input type="hidden" name="aktion" value="stopLaden">
@@ -43,7 +43,7 @@
                         <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                     </c:forEach>
                 </select>
-                <button id="stopChargeBtn" name="stopChargeBtn">Stop</button>
+                <button id="stopChargeBtn" name="stopChargeBtn" disabled>Stop</button>
             </form>
         </div>
     </div>
