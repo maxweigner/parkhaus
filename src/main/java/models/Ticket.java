@@ -98,7 +98,7 @@ public class Ticket implements TicketIF{
 
     @Override
     public String toString(){
-        return "Ticket Nr: " + this.getID() + " Einfahrtzeit: " + this.getEinfahrtsZeit() + " Ausfahrtzeit:" + getAusfahrtsZeit();
+        return "Ticket Nr: " + this.getID() + " Einfahrtzeit: " + this.getEinfahrtsZeit() + " Ausfahrtzeit: " + getAusfahrtsZeit();
     }
 
 

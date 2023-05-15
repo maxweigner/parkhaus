@@ -26,6 +26,29 @@
                 <h4>freie Plätze: ${freiePlaetze}</h4>
             </div>
         </div>
+        <div id="Ladestation">
+            <h2>Ladestation</h2>
+            <form method="post">
+                <input type="hidden" name="aktion" value="ladestation">
+                <input type="datetime-local" step="1" name="startChargeTime" value="2023-04-20T09:00:00">
+                <select name="ticket" id="selectStartCharge">
+                    <c:forEach items="${aktiveTickets}" var="aTickets">
+                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    </c:forEach>
+                </select>
+                <button id="startChargeBtn" name="startChargeBtn">Start</button>
+            </form>
+            <form method="post">
+                <input type="hidden" name="aktion" value="bezahlen">
+                <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
+                <select name="ticket" id="selectStopCharge">
+                    <c:forEach items="${aktiveTickets}" var="aTickets">
+                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    </c:forEach>
+                </select>
+                <button id="stopChargeBtn" name="stopChargeBtn">Stop</button>
+            </form>
+        </div>
     </div>
     <div id="Ausfahrt">
         <h2>Ausfahrt</h2>
