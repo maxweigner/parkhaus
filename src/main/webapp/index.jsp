@@ -22,9 +22,6 @@
         <div id="Auslastung">
             <h3>Auslastung</h3>
             <h4>${auslastung}%</h4>
-            <div id="freiePlaetze">
-                <h4>freie Plätze: ${freiePlaetze}</h4>
-            </div>
         </div>
         <div id="Ladestation">
             <h2>Ladestation</h2>
