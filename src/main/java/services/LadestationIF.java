@@ -24,8 +24,22 @@ public interface LadestationIF {
      */
     int getAbrechnungsnummer();
 
+    /**
+     * Gibt die Seriennummer der Ladestation zurück
+     * @return: Seriennummer
+     */
+    int getSeriennummer();
+
+    /**
+     * Gibt an, ob die Ladestation belegt ist oder nicht
+     * @return: true für belegt, false für frei
+     */
     boolean getBelegt();
 
+    /**
+     * Gibt das Ticket zurück, auf welchem der aktuelle Ladevorgang abgerechnet wird
+     * @return: null für kein Ladevorgang. Ansonsten das Ticket, dass dem Ladevorgang zugeordnet wird
+     */
     TicketIF getTicket();
 
 }
