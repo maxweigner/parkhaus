@@ -103,4 +103,19 @@ class ParkhausIFTest {
         parkhaus.stopLaden(t1);
         assertEquals(1, parkhaus.getLadendeTickets().length);
     }
+
+    @Test
+    @DisplayName("Tickets werden richtig nach ladend und nicht ladened gefiltert")
+    void nichtLadendeTicketFilterungTest(){
+        TicketIF t1 = parkhaus.einfahrt(schranke);
+        TicketIF t2 = parkhaus.einfahrt(schranke);
+        assertEquals(0, parkhaus.getLadendeTickets().length);
+        assertEquals(2, parkhaus.getNichtLadendeTickets().length);
+        parkhaus.startLaden(t1);
+        assertEquals(1, parkhaus.getLadendeTickets().length);
+        assertEquals(1, parkhaus.getNichtLadendeTickets().length);
+        parkhaus.stopLaden(t1);
+        assertEquals(0, parkhaus.getLadendeTickets().length);
+        assertEquals(2, parkhaus.getNichtLadendeTickets().length);
+    }
 }
