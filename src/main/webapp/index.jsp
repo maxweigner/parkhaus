@@ -29,7 +29,7 @@
                 <input type="hidden" name="aktion" value="startLaden">
                 <input type="datetime-local" step="1" name="startChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStartCharge">
-                    <c:forEach items="${aktiveTickets}" var="aTickets">
+                    <c:forEach items="${nichtLadendeTickets}" var="aTickets">
                         <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                     </c:forEach>
                 </select>

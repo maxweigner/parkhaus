@@ -3,6 +3,7 @@ package services;
 import models.Ticket;
 import models.TicketIF;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,8 @@ public class Parkhaus implements ParkhausIF {
     private final int kapazitaet; // Gesamtzahl der vorhandenen Parkplätze
     private SchrankeIF[] schranken; // alle verfügbaren Schranken
 
-    private LadestationIF[] ladestationen; // alle verfügbaren Ladestationen
+    private LadestationIF[] ladestationen; // alle existierenden Ladestationen
+    private LadestationIF[] belegteLadestationen; // alle belegten Ladenstationen
 
     private List<TicketIF> ticketListe = new LinkedList<>();
     private BezahlautomatIF automat = new Bezahlautomat();
@@ -35,8 +37,9 @@ public class Parkhaus implements ParkhausIF {
         int stationen = 10; // Anzahl an Ladestationen
         this.ladestationen = new Ladestation[stationen];
         for (int i = 0; i < stationen; i++){
-            this.ladestationen[i] = new Ladestation("Green Energy");
+            this.ladestationen[i] = new Ladestation("Green Energy", i+1);
         }
+        this.belegteLadestationen = new LadestationIF[stationen]; // Initialisierung
     }
 
     /**
@@ -113,22 +116,28 @@ public class Parkhaus implements ParkhausIF {
     public void startLaden(TicketIF ticket) {
         LadestationIF ls = getLadestationen("frei")[0];
         boolean starten = ls.startLaden(ticket);
+
         if (!starten){ // Fehler beim Starten
             System.out.println("Ladevorgang mit Abrechnungsnnummer: " +
                     ticket.getID() + " konnte nicht gestartet werden");
+        } else {
+            this.belegteLadestationen[ls.getSeriennummer() - 1] = ls; // Ladestation wird als belegt registriert
         }
     }
 
     @Override
     public void stopLaden(TicketIF ticket) {
-        LadestationIF[] ladestationen = getLadestationen("belegt");
         boolean stoppen = false;
-        for (LadestationIF ls: ladestationen){
-            if (ls.getAbrechnungsnummer() == ticket.getID()){
+        for (LadestationIF ls: belegteLadestationen){ // für jede belegte Ladestation
+            if (ls != null && ls.getAbrechnungsnummer() == ticket.getID()){ // wird diejenige mit übergebenen Ticket gesucht
                 stoppen = ls.stopLaden(ticket);
-                break; // laden wurde erfolgreich beendet
+                if (stoppen) { // falls der Ladevorgang erfolgreich beendet wurde
+                    belegteLadestationen[ls.getSeriennummer() - 1] = null; // ist die Ladestation nicht mehr belegt
+                }
+                break;
             }
         }
+
         if (!stoppen){ // Fehler beim Stoppen
             System.out.println("Ladevorgang mit Abrechnungsnnummer: " +
                     ticket.getID() + " konnte nicht gestoppt werden");
@@ -136,7 +145,7 @@ public class Parkhaus implements ParkhausIF {
     }
 
     /**
-     * Gibt ein Array mit Schranken aus die vom angegebenen Typ sind
+     * Gibt ein Array mit Schranken aus, die vom angegebenen Typ sind
      * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
      * @return Array mit Schranken
      */
@@ -151,15 +160,15 @@ public class Parkhaus implements ParkhausIF {
     }
 
     /**
-     * Gibt ein Array mit Ladestationen aus die vom angegebenen Typ sind
-     * @param freiBelegt Der Status der Station. Entweder "frei" oder "belegt"
+     * Gibt ein Array mit Ladestationen aus, die sich im ausgewählten Status befinden
+     * @param freiBelegt: Status der Ladestation. Entweder "frei" oder "belegt"
      * @return Array mit Ladestationen
      */
     private LadestationIF[] getLadestationen(String freiBelegt){
         List<LadestationIF> ladestationenListe = new ArrayList<>();
-        boolean suche = false; // suche alle unbelegten Stationen
+        boolean suche = false; // freie Ladestationen
         if (freiBelegt.equals("belegt")){ // falls gefordert
-            suche = true; // alle belegten Stationen
+            suche = true; // werden die belegten Stationen gesucht
         }
         for(LadestationIF ls: ladestationen) {
             if (suche == ls.getBelegt()) {
@@ -227,14 +236,25 @@ public class Parkhaus implements ParkhausIF {
         return getTicketListe("unbezahlt");
     }
 
+    @Override
     public TicketIF[] getLadendeTickets(){
-        LadestationIF[] ls =  getLadestationen("belegt");
-        TicketIF[] tickets = new TicketIF[ls.length];
-        for (int i = 0; i < ls.length; i++){
+        LadestationIF[] ls = getLadestationen("belegt");
+        int size = ls.length;
+        TicketIF[] tickets = new TicketIF[size];
+
+        for (int i = 0; i < size; i++){
             tickets[i] = ls[i].getTicket();
         }
         return tickets;
     }
+
+    @Override
+    public TicketIF[] getNichtLadendeTickets(){
+        List<TicketIF> tickets = new LinkedList<>(ticketListe); // kopiere Ticketliste
+        tickets.removeAll(Arrays.asList(getLadendeTickets()));
+        return tickets.toArray(new TicketIF[tickets.size()]);
+    }
+
 
     @Override
     public void setAnzahlPlaetze(int plaetze) {

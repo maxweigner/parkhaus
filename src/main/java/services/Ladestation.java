@@ -7,10 +7,13 @@ public class Ladestation implements LadestationIF {
     String anbieter;
     boolean belegt;
 
-    public Ladestation(String anbieter){
+    int seriennummer;
+
+    public Ladestation(String anbieter, int seriennummer){
         this.ticket = null;
         this.anbieter = anbieter;
         this.belegt = false;
+        this.seriennummer = seriennummer;
     }
 
     @Override
@@ -38,6 +41,9 @@ public class Ladestation implements LadestationIF {
     public int getAbrechnungsnummer() {
         return this.ticket.getID();
     }
+
+    @Override
+    public int getSeriennummer() { return this.seriennummer; }
 
     @Override
     public boolean getBelegt() {

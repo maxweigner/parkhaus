@@ -51,6 +51,7 @@ public class ParkhausServlet extends HttpServlet {
 
     public static void doOnEveryRequest(HttpServletRequest req){
         TicketIF[] ladendeTickets = parkhaus.getLadendeTickets();
+        TicketIF[] nichtLadendeTickets = parkhaus.getNichtLadendeTickets();
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
@@ -58,6 +59,7 @@ public class ParkhausServlet extends HttpServlet {
         int auslastung = (int) ((belegtePlaetze / (belegtePlaetze + freiePlaetze))*100);
 
         req.setAttribute("ladendeTickets", ladendeTickets);
+        req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);

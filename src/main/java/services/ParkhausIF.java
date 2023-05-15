@@ -81,6 +81,12 @@ public interface ParkhausIF {
     TicketIF[] getLadendeTickets();
 
     /**
+     * Sucht aus allen Tickets die sich im Parkhaus befinden und nicht laden
+     * @return Liste mit Tickets
+     */
+    TicketIF[] getNichtLadendeTickets();
+
+    /**
      * Gibt den Bezahlautomaten des Parkhauses zurück
      * @return Bezahlautomat Object
      */

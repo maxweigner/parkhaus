@@ -100,5 +100,7 @@ class ParkhausIFTest {
         parkhaus.startLaden(t1);
         parkhaus.startLaden(t2);
         assertEquals(2, parkhaus.getLadendeTickets().length);
+        parkhaus.stopLaden(t1);
+        assertEquals(1, parkhaus.getLadendeTickets().length);
     }
 }

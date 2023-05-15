@@ -15,7 +15,7 @@ class LadestationIFTest {
 
     @BeforeEach
     void setUp(){
-        this.ladestation = new Ladestation("Green Energy");
+        this.ladestation = new Ladestation("Green Energy", 1);
         this.ticket = new Ticket(1, 1);
     }
 
