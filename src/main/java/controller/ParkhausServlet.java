@@ -36,16 +36,27 @@ public class ParkhausServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         String aktion = req.getParameter("aktion");
-        if(aktion.equals("checkIn")){
-            req.getRequestDispatcher("/checkIn").forward(req, res);
-        } else if(aktion.equals("bezahlen")){
-            req.getRequestDispatcher("/bezahlen").forward(req, res);
-        } else if(aktion.equals("checkOut")){
-            req.getRequestDispatcher("/checkOut").forward(req, res);
-        } else if(aktion.equals("startLaden")){
-            req.getRequestDispatcher("/startLaden").forward(req, res);
-        } else if(aktion.equals("stopLaden")){
-            req.getRequestDispatcher("/stopLaden").forward(req, res);
+
+        switch (aktion) {
+            case "checkIn":
+                req.getRequestDispatcher("/checkIn").forward(req, res);
+                break;
+
+            case "bezahlen":
+                req.getRequestDispatcher("/bezahlen").forward(req, res);
+                break;
+
+            case "checkOut":
+                req.getRequestDispatcher("/checkOut").forward(req, res);
+                break;
+
+            case "startLaden":
+                req.getRequestDispatcher("/startLaden").forward(req, res);
+                break;
+
+            case "stopLaden":
+                req.getRequestDispatcher("/stopLaden").forward(req, res);
+                break;
         }
     }
 
