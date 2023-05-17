@@ -29,18 +29,18 @@
                 <input type="hidden" name="aktion" value="startLaden">
                 <input type="datetime-local" step="1" name="startChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStartCharge">
-                    <c:forEach items="${nichtLadendeTickets}" var="aTickets">
-                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    <c:forEach items="${nichtLadendeTickets}" var="dTickets">
+                        <option value="${dTickets.ID}"> Ticket-Nr: ${dTickets.ID}</option>
                     </c:forEach>
                 </select>
                 <button id="startChargeBtn" name="startChargeBtn" disabled>Start</button>
             </form>
             <form method="post">
                 <input type="hidden" name="aktion" value="stopLaden">
-                <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
+                <input type="datetime-local" step="1" name="stopChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStopCharge">
-                    <c:forEach items="${ladendeTickets}" var="aTickets">
-                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    <c:forEach items="${ladendeTickets}" var="cTickets">
+                        <option value="${cTickets.ID}"> Ticket-Nr: ${cTickets.ID}</option>
                     </c:forEach>
                 </select>
                 <button id="stopChargeBtn" name="stopChargeBtn" disabled>Stop</button>
@@ -55,7 +55,7 @@
             <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00">
             <select name="ticket" id="selectAusfahrt">
                 <c:forEach items="${bezahlteTickets}" var="bTickets">
-                    <option value="${bTickets.ID}"> Ticket ${bTickets.ID}</option>
+                    <option value="${bTickets.ID}"> Ticket ${bTickets.ID} Bezahlt: ${bTickets.gesamtpreis}€</option>
                 </c:forEach>
             </select>
             <button id="outBtn" disabled>Check Out</button>

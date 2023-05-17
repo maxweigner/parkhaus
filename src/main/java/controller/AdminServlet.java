@@ -1,6 +1,5 @@
 package controller;
 
-import models.TicketIF;
 import services.ParkhausIF;
 import services.EinnahmenIF;
 
@@ -24,8 +23,10 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
-        addParams(req);
+        // benötigte parameter einfügen
         ParkhausServlet.doOnEveryRequest(req);
+        addParams(req);
+
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 
@@ -47,11 +48,11 @@ public class AdminServlet extends HttpServlet {
             return;
         }
 
+        // prüft ob ticketpreis oder globaler ticketpreis gesetzt werden soll und tut dies
         if(globalPreis != null) {
             getServletContext().setAttribute("globalPreis", Integer.parseInt(globalPreis));
         } else {
             parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
-
         }
 
         req.getRequestDispatcher("admin.jsp").forward(req, res);

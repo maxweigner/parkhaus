@@ -4,6 +4,7 @@ import models.Ticket;
 import models.TicketIF;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public interface ParkhausIF {
 
@@ -27,15 +28,16 @@ public interface ParkhausIF {
 
     /**
      * Startet den Ladevorgang an einer Ladesäule
-     * @param ticket: Ticket, dass zur Abrechnung genutzt wird
+     * @param ticket Ticket, dass zur Abrechnung genutzt wird
+     * @param start Uhrzeit zu welcher angefangen wurde zu laden
      */
-    void startLaden(TicketIF ticket);
+    void startLaden(TicketIF ticket, LocalDateTime start);
 
     /**
      * Stoppt den Ladevorgang an einer Ladesäule
      * @param ticket: Ticket, dass zur Abrechnung genutzt wird
      */
-    void stopLaden(TicketIF ticket);
+    void stopLaden(TicketIF ticket, LocalDateTime end, int stundenPreis);
 
     /**
      * Gibt die Anzahl an noch verfügbaren Plätzen aus

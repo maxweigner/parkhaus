@@ -14,7 +14,9 @@ public interface BezahlautomatIF {
     boolean bezahlen(TicketIF ticket);
 
     /**
-     * bezahlt ein ticket ohne bedingung
+     * bezahlt ein ticket ohne das guthaben zu beachten
+     * @param ticket das ticket welches bezahlt werden soll
+     * @param now die Endparkzeit
      * @return true für entwertetes ticket
      */
     boolean bezahlen(TicketIF ticket, LocalDateTime now);

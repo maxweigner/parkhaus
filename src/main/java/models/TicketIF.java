@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public interface TicketIF {
     /**
@@ -65,5 +66,15 @@ public interface TicketIF {
     boolean istGueltig();
     void setGueltigkeit(boolean boo);
 
-    public void setGesamtpreis(int gesamtpreis);
+    void setGesamtpreis(int gesamtpreis);
+
+    int getGesamtpreis();
+
+    void setStartLadeZeit(LocalDateTime start);
+
+    /**
+     * ...and sets start time to null
+     * @return
+     */
+    LocalDateTime getStartLadeZeit();
 }

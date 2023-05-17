@@ -12,9 +12,9 @@ public class Ticket implements TicketIF{
     private boolean bezahlt = false;
     private boolean gueltig = true;
     private int gesamtpreis = 0;
+    private LocalDateTime startLadeZeit;
 
     /**
-     *
      * @param ID Identifikationsnummer des Tickets
      * @param preis Preis des Tickets
      */
@@ -22,6 +22,7 @@ public class Ticket implements TicketIF{
         this.ID = ID;
         this.preis = preis;
         this.einfahrtsZeit = LocalDateTime.now();
+        this.startLadeZeit = null;
     }
 
     public int getGesamtpreis(){
@@ -94,6 +95,14 @@ public class Ticket implements TicketIF{
 
     public boolean istGueltig(){
         return this.gueltig;
+    }
+
+    public void setStartLadeZeit(LocalDateTime start) {
+        this.startLadeZeit = start;
+    }
+
+    public LocalDateTime getStartLadeZeit() {
+        return startLadeZeit;
     }
 
     @Override
