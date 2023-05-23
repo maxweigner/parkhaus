@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import models.TicketIF;
 import services.*;
@@ -21,6 +24,8 @@ public class ParkhausServlet extends HttpServlet {
         this.parkhaus = new Parkhaus();
         getServletContext().setAttribute("parkhaus", this.parkhaus);
         getServletContext().setAttribute("globalPreis", 2);
+        getServletContext().setAttribute("oeffnungszeit", LocalTime.parse("05:59", DateTimeFormatter.ISO_LOCAL_TIME));
+        getServletContext().setAttribute("schliesszeit", LocalTime.parse("22:01", DateTimeFormatter.ISO_LOCAL_TIME));
         System.out.println("*** Parkhaus erfolgreich erstellt ***");
     }
 
@@ -35,7 +40,29 @@ public class ParkhausServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
         String aktion = req.getParameter("aktion");
+        String[] uhrzeiten = {
+                req.getParameter("checkInTime"),
+                req.getParameter("checkOutTime"),
+                req.getParameter("startChargeTime"),
+                req.getParameter("stopChargeTime"),
+                req.getParameter("bezahlenTime")
+        };
+        LocalTime oeffnungszeit = (LocalTime) getServletContext().getAttribute("oeffnungszeit");
+        LocalTime schliesszeit = (LocalTime) getServletContext().getAttribute("schliesszeit");
+
+        for(String uhrzeit : uhrzeiten){
+           if (uhrzeit == null)
+               continue;
+
+           LocalTime zeit = LocalDateTime.parse(uhrzeit, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime();
+           if (!zeit.isAfter(oeffnungszeit) || !zeit.isBefore(schliesszeit)) {
+               System.out.println("*** außerhalb der Öffnungszeiten ***");
+               doGet(req, res);
+                return;
+           }
+        }
 
         switch (aktion) {
             case "checkIn":
