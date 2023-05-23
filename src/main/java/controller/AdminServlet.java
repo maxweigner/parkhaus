@@ -42,18 +42,14 @@ public class AdminServlet extends HttpServlet {
         String globalPreis = req.getParameter("preisGlobal");
 
         // wenn die eingabe unvollständig ist
-        if ((ticketNr == null || ticketPreis == null) && globalPreis == null) {
-            req.getRequestDispatcher("admin.jsp").forward(req, res);
-            return;
-        }
-
         if(globalPreis != null) {
             getServletContext().setAttribute("globalPreis", Integer.parseInt(globalPreis));
-        } else {
+        } else if (ticketNr != null && ticketPreis != null) {
             parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
-
+        } else if (oeffnungszeit != null && schliesszeit != null) {
+            getServletContext().setAttribute("oeffnungszeit", LocalTime.parse(oeffnungszeit, DateTimeFormatter.ISO_LOCAL_TIME));
+            getServletContext().setAttribute("schliesszeit", LocalTime.parse(schliesszeit, DateTimeFormatter.ISO_LOCAL_TIME));
         }
-
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 
