@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet(name="controller.AdminServlet", value="/admin")
@@ -52,8 +52,8 @@ public class AdminServlet extends HttpServlet {
         } else if (ticketNr != null && ticketPreis != null) {
             parkhaus.getTicket(Integer.parseInt(ticketNr)).setPreis(Integer.parseInt(ticketPreis));
         } else if (oeffnungszeit != null && schliesszeit != null) {
-            getServletContext().setAttribute("oeffnungszeit", LocalDateTime.parse(oeffnungszeit, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            getServletContext().setAttribute("schliesszeit", LocalDateTime.parse(schliesszeit, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            getServletContext().setAttribute("oeffnungszeit", LocalTime.parse(oeffnungszeit, DateTimeFormatter.ISO_LOCAL_TIME).minusMinutes(1));
+            getServletContext().setAttribute("schliesszeit", LocalTime.parse(schliesszeit, DateTimeFormatter.ISO_LOCAL_TIME).plusMinutes(1));
         }
 
         req.getRequestDispatcher("admin.jsp").forward(req, res);
