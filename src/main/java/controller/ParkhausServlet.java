@@ -36,24 +36,43 @@ public class ParkhausServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         String aktion = req.getParameter("aktion");
-        if(aktion.equals("checkIn")){
-            req.getRequestDispatcher("/checkIn").forward(req, res);
-        } else if(aktion.equals("bezahlen")){
-            req.getRequestDispatcher("/bezahlen").forward(req, res);
-        } else if(aktion.equals("checkOut")){
-            req.getRequestDispatcher("/checkOut").forward(req, res);
+
+        switch (aktion) {
+            case "checkIn":
+                req.getRequestDispatcher("/checkIn").forward(req, res);
+                break;
+
+            case "bezahlen":
+                req.getRequestDispatcher("/bezahlen").forward(req, res);
+                break;
+
+            case "checkOut":
+                req.getRequestDispatcher("/checkOut").forward(req, res);
+                break;
+
+            case "startLaden":
+                req.getRequestDispatcher("/startLaden").forward(req, res);
+                break;
+
+            case "stopLaden":
+                req.getRequestDispatcher("/stopLaden").forward(req, res);
+                break;
         }
     }
 
     public static void doOnEveryRequest(HttpServletRequest req){
+        TicketIF[] ladendeTickets = parkhaus.getLadendeTickets();
+        TicketIF[] nichtLadendeTickets = parkhaus.getNichtLadendeTickets();
+
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
+
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
         int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
         int auslastung = (belegtePlaetze / (belegtePlaetze + freiePlaetze))*100;
 
-
-
+        req.setAttribute("ladendeTickets", ladendeTickets);
+        req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);

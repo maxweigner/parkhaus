@@ -4,6 +4,7 @@ import models.Ticket;
 import models.TicketIF;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public interface ParkhausIF {
 
@@ -26,16 +27,23 @@ public interface ParkhausIF {
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 
     /**
+     * Startet den Ladevorgang an einer Ladesäule
+     * @param ticket Ticket, dass zur Abrechnung genutzt wird
+     * @param start Uhrzeit zu welcher angefangen wurde zu laden
+     */
+    void startLaden(TicketIF ticket, LocalDateTime start);
+
+    /**
+     * Stoppt den Ladevorgang an einer Ladesäule
+     * @param ticket: Ticket, dass zur Abrechnung genutzt wird
+     */
+    void stopLaden(TicketIF ticket, LocalDateTime end, int stundenPreis);
+
+    /**
      * Gibt die Anzahl an noch verfügbaren Plätzen aus
      * @return Anzahl noch freier Plätze
      */
     int getAnzahlFreiePlaetze();
-
-    /**
-     * Setzt die Anzahl an verfügbaren Plätzen
-     * @param spaces Die neue Anzahl der freien Plätze
-     */
-    void setAnzahlPlaetze(int spaces);
 
     /**
      * Gibt alle Einfahrtsschranken aus
@@ -69,6 +77,18 @@ public interface ParkhausIF {
     TicketIF[] getUnbezahlteTickets();
 
     /**
+     * Sucht aus allen Tickets die an einer Ladestation heraus
+     * @return Liste mit Tickets, dessen zugehöriges Fahrzeug geladen wird
+     */
+    TicketIF[] getLadendeTickets();
+
+    /**
+     * Sucht aus allen Tickets die sich im Parkhaus befinden und nicht laden
+     * @return Liste mit Tickets
+     */
+    TicketIF[] getNichtLadendeTickets();
+
+    /**
      * Gibt den Bezahlautomaten des Parkhauses zurück
      * @return Bezahlautomat Object
      */
@@ -79,4 +99,10 @@ public interface ParkhausIF {
      * @return int Anzahl Gesamtplätze
      */
     int getKapazitaet();
+
+    /**
+     * Setzt die Anzahl an verfügbaren Plätzen
+     * @param spaces Die neue Anzahl der freien Plätze
+     */
+    void setAnzahlPlaetze(int spaces);
 }

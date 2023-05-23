@@ -31,15 +31,11 @@
     text-align: center;
 }
 
-#Auslastung:hover #freiePlaetze{
+#Auslastung{
     display: block;
     border-style: dotted;
     border-color: black;
     text-align: center;
-}
-
-#freiePlaetze{
-    display: none;
 }
 
 #Ausfahrt{

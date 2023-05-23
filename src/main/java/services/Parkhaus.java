@@ -5,15 +5,14 @@ import models.TicketIF;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Parkhaus implements ParkhausIF {
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
-    private final int kapazitaet; // Die Gesamtzahl der vorhandenen Parkplätze
-    private SchrankeIF[] schranken; // Alle verfügbaren Schranken
+    private final int kapazitaet; // Gesamtzahl der vorhandenen Parkplätze
+    private SchrankeIF[] schranken; // alle verfügbaren Schranken
     private List<TicketIF> ticketListe = new LinkedList<>();
     private BezahlautomatIF automat = new Bezahlautomat();
 
@@ -100,8 +99,19 @@ public class Parkhaus implements ParkhausIF {
         return false;
     }
 
+    @Override
+    public void startLaden(TicketIF ticket, LocalDateTime start) {
+        ticket.setStartLadeZeit(start);
+    }
+
+    @Override
+    public void stopLaden(TicketIF ticket, LocalDateTime end, int stundenPreis) {
+        long ladeStunden = ticket.getStartLadeZeit().until(end, ChronoUnit.HOURS);
+        ticket.setGesamtpreis(ticket.getGesamtpreis() + stundenPreis * ((int) ladeStunden));
+    }
+
     /**
-     * Gibt ein Array mit Schranken aus die vom angegebenen Typ sind
+     * Gibt ein Array mit Schranken aus, die vom angegebenen Typ sind
      * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
      * @return Array mit Schranken
      */
@@ -172,6 +182,31 @@ public class Parkhaus implements ParkhausIF {
     public TicketIF[] getUnbezahlteTickets(){
         return getTicketListe("unbezahlt");
     }
+
+    @Override
+    public TicketIF[] getLadendeTickets(){
+        LinkedList<TicketIF> tickets = new LinkedList<>(Arrays.asList(getUnbezahlteTickets()));
+
+        Iterator<TicketIF> itr = tickets.iterator();
+
+        if (itr.hasNext()) {
+            do {
+                if (itr.next().getStartLadeZeit() == null) {
+                    itr.remove();
+                }
+            } while (itr.hasNext());
+        }
+
+        return tickets.toArray(new TicketIF[tickets.size()]);
+    }
+
+    @Override
+    public TicketIF[] getNichtLadendeTickets(){
+        LinkedList<TicketIF> tickets = new LinkedList<>(Arrays.asList(getUnbezahlteTickets()));
+        tickets.removeAll(new LinkedList<>(Arrays.asList(getLadendeTickets())));
+        return tickets.toArray(new TicketIF[tickets.size()]);
+    }
+
 
     @Override
     public void setAnzahlPlaetze(int plaetze) {

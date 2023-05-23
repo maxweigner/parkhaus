@@ -31,6 +31,7 @@ public class BezahlServlet extends HttpServlet {
             req.setAttribute("bezahlt", false);
             ParkhausServlet.doOnEveryRequest(req);
             req.getRequestDispatcher("index.jsp").forward(req, res);
+            return;
         }
 
         // die aktuelle (gePOSTete Zeit) parsen
@@ -39,9 +40,11 @@ public class BezahlServlet extends HttpServlet {
         // ticket bezahlen
         parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), time);
         req.setAttribute("bezahlt", true);
+
         //Schickt der Seite die bezahlten Tickets mit
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
         req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
+
         ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }

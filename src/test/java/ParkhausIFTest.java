@@ -1,3 +1,4 @@
+import models.Ticket;
 import models.TicketIF;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import services.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,5 +90,33 @@ class ParkhausIFTest {
         parkhaus.getAutomat().bezahlen(ticket, jetzt);
         ticket.setAusfahrtsZeit(zuLangsam);
         assertEquals(false, parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
+    }
+
+    @Test
+    @DisplayName("Belegte Ladestationen werden richtig ermittelt")
+    void belegteLadestationenTest(){
+        TicketIF t1 = new Ticket(1, 1);
+        TicketIF t2 = new Ticket(2, 1);
+        //parkhaus.startLaden(t1);
+        //parkhaus.startLaden(t2);
+        assertEquals(2, parkhaus.getLadendeTickets().length);
+        //parkhaus.stopLaden(t1);
+        assertEquals(1, parkhaus.getLadendeTickets().length);
+    }
+
+    @Test
+    @DisplayName("Tickets werden richtig nach ladend und nicht ladened gefiltert")
+    void nichtLadendeTicketFilterungTest(){
+        TicketIF t1 = parkhaus.einfahrt(schranke);
+        TicketIF t2 = parkhaus.einfahrt(schranke);
+        assertEquals(0, parkhaus.getLadendeTickets().length);
+        assertEquals(2, parkhaus.getNichtLadendeTickets().length);
+        parkhaus.startLaden(t1, LocalDateTime.now());
+        assertEquals(1, parkhaus.getLadendeTickets().length);
+        assertEquals(1, parkhaus.getNichtLadendeTickets().length);
+        parkhaus.stopLaden(t1, LocalDateTime.now().plusHours(2), 2);
+        t1.setStartLadeZeit(null);
+        assertEquals(0, parkhaus.getLadendeTickets().length);
+        assertEquals(2, parkhaus.getNichtLadendeTickets().length);
     }
 }
