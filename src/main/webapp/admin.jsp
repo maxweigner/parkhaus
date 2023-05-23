@@ -51,5 +51,11 @@
         <button id="gBtn">Submit</button>
     </form>
 
+    Öffnungs- und Schließzeiten festlegen <br>
+    <form method="POST">
+        <input type="time" id="oeffnungszeit" name="oeffnungszeit">
+        <input type="time" id="schliesszeit" name="schliesszeit">
+    </form>
+
 </body>
 </html>
