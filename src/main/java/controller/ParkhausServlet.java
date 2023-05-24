@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 import models.TicketIF;
 import services.*;
@@ -16,6 +19,7 @@ import services.*;
 @WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
     private static ParkhausIF parkhaus;
+    private LocalDateTime aktuelleZeit;
 
     /**
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
@@ -24,13 +28,13 @@ public class ParkhausServlet extends HttpServlet {
         this.parkhaus = new Parkhaus();
         getServletContext().setAttribute("parkhaus", this.parkhaus);
         getServletContext().setAttribute("globalPreis", 2);
-        getServletContext().setAttribute("oeffnungszeit", LocalTime.parse("05:59", DateTimeFormatter.ISO_LOCAL_TIME));
-        getServletContext().setAttribute("schliesszeit", LocalTime.parse("22:01", DateTimeFormatter.ISO_LOCAL_TIME));
+        getServletContext().setAttribute("oeffnungszeit", LocalTime.parse("05:59", ISO_LOCAL_TIME));
+        getServletContext().setAttribute("schliesszeit", LocalTime.parse("22:01", ISO_LOCAL_TIME));
         System.out.println("*** Parkhaus erfolgreich erstellt ***");
     }
 
     /**
-     * erster get-request landet hier und leitet aufs das Dashboard weiter
+     * erster get-request landet hier und leitet auf das Dashboard weiter
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -40,29 +44,20 @@ public class ParkhausServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
-        String aktion = req.getParameter("aktion");
-        String[] uhrzeiten = {
-                req.getParameter("checkInTime"),
-                req.getParameter("checkOutTime"),
-                req.getParameter("startChargeTime"),
-                req.getParameter("stopChargeTime"),
-                req.getParameter("bezahlenTime")
-        };
         LocalTime oeffnungszeit = (LocalTime) getServletContext().getAttribute("oeffnungszeit");
         LocalTime schliesszeit = (LocalTime) getServletContext().getAttribute("schliesszeit");
 
-        for(String uhrzeit : uhrzeiten){
-           if (uhrzeit == null)
-               continue;
-
-           LocalTime zeit = LocalDateTime.parse(uhrzeit, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime();
-           if (!zeit.isAfter(oeffnungszeit) || !zeit.isBefore(schliesszeit)) {
-               System.out.println("*** außerhalb der Öffnungszeiten ***");
-               doGet(req, res);
+        String changeTimeTo = req.getParameter("changeTimeTo");
+        if (changeTimeTo != null) {
+            LocalTime newTime = LocalDateTime.parse(changeTimeTo, ISO_LOCAL_DATE_TIME).toLocalTime();
+            if (newTime.isBefore(oeffnungszeit) || newTime.isAfter(schliesszeit)) {
+                System.out.println("*** Außerhalb der Öffnungszeiten ***");
+                doGet(req, res);
                 return;
-           }
+            }
         }
+
+        String aktion = req.getParameter("aktion");
 
         switch (aktion) {
             case "checkIn":
@@ -84,6 +79,14 @@ public class ParkhausServlet extends HttpServlet {
             case "stopLaden":
                 req.getRequestDispatcher("/stopLaden").forward(req, res);
                 break;
+
+            case "changeTime":
+                parkhaus.setAktuelleZeit(
+                        LocalDateTime.parse(
+                                req.getParameter("changeTimeTo"), ISO_LOCAL_DATE_TIME)
+                                .truncatedTo(ChronoUnit.MINUTES));
+                doGet(req, res);
+                break;
         }
     }
 
@@ -98,6 +101,9 @@ public class ParkhausServlet extends HttpServlet {
         int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
         int auslastung = (belegtePlaetze / (belegtePlaetze + freiePlaetze))*100;
 
+        String aktuelleZeit = parkhaus.getAktuelleZeit().toString();
+
+        req.setAttribute("currentTime", aktuelleZeit);
         req.setAttribute("ladendeTickets", ladendeTickets);
         req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
         req.setAttribute("bezahlteTickets", bezahlteTickets);

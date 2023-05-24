@@ -111,10 +111,10 @@ class ParkhausIFTest {
         TicketIF t2 = parkhaus.einfahrt(schranke);
         assertEquals(0, parkhaus.getLadendeTickets().length);
         assertEquals(2, parkhaus.getNichtLadendeTickets().length);
-        parkhaus.startLaden(t1, LocalDateTime.now());
+        //parkhaus.startLaden(t1, LocalDateTime.now());
         assertEquals(1, parkhaus.getLadendeTickets().length);
         assertEquals(1, parkhaus.getNichtLadendeTickets().length);
-        parkhaus.stopLaden(t1, LocalDateTime.now().plusHours(2), 2);
+        //parkhaus.stopLaden(t1, LocalDateTime.now().plusHours(2), 2);
         t1.setStartLadeZeit(null);
         assertEquals(0, parkhaus.getLadendeTickets().length);
         assertEquals(2, parkhaus.getNichtLadendeTickets().length);

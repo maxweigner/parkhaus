@@ -16,7 +16,6 @@
         <img>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
-            <input type="datetime-local" step="1" name="checkInTime" value="2023-04-20T09:00:00">
             <button id="checkInBtn">Check In</button> <br>
         </form>
         <div id="Auslastung">
@@ -27,7 +26,6 @@
             <h2>Ladestation</h2>
             <form method="post">
                 <input type="hidden" name="aktion" value="startLaden">
-                <input type="datetime-local" step="1" name="startChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStartCharge">
                     <c:forEach items="${nichtLadendeTickets}" var="dTickets">
                         <option value="${dTickets.ID}"> Ticket-Nr: ${dTickets.ID}</option>
@@ -37,7 +35,6 @@
             </form>
             <form method="post">
                 <input type="hidden" name="aktion" value="stopLaden">
-                <input type="datetime-local" step="1" name="stopChargeTime" value="2023-04-20T09:00:00">
                 <select name="ticket" id="selectStopCharge">
                     <c:forEach items="${ladendeTickets}" var="cTickets">
                         <option value="${cTickets.ID}"> Ticket-Nr: ${cTickets.ID}</option>
@@ -52,7 +49,6 @@
         <img>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkOut">
-            <input type="datetime-local" step="1" name="checkOutTime" value="2023-04-20T09:00:00">
             <select name="ticket" id="selectAusfahrt">
                 <c:forEach items="${bezahlteTickets}" var="bTickets">
                     <option value="${bTickets.ID}"> Ticket ${bTickets.ID} Bezahlt: ${bTickets.gesamtpreis}€</option>
@@ -65,14 +61,20 @@
         <h2>Bezahlautomat</h2>
         <form method="post">
             <input type="hidden" name="aktion" value="bezahlen">
-            <input type="datetime-local" step="1" name="bezahlenTime" value="2023-04-20T09:00:00">
             <select name="ticket" id="selectBezahlen">
                 <c:forEach items="${aktiveTickets}" var="aTickets">
-                    <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID}</option>
                 </c:forEach>
             </select>
             <button id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
         </form>
     </div>
 </div>
+<br><br>
+<form method="POST">
+    <input type="hidden" name="aktion" value="changeTime">
+    <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">
+    <button id="changeTimeBtn">Change Time</button> <br>
+</form>
+
 </body>

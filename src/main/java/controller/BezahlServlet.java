@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @WebServlet(name="controller.BezahlServlet", value="/bezahlen")
 public class BezahlServlet extends HttpServlet {
@@ -35,7 +34,7 @@ public class BezahlServlet extends HttpServlet {
         }
 
         // die aktuelle (gePOSTete Zeit) parsen
-        LocalDateTime time = LocalDateTime.parse(req.getParameter("bezahlenTime"), DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime time = parkhaus.getAktuelleZeit();
 
         // ticket bezahlen
         parkhaus.getAutomat().bezahlen(parkhaus.getTicket(Integer.parseInt(ticketNr)), time);

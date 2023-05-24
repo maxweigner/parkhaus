@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
 @WebServlet(name="controller.CheckInServlet", value="/checkIn")
 public class CheckInServlet extends HttpServlet {
     ParkhausIF parkhaus;
@@ -22,7 +20,7 @@ public class CheckInServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        LocalDateTime time = LocalDateTime.parse(req.getParameter("checkInTime"), ISO_LOCAL_DATE_TIME);
+        LocalDateTime time = parkhaus.getAktuelleZeit();
         int preis = (Integer) getServletContext().getAttribute("globalPreis");
 
         TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0], preis); //EinfahrtSchranke

@@ -29,15 +29,14 @@ public interface ParkhausIF {
     /**
      * Startet den Ladevorgang an einer Ladesäule
      * @param ticket Ticket, dass zur Abrechnung genutzt wird
-     * @param start Uhrzeit zu welcher angefangen wurde zu laden
      */
-    void startLaden(TicketIF ticket, LocalDateTime start);
+    void startLaden(TicketIF ticket);
 
     /**
      * Stoppt den Ladevorgang an einer Ladesäule
      * @param ticket: Ticket, dass zur Abrechnung genutzt wird
      */
-    void stopLaden(TicketIF ticket, LocalDateTime end, int stundenPreis);
+    void stopLaden(TicketIF ticket, int stundenPreis);
 
     /**
      * Gibt die Anzahl an noch verfügbaren Plätzen aus
@@ -105,4 +104,14 @@ public interface ParkhausIF {
      * @param spaces Die neue Anzahl der freien Plätze
      */
     void setAnzahlPlaetze(int spaces);
+
+    /**
+     * Gibt die aktuell für das Parkhaus gültige Zeit aus.
+     * Die neue Zeit muss chronologisch der alten Zeit folgen.
+     * @param now die neue Zeit
+     * @return true wenn die neue Zeit übernommen wurde
+     */
+    boolean setAktuelleZeit(LocalDateTime now);
+
+    LocalDateTime getAktuelleZeit();
 }

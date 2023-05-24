@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
 public class Parkhaus implements ParkhausIF {
     private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
@@ -15,18 +17,20 @@ public class Parkhaus implements ParkhausIF {
     private SchrankeIF[] schranken; // alle verfügbaren Schranken
     private List<TicketIF> ticketListe = new LinkedList<>();
     private BezahlautomatIF automat = new Bezahlautomat();
+    private LocalDateTime aktuelleZeit;
 
     /**
      * Konstruktur, der ein Parkhaus mit 100 Parkplaetzen und zwei Ein - sowie Ausfahrtsschranken initialisiert.
      */
     public Parkhaus(){
-        this.freiePlaetze = 100;
-        this.kapazitaet = 100;
-        this.schranken = new Schranke[2];
-        this.schranken[0] = new Schranke();
-        this.schranken[0].setSchranke("einfahrt");
-        this.schranken[1] = new Schranke();
-        this.schranken[1].setSchranke("ausfahrt");
+        freiePlaetze = 100;
+        kapazitaet = 100;
+        schranken = new Schranke[2];
+        schranken[0] = new Schranke();
+        schranken[0].setSchranke("einfahrt");
+        schranken[1] = new Schranke();
+        schranken[1].setSchranke("ausfahrt");
+        aktuelleZeit = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
     /**
@@ -38,6 +42,7 @@ public class Parkhaus implements ParkhausIF {
     public Parkhaus(int kapazitaet, int anzahlEinfahrtSchranken, int anzahlAusfahrtSchranken){
         this.freiePlaetze = kapazitaet;
         this.kapazitaet = kapazitaet;
+        this.aktuelleZeit = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         int anzahlSchranken = anzahlEinfahrtSchranken + anzahlAusfahrtSchranken; // Summe der Schranken
         this.schranken = new SchrankeIF[anzahlSchranken];
         for (int i = 0; i < anzahlSchranken; i++){
@@ -91,8 +96,11 @@ public class Parkhaus implements ParkhausIF {
                 ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
             schranke.open();
             schranke.close();
+
             ticket.setGueltigkeit(false);
+            ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
             this.freiePlaetze++;
+
             return true;
         }
         ticket.setAusfahrtsZeit(null);
@@ -100,13 +108,13 @@ public class Parkhaus implements ParkhausIF {
     }
 
     @Override
-    public void startLaden(TicketIF ticket, LocalDateTime start) {
-        ticket.setStartLadeZeit(start);
+    public void startLaden(TicketIF ticket) {
+        ticket.setStartLadeZeit(aktuelleZeit);
     }
 
     @Override
-    public void stopLaden(TicketIF ticket, LocalDateTime end, int stundenPreis) {
-        long ladeStunden = ticket.getStartLadeZeit().until(end, ChronoUnit.HOURS);
+    public void stopLaden(TicketIF ticket, int stundenPreis) {
+        long ladeStunden = ticket.getStartLadeZeit().until(aktuelleZeit, ChronoUnit.HOURS);
         ticket.setGesamtpreis(ticket.getGesamtpreis() + stundenPreis * ((int) ladeStunden));
     }
 
@@ -136,7 +144,8 @@ public class Parkhaus implements ParkhausIF {
                 if (ticket.istBezahlt() && "bezahlt".equals(bezahltUnbezahlt)){ // falls die bezahlten gesucht sind
                     tickets.add(ticket);
                 } else if (!ticket.istBezahlt() && "unbezahlt".equals(bezahltUnbezahlt)){ // falls die unbezahlten gesucht sind
-                    tickets.add(ticket);
+                    if (ticket.getStartLadeZeit() == null)
+                        tickets.add(ticket);
                 }
             }
         }
@@ -185,13 +194,14 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public TicketIF[] getLadendeTickets(){
-        LinkedList<TicketIF> tickets = new LinkedList<>(Arrays.asList(getUnbezahlteTickets()));
+        LinkedList<TicketIF> tickets = new LinkedList<>(ticketListe);
 
         Iterator<TicketIF> itr = tickets.iterator();
 
         if (itr.hasNext()) {
             do {
-                if (itr.next().getStartLadeZeit() == null) {
+                TicketIF ticket = itr.next();
+                if (ticket.getStartLadeZeit() == null || !ticket.istGueltig()) {
                     itr.remove();
                 }
             } while (itr.hasNext());
@@ -211,5 +221,19 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public void setAnzahlPlaetze(int plaetze) {
         this.freiePlaetze = plaetze;
+    }
+
+    @Override
+    public boolean setAktuelleZeit(LocalDateTime now) {
+        if (now.isAfter(aktuelleZeit)) {
+            aktuelleZeit = now;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public LocalDateTime getAktuelleZeit() {
+        return aktuelleZeit;
     }
 }
