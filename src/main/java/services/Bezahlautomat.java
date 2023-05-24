@@ -40,9 +40,12 @@ public class Bezahlautomat implements BezahlautomatIF {
             ticket.setGesamtpreis(gesamtPreis);
             einnahmen.addIncome(gesamtPreis);
         }else{
+            //Ticket ist ein Monatsticket
             ticket.setZahlungsZeit(time);
             ticket.setBezahlt();
-            einnahmen.addIncome(50);
+            if(ticket.getGesamtpreis() != 0) {
+                einnahmen.addIncome(50);
+            }
         }
         return true;
     }
