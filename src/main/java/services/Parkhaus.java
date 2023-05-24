@@ -99,10 +99,9 @@ public class Parkhaus implements ParkhausIF {
             ticket.setGueltigkeit(false);
             if(ticket.isMonatsTicket()){
                 if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1))){
-                    ticket.setGueltigkeit(true);
+                    ticket.setGueltigkeit(false);
                     ticket.setBezahlung(true);
-                    throw new IllegalStateException("Ticket wurde überzogen, Betreiber kontaktieren");
-                    //return false;
+                    return false;
                 }
                 ticket.setBezahlung(false);
                 this.freiePlaetze++;
