@@ -13,7 +13,6 @@
 <div id="dashboard">
     <div id="Einfahrt">
         <h2>Einfahrt</h2>
-        <img>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
             <button id="checkInBtn">Check In</button> <br>
@@ -63,7 +62,12 @@
             <input type="hidden" name="aktion" value="bezahlen">
             <select name="ticket" id="selectBezahlen">
                 <c:forEach items="${aktiveTickets}" var="aTickets">
-                    <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID}</option>
+                    <c:if test="${aTickets.monatsTicket == true}">
+                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID} (Monatsticket)</option>}
+                    </c:if>
+                    <c:if test="${aTickets.monatsTicket == false}">
+                        <option value="${aTickets.ID}"> Ticket-Nr: ${aTickets.ID}</option>}
+                    </c:if>
                 </c:forEach>
             </select>
             <button id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
@@ -76,5 +80,4 @@
     <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">
     <button id="changeTimeBtn">Change Time</button> <br>
 </form>
-
 </body>

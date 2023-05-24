@@ -35,6 +35,12 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String aktion = req.getParameter("aktion");
+        //Monatsticket erstellen
+        if (aktion.equals("checkInMonat")) {
+            req.getRequestDispatcher("/checkInMonatsticket").forward(req, res);
+            return;
+        }
         // benötigte parameter einfügen
         ParkhausServlet.doOnEveryRequest(req);
         addParams(req);

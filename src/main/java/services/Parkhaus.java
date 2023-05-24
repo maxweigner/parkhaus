@@ -92,12 +92,25 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        if (ticket.istBezahlt() &&
+        if (ticket.istBezahlt() && ticket.istGueltig() &&
                 ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
             schranke.open();
             schranke.close();
-
             ticket.setGueltigkeit(false);
+            if(ticket.isMonatsTicket()){
+                System.out.println("TEST1");
+
+                if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1))){
+                    System.out.println("TEST2");
+                    ticket.setGueltigkeit(true);
+                    return false;
+                }
+                ticket.setBezahlung(false);
+                this.freiePlaetze++;
+                ticket.setAusfahrtsZeit(null);
+                return true;
+            }
+            System.out.println("TEST3");
             ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
             this.freiePlaetze++;
 
@@ -236,4 +249,5 @@ public class Parkhaus implements ParkhausIF {
     public LocalDateTime getAktuelleZeit() {
         return aktuelleZeit;
     }
+
 }

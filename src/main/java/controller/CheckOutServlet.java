@@ -30,7 +30,7 @@ public class CheckOutServlet extends HttpServlet {
         ticket.setAusfahrtsZeit(parkhaus.getAktuelleZeit());
 
         if (!parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0])){
-            System.out.println("*** Ausfahrt abgelehnt ***");
+            System.out.println("*** Ausfahrt abgelehnt, Betreiber kontaktieren ***");
         }
 
         ParkhausServlet.doOnEveryRequest(req);

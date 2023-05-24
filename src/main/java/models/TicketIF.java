@@ -77,4 +77,7 @@ public interface TicketIF {
      * @return
      */
     LocalDateTime getStartLadeZeit();
+    boolean isMonatsTicket();
+    void setBezahlung(boolean b);
+    void setMonatsTicket(boolean monatsTicket);
 }

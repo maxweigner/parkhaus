@@ -57,5 +57,10 @@
         <input type="time" id="schliesszeit" name="schliesszeit">
     </form>
 
+    Monatsticket erstellen <br>
+    <form method="POST">
+        <input type="hidden" name="aktion" value="checkInMonat" >
+        <button id="checkInMonBtn">Erstellen</button> <br>
+    </form>
 </body>
 </html>

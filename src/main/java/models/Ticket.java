@@ -13,6 +13,7 @@ public class Ticket implements TicketIF{
     private boolean gueltig = true;
     private int gesamtpreis = 0;
     private LocalDateTime startLadeZeit;
+    private boolean monatsTicket = false;
 
     /**
      * @param ID Identifikationsnummer des Tickets
@@ -82,6 +83,9 @@ public class Ticket implements TicketIF{
     public void setBezahlt() {
         this.bezahlt = true;
     }
+    public void setBezahlung(boolean b){
+        this.bezahlt = b;
+    }
 
     @Override
     public boolean istBezahlt() {
@@ -111,4 +115,11 @@ public class Ticket implements TicketIF{
     }
 
 
+    public boolean isMonatsTicket() {
+        return monatsTicket;
+    }
+
+    public void setMonatsTicket(boolean monatsTicket) {
+        this.monatsTicket = monatsTicket;
+    }
 }
