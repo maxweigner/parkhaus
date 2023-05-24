@@ -20,15 +20,17 @@
 }
 
 #Einfahrt{
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     text-align: center;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 #Auslastung{
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 #Auslastung{
@@ -39,9 +41,10 @@
 }
 
 #Ausfahrt{
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
     text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 #outBtn{
@@ -49,7 +52,47 @@
 }
 
 #automat{
-    border-style: dotted;
+    border-style: solid;
     border-color: black;
+    text-align: center;
+}
+
+#checkInBtn {
+    background-color: #008CBA;
+    border: 1px solid #008CBA;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    transition-duration: 0.4s;
+}
+
+#checkInBtn:hover {
+    background-color: white; /* Green */
+    color: black;
+}
+
+button {
+    background-color: #008CBA;
+    border: 1px solid #008CBA;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    transition-duration: 0.4s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background-color: white; /* Green */
+    color: black;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+#changeTime{
     text-align: center;
 }

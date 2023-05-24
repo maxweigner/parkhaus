@@ -9,10 +9,10 @@
     <meta http-equiv="refresh" content="180; url=">
 </head>
 <body onload="javascript:main(${freiePlaetze})">
-<h2 id="ueberschrift">Parkhaus</h2>
+<h1 id="ueberschrift">🅿️ Parkhaus 🅿️</h1>
 <div id="dashboard">
     <div id="Einfahrt">
-        <h2>Einfahrt</h2>
+        <h2 class="">Einfahrt</h2>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
             <button id="checkInBtn">Check In</button> <br>
@@ -22,7 +22,7 @@
             <h4>${auslastung}%</h4>
         </div>
         <div id="Ladestation">
-            <h2>Ladestation</h2>
+            <h2>Ladestation 🔌</h2>
             <form method="post">
                 <input type="hidden" name="aktion" value="startLaden">
                 <select name="ticket" id="selectStartCharge">
@@ -75,9 +75,14 @@
     </div>
 </div>
 <br><br>
-<form method="POST">
-    <input type="hidden" name="aktion" value="changeTime">
-    <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">
-    <button id="changeTimeBtn">Change Time</button> <br>
-</form>
+<div id="changeTime">
+    <form method="POST">
+         ⌛ ️
+        <input type="hidden" name="aktion" value="changeTime">
+        <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">
+        <button id="changeTimeBtn">Change Time</button>
+          ⌛️
+        ️ <br>
+    </form>
+</div>
 </body>
