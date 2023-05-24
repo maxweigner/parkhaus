@@ -26,6 +26,18 @@ public class Ticket implements TicketIF{
         this.startLadeZeit = null;
     }
 
+    /**
+     * @param ID Identifikationsnummer des Tickets
+     * @param preis Preis des Tickets
+     * @param currentTime Die Einfahrtszeit
+     */
+    public Ticket(int ID, int preis, LocalDateTime currentTime){
+        this.ID = ID;
+        this.preis = preis;
+        this.einfahrtsZeit = currentTime;
+        this.startLadeZeit = null;
+    }
+
     public int getGesamtpreis(){
         return this.gesamtpreis;
     }
@@ -66,7 +78,8 @@ public class Ticket implements TicketIF{
 
     @Override
     public void setEinfahrtsZeit(LocalDateTime time) {
-        this.einfahrtsZeit = time;
+        if (!monatsTicket)
+            this.einfahrtsZeit = time;
     }
 
     @Override

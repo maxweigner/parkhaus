@@ -21,6 +21,12 @@ public interface ParkhausIF {
     Ticket einfahrt(SchrankeIF schranke, int preis);
 
     /**
+     * Erstellt ein neues Ticket zum angegebenen Zeitpunkt
+     * @return Ticket
+     */
+    Ticket einfahrt(SchrankeIF schranke, int preis, LocalDateTime aktuelleZeit);
+
+    /**
      * Ticket prüfen und Schranke öffnen, wenn in den letzten 15 Minuten bezahlt wurde
      * @param ticket: gültiges Ticket
      */

@@ -23,7 +23,10 @@ public class MonatsticketServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LocalDateTime time = parkhaus.getAktuelleZeit();
 
-        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0], 50); //EinfahrtSchranke
+        TicketIF ticket = parkhaus.einfahrt(
+                parkhaus.getEinfahrtSchranken()[0],
+                50,
+                parkhaus.getAktuelleZeit()); //EinfahrtSchranke
         ticket.setGesamtpreis(50);
         ticket.setEinfahrtsZeit(time);
         ticket.setMonatsTicket(true);
