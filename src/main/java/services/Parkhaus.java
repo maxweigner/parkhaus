@@ -98,19 +98,17 @@ public class Parkhaus implements ParkhausIF {
             schranke.close();
             ticket.setGueltigkeit(false);
             if(ticket.isMonatsTicket()){
-                System.out.println("TEST1");
-
                 if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1))){
-                    System.out.println("TEST2");
                     ticket.setGueltigkeit(true);
+                    ticket.setBezahlung(true);
                     return false;
                 }
                 ticket.setBezahlung(false);
                 this.freiePlaetze++;
-                ticket.setAusfahrtsZeit(null);
+                ticket.setGueltigkeit(true);
+                ticket.setGesamtpreis(0);
                 return true;
             }
-            System.out.println("TEST3");
             ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
             this.freiePlaetze++;
 
