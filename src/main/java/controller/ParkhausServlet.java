@@ -39,6 +39,15 @@ public class ParkhausServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         doOnEveryRequest(req);
+
+        // das kann nicht in die doOnEveryRequest
+        String oeffnungszeit = ((LocalTime)getServletContext().getAttribute("oeffnungszeit"))
+                .plusMinutes(1).toString();
+        String schliesszeit = ((LocalTime)getServletContext().getAttribute("schliesszeit"))
+                .minusMinutes(1).toString();
+        req.setAttribute("oeffnungszeit", oeffnungszeit);
+        req.setAttribute("schliesszeit", schliesszeit);
+
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 
@@ -88,6 +97,12 @@ public class ParkhausServlet extends HttpServlet {
                 doGet(req, res);
                 break;
         }
+
+        // das kann nicht in die doOnEveryRequest
+        String open = oeffnungszeit.plusMinutes(1).toString();
+        String close = schliesszeit.minusMinutes(1).toString();
+        req.setAttribute("oeffnungszeit", open);
+        req.setAttribute("schliesszeit", close);
     }
 
     public static void doOnEveryRequest(HttpServletRequest req){

@@ -35,15 +35,16 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String aktion = req.getParameter("aktion");
+        // benötigte parameter einfügen
+        ParkhausServlet.doOnEveryRequest(req);
+
         //Monatsticket erstellen
+        String aktion = req.getParameter("aktion");
         if (aktion.equals("checkInMonat")) {
+            addParams(req); // falls die oeffnungszeiten sich nicht ändern, müssen die alten mitgegeben werden
             req.getRequestDispatcher("/checkInMonatsticket").forward(req, res);
             return;
         }
-        // benötigte parameter einfügen
-        ParkhausServlet.doOnEveryRequest(req);
-        addParams(req);
 
         // ticket id holen
         String ticketNr = req.getParameter("ticket");
@@ -62,6 +63,7 @@ public class AdminServlet extends HttpServlet {
             getServletContext().setAttribute("schliesszeit", LocalTime.parse(schliesszeit, DateTimeFormatter.ISO_LOCAL_TIME).plusMinutes(1));
         }
 
+        addParams(req); // falls die oeffnungszeiten sich ändern, müssen die neuen mitgegeben werden
         req.getRequestDispatcher("admin.jsp").forward(req, res);
     }
 
@@ -72,5 +74,13 @@ public class AdminServlet extends HttpServlet {
         req.setAttribute("AnzahlEinfahrten", einnahmen.soldTickets() + parkhaus.getUnbezahlteTickets().length);
         req.setAttribute("AnzahlAusfahrten", einnahmen.soldTickets() - parkhaus.getBezahlteTickets().length);
         req.setAttribute("Auslastung", (parkhaus.getUnbezahlteTickets().length + parkhaus.getBezahlteTickets().length) / (float)parkhaus.getKapazitaet() * 100);
+
+        String oeffnungszeit = ((LocalTime)getServletContext().getAttribute("oeffnungszeit"))
+                .plusMinutes(1).toString();
+        String schliesszeit = ((LocalTime)getServletContext().getAttribute("schliesszeit"))
+                .minusMinutes(1).toString();
+
+        req.setAttribute("oeffnungszeit", oeffnungszeit);
+        req.setAttribute("schliesszeit", schliesszeit);
     }
 }
