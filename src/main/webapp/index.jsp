@@ -15,14 +15,15 @@
     <div id="dashboard">
     <div id="Einfahrt">
         <h2 class="">Einfahrt</h2>
-        <form method="POST">
-            <input type="hidden" name="aktion" value="checkIn">
-            <button id="checkInBtn">Check In</button> <br>
-        </form>
+
         <div id="Auslastung">
             <h3>Auslastung</h3>
             <h4>${auslastung}%</h4>
         </div>
+        <form method="POST">
+            <input type="hidden" name="aktion" value="checkIn">
+            <button id="checkInBtn" class="button">Check In</button> <br>
+        </form>
         <div id="Ladestation">
             <h2>Ladestation 🔌</h2>
             <form method="post">
@@ -32,7 +33,7 @@
                         <option value="${dTickets.ID}"> Ticket-Nr: ${dTickets.ID}</option>
                     </c:forEach>
                 </select>
-                <button id="startChargeBtn" name="startChargeBtn" disabled>Start</button>
+                <button  class="button" id="startChargeBtn" name="startChargeBtn" disabled>Start</button>
             </form>
             <form method="post">
                 <input type="hidden" name="aktion" value="stopLaden">
@@ -41,22 +42,9 @@
                         <option value="${cTickets.ID}"> Ticket-Nr: ${cTickets.ID}</option>
                     </c:forEach>
                 </select>
-                <button id="stopChargeBtn" name="stopChargeBtn" disabled>Stop</button>
+                <button  class="button" id="stopChargeBtn" name="stopChargeBtn" disabled>Stop</button>
             </form>
         </div>
-    </div>
-    <div id="Ausfahrt">
-        <h2>Ausfahrt</h2>
-        <img>
-        <form method="POST">
-            <input type="hidden" name="aktion" value="checkOut">
-            <select name="ticket" id="selectAusfahrt">
-                <c:forEach items="${bezahlteTickets}" var="bTickets">
-                    <option value="${bTickets.ID}"> Ticket ${bTickets.ID} Bezahlt: ${bTickets.gesamtpreis}€</option>
-                </c:forEach>
-            </select>
-            <button id="outBtn" disabled>Check Out</button>
-        </form>
     </div>
     <div id="automat">
         <h2>Bezahlautomat</h2>
@@ -72,19 +60,35 @@
                     </c:if>
                 </c:forEach>
             </select>
-            <button id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
+            <button  class="button" id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
         </form>
+        <div id="changeTime">
+            <h2>Zeitreise</h2>
+            <form method="POST">
+                ⌛ ️
+                <input type="hidden" name="aktion" value="changeTime">
+                <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">⌛️
+                <br>
+                <button id="changeTimeBtn" class="button">Change Time</button>
+
+            </form>
+        </div>
     </div>
-</div>
-<br><br>
-<div id="changeTime">
-    <form method="POST">
-         ⌛ ️
-        <input type="hidden" name="aktion" value="changeTime">
-        <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">
-        <button id="changeTimeBtn">Change Time</button>
-          ⌛️
-        ️ <br>
-    </form>
+    <div id="Ausfahrt">
+            <h2>Ausfahrt</h2>
+            <form method="POST">
+                <input type="hidden" name="aktion" value="checkOut">
+                <select name="ticket" id="selectAusfahrt">
+                    <c:forEach items="${bezahlteTickets}" var="bTickets">
+                        <option value="${bTickets.ID}"> Ticket ${bTickets.ID} Bezahlt: ${bTickets.gesamtpreis}€</option>
+                    </c:forEach>
+                </select>
+                <button id="outBtn"  class="button" disabled>Check Out</button>
+            </form>
+            <br>
+            <h2>Admin</h2>
+            <a href="${pageContext.request.contextPath}/admin" class="button">AdminPage</a>
+    </div>
+
 </div>
 </body>
