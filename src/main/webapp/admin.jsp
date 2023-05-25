@@ -42,7 +42,7 @@
                         <option value="${aTickets.ID}"> Ticket: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
                     </c:forEach>
                 </select>
-                <button id="outBtn">Submit</button>
+                <button id="outBtn" class="button">Submit</button>
                 <%
                 // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
                 // todo fabian schau mal bitte js ist ja dein ding
@@ -51,7 +51,7 @@
             <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
             <form method="POST">
                 <input type="number" name="preisGlobal">
-                <button id="gBtn">Submit</button>
+                <button id="gBtn" class="button">Submit</button>
             </form>
         </div>
         <div id="rest">
@@ -59,8 +59,10 @@
             <h3>Monatsticket erstellen </h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="checkInMonat" >
-                <button id="checkInMonBtn">Erstellen</button> <br>
+                <button id="checkInMonBtn" class="button">Erstellen</button> <br>
             </form>
+            <h3>Parkplatz</h3>
+            <a href="${pageContext.request.contextPath}" class="button">AdminPage</a>
         </div>
     </div>
 </body>
