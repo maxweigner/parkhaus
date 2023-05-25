@@ -1,6 +1,24 @@
-#ueberschrift{
-    text-align: center;
+body{
+    background-image: url("background.jpeg");
+    font-family: system-ui;
 }
+
+h1{
+    text-align: center;
+    color: white;
+    font-family: system-ui;
+}
+
+h3{
+    margin-top: 35px;
+    margin-bottom: 0;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #dashboard{
     display: flex;
     width: 99%;
@@ -17,6 +35,7 @@
 
 #dashboard > div {
     border-radius: 5px;
+    background-color: white;
 }
 
 #Einfahrt{
@@ -57,26 +76,9 @@
     text-align: center;
 }
 
-#checkInBtn {
-    background-color: #008CBA;
-    border: 1px solid #008CBA;
-    color: white;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    transition-duration: 0.4s;
-}
-
-#checkInBtn:hover {
-    background-color: white; /* Green */
-    color: black;
-}
-
 button {
-    background-color: #008CBA;
-    border: 1px solid #008CBA;
+    background-color: #0c4186;
+    border: 1px solid #0c4186;
     color: white;
     padding: 5px 15px;
     text-align: center;
@@ -95,4 +97,27 @@ button:hover {
 
 #changeTime{
     text-align: center;
+}
+
+/*Admin Page */
+
+#uebersicht{
+    display: flex;
+    width: 99%;
+    height: 80%;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+
+}
+
+#uebersicht > div {
+    width: 30%;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    text-align: center;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    background-color: white;
 }

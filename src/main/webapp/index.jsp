@@ -9,8 +9,10 @@
     <meta http-equiv="refresh" content="180; url=">
 </head>
 <body onload="javascript:main(${freiePlaetze})">
-<h1 id="ueberschrift">🅿️ Parkhaus 🅿️</h1>
-<div id="dashboard">
+    <div class="header">
+        <img src="favicon.png" style="width: 40px; height: 40px; margin: 5px;"> <h1 id="ueberschrift"> Parkhaus </h1> <img src="favicon.png" style="width: 40px; height: 40px; margin: 5px;">
+    </div>
+    <div id="dashboard">
     <div id="Einfahrt">
         <h2 class="">Einfahrt</h2>
         <form method="POST">

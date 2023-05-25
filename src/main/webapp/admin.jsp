@@ -4,63 +4,64 @@
 <html>
 <head>
     <title>AdminPanel</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body onload="javascript:enableButtonsAdmin()">
-    Verkaufte Tickets: <%=
-        request.getAttribute("VerkaufteTickets")
-    %> <br>
-    Durchschnittliche Einnahmen: <%=
-        request.getAttribute("DurchschnittlicheEinnahmen")
-    %> <br>
-    Gesamteinnahmen: <%=
-        request.getAttribute("Gesamteinnahmen")
-    %> <br> <br>
-    Anzahl Einfahrten: <%=
-        request.getAttribute("AnzahlEinfahrten")
-    %> <br>
-    Anzahl Ausfahrten: <%=
-        request.getAttribute("AnzahlAusfahrten")
-    %> <br>
-    Auslastung: <%=
-        request.getAttribute("Auslastung")
-    %> % <br> <br>
+<div class="header">
+    <h1 style="text-align:center">Verwaltung</h1>
+</div>
+    <div id="uebersicht">
+        <div id="adminAllgemein">
+            <h2>📊 Statistik 📊 </h2>
+            <h3>Verkaufte Tickets: <%=request.getAttribute("VerkaufteTickets")%></h3>
+            <h3>Durchschnittliche Einnahmen: <%=request.getAttribute("DurchschnittlicheEinnahmen")%></h3>
+            <h3>Gesamteinnahmen: <%=request.getAttribute("Gesamteinnahmen")%></h3>
+            <h3>Anzahl Einfahrten: <%=request.getAttribute("AnzahlEinfahrten")%></h3>
+            <h3>Anzahl Ausfahrten: <%=request.getAttribute("AnzahlAusfahrten")%></h3>
+            <h3>Auslastung: <%=request.getAttribute("Auslastung")%> %</h3>
+            <h3>Öffnungs- und Schließzeiten festlegen </h3>
+            <form method="POST">
+                <input type="time" id="oeffnungszeit" name="oeffnungszeit">
+                <input type="time" id="schliesszeit" name="schliesszeit">
+            </form>
+        </div>
+        <div id="adminPreise">
+            <h2>💵 Preise 💵</h2>
+            <h3>Preis fuer ein bestimmtes Ticket setzen </h3>
+            <form method="POST">
+                <input type="hidden" name="aktion" value="admin">
+                <input type="number" name="preis">
+                <select name="ticket" id="selectTicket">
+                    <c:forEach items="${bezahlteTickets}" var="bTickets">
+                        <option value="${bTickets.ID}"> Ticket: ${bTickets.ID} Preis: ${bTickets.gesamtpreis}</option>
+                    </c:forEach>
 
-    Preis fuer ein bestimmtes Ticket setzen <br>
-    <form method="POST">
-        <input type="hidden" name="aktion" value="admin">
-        <input type="number" name="preis">
-        <select name="ticket" id="selectTicket">
-            <c:forEach items="${bezahlteTickets}" var="bTickets">
-                <option value="${bTickets.ID}"> Ticket: ${bTickets.ID} Preis: ${bTickets.gesamtpreis}</option>
-            </c:forEach>
-
-            <c:forEach items="${aktiveTickets}" var="aTickets">
-                <option value="${aTickets.ID}"> Ticket: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
-            </c:forEach>
-        </select>
-        <button id="outBtn">Submit</button>
-        <%
-            // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
-            // todo fabian schau mal bitte js ist ja dein ding
-        %>
-    </form> <br> <br>
-
-    Preis global für alle in Zukunft erstellte Tickets setzen <br>
-    <form method="POST">
-        <input type="number" name="preisGlobal">
-        <button id="gBtn">Submit</button>
-    </form>
-
-    Öffnungs- und Schließzeiten festlegen <br>
-    <form method="POST">
-        <input type="time" id="oeffnungszeit" name="oeffnungszeit">
-        <input type="time" id="schliesszeit" name="schliesszeit">
-    </form>
-
-    Monatsticket erstellen <br>
-    <form method="POST">
-        <input type="hidden" name="aktion" value="checkInMonat" >
-        <button id="checkInMonBtn">Erstellen</button> <br>
-    </form>
+                    <c:forEach items="${aktiveTickets}" var="aTickets">
+                        <option value="${aTickets.ID}"> Ticket: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                    </c:forEach>
+                </select>
+                <button id="outBtn">Submit</button>
+                <%
+                // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
+                // todo fabian schau mal bitte js ist ja dein ding
+                %>
+            </form>
+            <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
+            <form method="POST">
+                <input type="number" name="preisGlobal">
+                <button id="gBtn">Submit</button>
+            </form>
+        </div>
+        <div id="rest">
+            <h2>sonstiges</h2>
+            <h3>Monatsticket erstellen </h3>
+            <form method="POST">
+                <input type="hidden" name="aktion" value="checkInMonat" >
+                <button id="checkInMonBtn">Erstellen</button> <br>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
