@@ -21,11 +21,6 @@
             <h3>Anzahl Einfahrten: <%=request.getAttribute("AnzahlEinfahrten")%></h3>
             <h3>Anzahl Ausfahrten: <%=request.getAttribute("AnzahlAusfahrten")%></h3>
             <h3>Auslastung: <%=request.getAttribute("Auslastung")%> %</h3>
-            <h3>Öffnungs- und Schließzeiten festlegen </h3>
-            <form method="POST">
-                <input type="time" id="oeffnungszeit" name="oeffnungszeit">
-                <input type="time" id="schliesszeit" name="schliesszeit">
-            </form>
         </div>
         <div id="adminPreise">
             <h2>💵 Preise 💵</h2>
@@ -43,10 +38,6 @@
                     </c:forEach>
                 </select>
                 <button id="outBtn">Submit</button>
-                <%
-                // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
-                // todo fabian schau mal bitte js ist ja dein ding
-                %>
             </form>
             <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
             <form method="POST">
@@ -55,11 +46,18 @@
             </form>
         </div>
         <div id="rest">
-            <h2>sonstiges</h2>
+            <h2>Sonstiges</h2>
             <h3>Monatsticket erstellen </h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="checkInMonat" >
                 <button id="checkInMonBtn">Erstellen</button> <br>
+            </form>
+            <h3>Öffnungs- und Schließzeiten festlegen </h3>
+            <form method="POST">
+                <input type="hidden" name="aktion" value="admin">
+                <input type="time" id="oeffnungszeit" name="oeffnungszeit" value="${oeffnungszeit}">
+                <input type="time" id="schliesszeit" name="schliesszeit" value="${schliesszeit}">
+                <button id="zBtn">Submit</button>
             </form>
         </div>
     </div>
