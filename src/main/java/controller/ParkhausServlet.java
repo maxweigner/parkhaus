@@ -19,7 +19,6 @@ import services.*;
 @WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
     private static ParkhausIF parkhaus;
-    private LocalDateTime aktuelleZeit;
 
     /**
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
