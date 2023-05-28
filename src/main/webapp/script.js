@@ -7,6 +7,12 @@ function main(freiePlaetze, auslastung) {
 function progress(number) {
     var element = document.getElementById("progressBar"); // wählt element aus
     element.style.width = number + "%"; // stellt breite ein
+    if (number > 75) {
+        element.style.backgroundColor = "yellow";
+    }
+    if (number > 95) {
+        element.style.backgroundColor = "red";
+    }
 }
 
 function enableButtons() {
