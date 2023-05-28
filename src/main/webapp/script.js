@@ -1,6 +1,12 @@
-function main(auslastung) {
-    document.getElementById("checkInBtn").addEventListener("click", disableCheckIn(auslastung));
+function main(freiePlaetze, auslastung) {
+    document.getElementById("checkInBtn").addEventListener("click", disableCheckIn(freiePlaetze));
+    progress(auslastung);
     enableButtons();
+}
+
+function progress(number) {
+    var element = document.getElementById("progressBar"); // wählt element aus
+    element.style.width = number + "%"; // stellt breite ein
 }
 
 function enableButtons() {

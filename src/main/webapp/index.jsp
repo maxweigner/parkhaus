@@ -8,17 +8,20 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta http-equiv="refresh" content="180; url=">
 </head>
-<body onload="javascript:main(${freiePlaetze})">
+<body onload="javascript:main(${freiePlaetze}, ${auslastung})">
     <div class="header">
         <img src="favicon.png" style="width: 40px; height: 40px; margin: 5px;"> <h1 id="ueberschrift"> Parkhaus </h1> <img src="favicon.png" style="width: 40px; height: 40px; margin: 5px;">
     </div>
     <div id="dashboard">
     <div id="Einfahrt">
         <h2 class="">Einfahrt</h2>
-
         <div id="Auslastung">
             <h3>Auslastung</h3>
-            <h4>${auslastung}%</h4>
+            <div id="progress">
+                <h4 id="auslastungsHeader">${auslastung}%</h4>
+                <div id="progressBar">
+                </div>
+            </div>
         </div>
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
