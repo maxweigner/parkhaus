@@ -1,5 +1,6 @@
 package controller;
 
+import models.TicketIF;
 import services.ParkhausIF;
 
 import javax.servlet.ServletException;
@@ -18,10 +19,13 @@ public class StartLadenServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String ticket = req.getParameter("ticket"); // ausgewähltes Ticket
+        String ticketStr = req.getParameter("ticket"); // ausgewähltes Ticket
 
-        if (ticket != null) {
-            parkhaus.startLaden(parkhaus.getTicket(Integer.parseInt(ticket)));
+
+        if (ticketStr != null) {
+            TicketIF ticket = parkhaus.getTicket(Integer.parseInt(ticketStr));
+            if(ticket.getStartLadeZeit() == null)
+                parkhaus.startLaden(ticket);
         }
 
         ParkhausServlet.doOnEveryRequest(req); // Endroutine
