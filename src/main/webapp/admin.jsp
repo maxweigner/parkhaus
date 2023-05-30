@@ -23,8 +23,8 @@
             <h3>Auslastung: <%=request.getAttribute("Auslastung")%> %</h3>
             <h3>Öffnungs- und Schließzeiten festlegen </h3>
             <form method="POST">
-                <input type="time" id="oeffnungszeit" name="oeffnungszeit">
-                <input type="time" id="schliesszeit" name="schliesszeit">
+                <input type="time" id="oeffnungszeit" name="oeffnungszeit" value="<c:out value="${oeffnungszeit}" />">
+                <input type="time" id="schliesszeit" name="schliesszeit" value="<c:out value="${schliesszeit}" />">
             </form>
         </div>
         <div id="adminPreise">
@@ -43,10 +43,6 @@
                     </c:forEach>
                 </select>
                 <button id="outBtn" class="button">Submit</button>
-                <%
-                // der button sollte disabled sein geht so aber noch nicht wegen javascript oder so
-                // todo fabian schau mal bitte js ist ja dein ding
-                %>
             </form>
             <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
             <form method="POST">
