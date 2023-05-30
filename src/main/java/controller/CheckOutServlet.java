@@ -29,9 +29,7 @@ public class CheckOutServlet extends HttpServlet {
         TicketIF ticket = parkhaus.getTicket(Integer.parseInt(id));
         ticket.setAusfahrtsZeit(parkhaus.getAktuelleZeit());
 
-        if (!parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0])){
-            System.out.println("*** Ausfahrt abgelehnt, Betreiber kontaktieren ***");
-        }
+        parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]);
 
         ParkhausServlet.doOnEveryRequest(req);
         req.getRequestDispatcher("/index.jsp").forward(req, res);

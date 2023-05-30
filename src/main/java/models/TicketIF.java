@@ -1,7 +1,9 @@
 package models;
 
+import services.EinnahmenIF;
+import services.SchrankeIF;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public interface TicketIF {
     /**
@@ -80,4 +82,9 @@ public interface TicketIF {
     boolean isMonatsTicket();
     void setBezahlung(boolean b);
     void setMonatsTicket(boolean monatsTicket);
+
+    void ausfahren(SchrankeIF schranke, LocalDateTime time);
+    void bezahlen(LocalDateTime bezahlZeit, EinnahmenIF einnahmen);
+    void startAufladen(LocalDateTime time);
+    void endAufladen(LocalDateTime time, int stundenpreis);
 }

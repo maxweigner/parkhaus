@@ -1,5 +1,8 @@
 package models;
 
+import services.EinnahmenIF;
+import services.SchrankeIF;
+
 import java.time.LocalDateTime;
 
 public class Ticket implements TicketIF{
@@ -14,6 +17,7 @@ public class Ticket implements TicketIF{
     private int gesamtpreis = 0;
     private LocalDateTime startLadeZeit;
     private boolean monatsTicket = false;
+    private TicketState state;
 
     /**
      * @param ID Identifikationsnummer des Tickets
@@ -24,6 +28,7 @@ public class Ticket implements TicketIF{
         this.preis = preis;
         this.einfahrtsZeit = LocalDateTime.now();
         this.startLadeZeit = null;
+        state = new TicketEingefahren();
     }
 
     /**
@@ -36,6 +41,7 @@ public class Ticket implements TicketIF{
         this.preis = preis;
         this.einfahrtsZeit = currentTime;
         this.startLadeZeit = null;
+        state = new TicketEingefahren();
     }
 
     public int getGesamtpreis(){
@@ -134,5 +140,33 @@ public class Ticket implements TicketIF{
 
     public void setMonatsTicket(boolean monatsTicket) {
         this.monatsTicket = monatsTicket;
+    }
+
+    @Override
+    public void ausfahren(SchrankeIF schranke, LocalDateTime time) {
+        state.ausfahren(this, schranke, time);
+        changeState(new TicketAusgefahren());
+    }
+
+    @Override
+    public void bezahlen(LocalDateTime bezahlZeit, EinnahmenIF einnahmen) {
+        state.bezahlen(this, bezahlZeit, einnahmen);
+        changeState(new TicketBezahlt());
+    }
+
+    @Override
+    public void startAufladen(LocalDateTime time) {
+        state.startAufladen(this, time);
+        changeState(new TicketLadend());
+    }
+
+    @Override
+    public void endAufladen(LocalDateTime time, int stundenpreis) {
+        state.endAufladen(this, time, stundenpreis);
+        changeState(new TicketEingefahren());
+    }
+
+    private void changeState(TicketState newState) {
+        this.state = newState;
     }
 }

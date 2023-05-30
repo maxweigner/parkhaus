@@ -109,41 +109,20 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        if (!ticket.istBezahlt() || !ticket.istGueltig() ||
-                !ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
-            ticket.setBezahlung(false);
-            return false;
-        }
-
-        schranke.open();
-        schranke.close();
-        ticket.setGueltigkeit(false);
-
-        if(ticket.isMonatsTicket()) {
-            if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1)))
-                return false;
-
-            ticket.setBezahlung(false);
-            ticket.setGueltigkeit(true);
-            ticket.setGesamtpreis(0);
-
-        } else {
-            ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
-        }
-
+        ticket.ausfahren(schranke, aktuelleZeit);
         this.freiePlaetze++;
+
         return true;
     }
 
     @Override
     public void startLaden(TicketIF ticket) {
-        ticket.setStartLadeZeit(aktuelleZeit);
+        ticket.startAufladen(aktuelleZeit);
     }
 
     @Override
     public void stopLaden(TicketIF ticket, int stundenPreis) {
-        long ladeStunden = ticket.getStartLadeZeit().until(aktuelleZeit, ChronoUnit.HOURS);
-        ticket.setGesamtpreis(ticket.getGesamtpreis() + stundenPreis * ((int) ladeStunden));
+        ticket.endAufladen(aktuelleZeit,stundenPreis);
     }
 
     /**

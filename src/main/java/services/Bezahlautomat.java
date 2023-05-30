@@ -31,20 +31,7 @@ public class Bezahlautomat implements BezahlautomatIF {
 
     @Override
     public void bezahlen(TicketIF ticket, LocalDateTime time) {
-        ticket.setZahlungsZeit(time);
-        ticket.setBezahlt();
-
-        if (ticket.isMonatsTicket() && ticket.getGesamtpreis() != 0) {
-            einnahmen.addIncome(50);
-            return;
-        }
-
-        // berechnet kosten mit parkdauer in stunden * preis des tickets
-        int preis = (int) Duration.between(ticket.getEinfahrtsZeit(), ticket.getZahlungsZeit()).toHours() * ticket.getPreis();
-        int gesamtPreis = ticket.getGesamtpreis() + preis;
-
-        ticket.setGesamtpreis(gesamtPreis);
-        einnahmen.addIncome(gesamtPreis);
+        ticket.bezahlen(time,einnahmen);
     }
 
     @Override
