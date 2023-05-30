@@ -46,6 +46,7 @@
             </form>
             <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
             <form method="POST">
+                <input type="hidden" name="aktion" value="globalPreis">
                 <input type="number" name="preisGlobal">
                 <button id="gBtn" class="button">Submit</button>
             </form>
