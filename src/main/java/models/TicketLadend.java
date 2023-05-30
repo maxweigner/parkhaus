@@ -9,17 +9,17 @@ import java.time.temporal.ChronoUnit;
 public class TicketLadend  implements TicketState {
     @Override
     public void ausfahren(TicketIF ticket, SchrankeIF schranke, LocalDateTime time) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand Bezahlt");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Ladend");
     }
 
     @Override
     public void bezahlen(TicketIF ticket, LocalDateTime bezahlZeit, EinnahmenIF einnahmen) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand Eingefahren");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Ladend");
     }
 
     @Override
     public void startAufladen(TicketIF ticket, LocalDateTime time) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand Eingefahren oder Bezahlt");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Ladend");
     }
 
     @Override

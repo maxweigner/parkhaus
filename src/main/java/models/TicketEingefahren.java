@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class TicketEingefahren  implements TicketState {
     @Override
     public void ausfahren(TicketIF ticket, SchrankeIF schranke, LocalDateTime time) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand Bezahlt");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Eingefahren");
     }
 
     @Override
@@ -37,6 +37,6 @@ public class TicketEingefahren  implements TicketState {
 
     @Override
     public void endAufladen(TicketIF ticket, LocalDateTime time, int stundenpreis) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand Ladend");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Eingefahren");
     }
 }

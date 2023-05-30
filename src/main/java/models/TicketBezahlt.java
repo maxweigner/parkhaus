@@ -46,6 +46,6 @@ public class TicketBezahlt  implements TicketState {
 
     @Override
     public void endAufladen(TicketIF ticket, LocalDateTime time, int stundenpreis) {
-        throw new IllegalStateException("Das Ticket befindet sich nicht im Zustand TicketLadend");
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Bezahlt");
     }
 }
