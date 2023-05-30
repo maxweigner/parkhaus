@@ -11,12 +11,6 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 public class TicketBezahlt  implements TicketState {
     @Override
     public void ausfahren(TicketIF ticket, SchrankeIF schranke, LocalDateTime time) {
-        if (!ticket.istBezahlt() || !ticket.istGueltig() ||
-                !ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
-            ticket.setBezahlung(false);
-            return;
-        }
-
         schranke.open();
         schranke.close();
         ticket.setGueltigkeit(false);
@@ -41,7 +35,7 @@ public class TicketBezahlt  implements TicketState {
 
     @Override
     public void startAufladen(TicketIF ticket, LocalDateTime time) {
-
+        ticket.setStartLadeZeit(time);
     }
 
     @Override

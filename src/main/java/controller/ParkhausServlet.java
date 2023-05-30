@@ -89,7 +89,6 @@ public class ParkhausServlet extends HttpServlet {
                 break;
 
             case "changeTime":
-                System.out.println("*** debug ***");
                 parkhaus.setAktuelleZeit(
                         LocalDateTime.parse(
                                 req.getParameter("changeTimeTo"), ISO_LOCAL_DATE_TIME)

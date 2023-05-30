@@ -144,6 +144,12 @@ public class Ticket implements TicketIF{
 
     @Override
     public void ausfahren(SchrankeIF schranke, LocalDateTime time) {
+        if (time.isAfter(getZahlungsZeit().plusMinutes(15))) {
+            changeState(new TicketEingefahren());
+            this.bezahlt = false;
+            return;
+        }
+
         state.ausfahren(this, schranke, time);
         changeState(new TicketAusgefahren());
     }
