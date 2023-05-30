@@ -30,7 +30,7 @@ public class TicketBezahlt  implements TicketState {
 
     @Override
     public void bezahlen(TicketIF ticket, LocalDateTime bezahlZeit, EinnahmenIF einnahmen) {
-
+        throw new IllegalStateException("Das Ticket befindet sich im Zustand Bezahlt");
     }
 
     @Override
