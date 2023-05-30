@@ -109,31 +109,30 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        if (ticket.istBezahlt() && ticket.istGueltig() &&
-                ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
-            schranke.open();
-            schranke.close();
-            ticket.setGueltigkeit(false);
-            if(ticket.isMonatsTicket()){
-                if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1))){
-                    ticket.setGueltigkeit(false);
-                    ticket.setBezahlung(true);
-                    return false;
-                }
-                ticket.setBezahlung(false);
-                this.freiePlaetze++;
-                ticket.setGueltigkeit(true);
-                ticket.setGesamtpreis(0);
-                return true;
-            }
-            ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
-            this.freiePlaetze++;
-
-            return true;
+        if (!ticket.istBezahlt() || !ticket.istGueltig() ||
+                !ticket.getZahlungsZeit().isAfter(ticket.getAusfahrtsZeit().minus(Duration.ofMinutes(15)))) {
+            ticket.setBezahlung(false);
+            return false;
         }
-        ticket.setBezahlung(false);
-        ticket.setAusfahrtsZeit(null);
-        return false;
+
+        schranke.open();
+        schranke.close();
+        ticket.setGueltigkeit(false);
+
+        if(ticket.isMonatsTicket()) {
+            if(!ticket.getAusfahrtsZeit().isBefore(ticket.getEinfahrtsZeit().plusMonths(1)))
+                return false;
+
+            ticket.setBezahlung(false);
+            ticket.setGueltigkeit(true);
+            ticket.setGesamtpreis(0);
+
+        } else {
+            ticket.setAusfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
+        }
+
+        this.freiePlaetze++;
+        return true;
     }
 
     @Override
