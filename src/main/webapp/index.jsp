@@ -66,18 +66,6 @@
             <button  class="button" id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
         </form>
         <div id="changeTime">
-            <h2>Zeitreise</h2>
-            <form method="POST">
-                ⌛ ️
-                <input type="hidden" name="aktion" value="changeTime">
-                <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">⌛️
-                <br>
-                <button id="changeTimeBtn" class="button">Change Time</button>
-
-            </form>
-        </div>
-    </div>
-    <div id="Ausfahrt">
             <h2>Ausfahrt</h2>
             <form method="POST">
                 <input type="hidden" name="aktion" value="checkOut">
@@ -88,7 +76,18 @@
                 </select>
                 <button id="outBtn"  class="button" disabled>Check Out</button>
             </form>
-            <br>
+        </div>
+    </div>
+    <div id="Ausfahrt">
+            <h2>Zeitreise</h2>
+            <form method="POST">
+                ⌛ ️
+                <input type="hidden" name="aktion" value="changeTime">
+                <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">⌛️
+                <br>
+                <button id="changeTimeBtn" class="button">Change Time</button>
+            </form>
+
             <h2>Admin</h2>
             <a href="${pageContext.request.contextPath}/admin" class="button">AdminPage</a>
     </div>

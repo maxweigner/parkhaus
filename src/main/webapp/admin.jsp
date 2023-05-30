@@ -51,14 +51,14 @@
             </form>
         </div>
         <div id="rest">
-            <h2>sonstiges</h2>
+            <h2>Sonstiges</h2>
             <h3>Monatsticket erstellen </h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="checkInMonat" >
                 <button id="checkInMonBtn" class="button">Erstellen</button> <br>
             </form>
             <h3>Parkplatz</h3>
-            <a href="${pageContext.request.contextPath}" class="button">AdminPage</a>
+            <a href="${pageContext.request.contextPath}" class="button">Parkhaus</a>
         </div>
     </div>
 </body>
