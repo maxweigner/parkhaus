@@ -14,7 +14,8 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 import models.TicketIF;
-import services.*;
+import services.ParkhausIF;
+import services.Parkhaus;
 
 @WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
