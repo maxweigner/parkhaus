@@ -111,9 +111,10 @@ public class ParkhausServlet extends HttpServlet {
 
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
+        TicketIF[] ladendeTicket = parkhaus.getLadendeTickets();
 
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
-        int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length;
+        int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length + ladendeTicket.length;
         int auslastung = (int) ( (belegtePlaetze / (float)parkhaus.getKapazitaet()) * 100);
 
         String aktuelleZeit = parkhaus.getAktuelleZeit().toString();

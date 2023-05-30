@@ -141,19 +141,23 @@ public class Parkhaus implements ParkhausIF {
     }
 
     /**
-     * Von allen Tickets werden die bezahlten herausgegeben
+     * Von allen Tickets werden die bezahlten/unbezahlten herausgegeben.
+     * Die unbezahlten sind exklusive der ladenden Tickets.
      * @return Ticketliste mit allen bezahlten Tickets
      */
     private TicketIF[] getTicketListe(String bezahltUnbezahlt) {
         List<TicketIF> tickets = new LinkedList<>();
         for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (ticket.istGueltig()){ // muss das Ticket gültig sein
-                if (ticket.istBezahlt() && "bezahlt".equals(bezahltUnbezahlt)){ // falls die bezahlten gesucht sind
+            if (!ticket.istGueltig()) // muss das Ticket gültig sein
+                continue;
+
+            if (ticket.istBezahlt() && "bezahlt".equals(bezahltUnbezahlt)){ // falls die bezahlten gesucht sind
+                tickets.add(ticket);
+            }
+
+            if (!ticket.istBezahlt() && "unbezahlt".equals(bezahltUnbezahlt)){ // falls die unbezahlten gesucht sind
+                if (ticket.getStartLadeZeit() == null)
                     tickets.add(ticket);
-                } else if (!ticket.istBezahlt() && "unbezahlt".equals(bezahltUnbezahlt)){ // falls die unbezahlten gesucht sind
-                    if (ticket.getStartLadeZeit() == null)
-                        tickets.add(ticket);
-                }
             }
         }
         return tickets.toArray(new TicketIF[tickets.size()]);
@@ -205,13 +209,11 @@ public class Parkhaus implements ParkhausIF {
 
         Iterator<TicketIF> itr = tickets.iterator();
 
-        if (itr.hasNext()) {
-            do {
-                TicketIF ticket = itr.next();
-                if (ticket.getStartLadeZeit() == null || !ticket.istGueltig()) {
-                    itr.remove();
-                }
-            } while (itr.hasNext());
+        while (itr.hasNext()) {
+            TicketIF ticket = itr.next();
+            if (ticket.getStartLadeZeit() == null || !ticket.istGueltig()) {
+                itr.remove();
+            }
         }
 
         return tickets.toArray(new TicketIF[tickets.size()]);
