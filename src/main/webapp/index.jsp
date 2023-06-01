@@ -83,7 +83,7 @@
             <form method="POST">
                 ⌛ ️
                 <input type="hidden" name="aktion" value="changeTime">
-                <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>">⌛️
+                <input type="datetime-local" step="1" name="changeTimeTo" value="<c:out value ="${currentTime}"/>"> ⌛️
                 <br>
                 <button id="changeTimeBtn" class="button">Change Time</button>
             </form>

@@ -97,13 +97,22 @@ h3{
     font-size: 12px;
     transition-duration: 0.4s;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    cursor: hand;
 }
 
 .button:hover {
     background-color: white; /* Green */
-    color: black;
+    color: #0c4186;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
+.button:disabled {
+    background-color: white;
+    color: #0c4186;
+    cursor: default;
+}
+
 
 /*Admin Page */
 
@@ -142,11 +151,15 @@ h3{
 
 #progressBar {
     width: 1%;
-    height: 20px;
-    margin-top: -42px;
+    height: 100%;
     background-color: green;
+    bottom: 200%;
+    position: relative;
+    border-radius: 3px;
 }
 
 #auslastungsHeader {
     margin-top: 0px;
+    z-index: 1;
+    position: relative;
 }
