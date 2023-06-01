@@ -10,7 +10,7 @@ import java.util.*;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
 public class Parkhaus implements ParkhausIF {
-    private static int id = 1; // laufende ID zur Vergabe bei neuen Tickets
+    private int id = 1; // laufende ID zur Vergabe bei neuen Tickets
     private int freiePlaetze; // Anzahl freier Plaetze
     private final int kapazitaet; // Gesamtzahl der vorhandenen Parkplätze
     private SchrankeIF[] schranken; // alle verfügbaren Schranken
@@ -243,12 +243,5 @@ public class Parkhaus implements ParkhausIF {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Setzt ID auf Ursprung zurück, um Tickets richtig zu nummerieren, falls Parkhaus neuinitialisert wird.
-     */
-    public static void resetGlobalID(){
-        id = 1;
     }
 }

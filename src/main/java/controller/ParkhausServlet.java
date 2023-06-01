@@ -130,11 +130,4 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("anzahl-schranken-einfahrt", parkhaus.getEinfahrtSchranken().length);
         req.setAttribute("anzahl-schranken-ausfahrt", parkhaus.getAusfahrtSchranken().length);
     }
-
-    /**
-     * Setzt das Parkhaus auf Ursrpungszustand
-     */
-    public static void reset(){
-        Parkhaus.resetGlobalID();
-    }
 }
