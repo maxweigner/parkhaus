@@ -29,22 +29,22 @@
         </div>
         <div id="adminPreise">
             <h2>💵 Preise 💵</h2>
-            <h3>Preis für ein bestimmtes Ticket setzen </h3>
+            <h3>Preis für ein Ticket</h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="admin">
                 <input type="number" name="preis">
                 <select name="ticket" id="selectTicket">
                     <c:forEach items="${bezahlteTickets}" var="bTickets">
-                        <option value="${bTickets.ID}"> Ticket: ${bTickets.ID} Preis: ${bTickets.gesamtpreis}</option>
+                        <option value="${bTickets.ID}"> Ticket: ${bTickets.ID} Preis: ${bTickets.gesamtpreis}€</option>
                     </c:forEach>
 
                     <c:forEach items="${aktiveTickets}" var="aTickets">
-                        <option value="${aTickets.ID}"> Ticket: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}</option>
+                        <option value="${aTickets.ID}"> Ticket: ${aTickets.ID} Preis: ${aTickets.gesamtpreis}€</option>
                     </c:forEach>
                 </select>
                 <button id="outBtn" class="button">Submit</button>
             </form>
-            <h3>Preis global für alle in Zukunft erstellte Tickets setzen </h3>
+            <h3>Preis für zukünftige Tickets</h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="globalPreis">
                 <input type="number" name="preisGlobal">
@@ -56,15 +56,15 @@
             <h3>Monatsticket erstellen </h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="checkInMonat" >
-                <button id="checkInMonBtn" class="button">Erstellen</button> <br>
+                <button id="checkInMonBtn" class="button">Create</button> <br>
             </form>
             <h3>Parkhaus zurücksetzen</h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="reset" >
                 <button id="resetBtn" class="button">Reset</button> <br>
             </form>
-            <h3>Parkplatz</h3>
-            <a href="${pageContext.request.contextPath}" class="button">Parkhaus</a>
+            <h3>Parkhaus besuchen</h3>
+            <a href="${pageContext.request.contextPath}" class="button">Visit</a>
         </div>
     </div>
 </body>

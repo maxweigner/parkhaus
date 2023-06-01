@@ -63,7 +63,7 @@
                     </c:if>
                 </c:forEach>
             </select>
-            <button  class="button" id="bezahlBtn" name="bezahlBtn" disabled>Bezahlen</button>
+            <button  class="button" id="bezahlBtn" name="bezahlBtn" disabled>Pay</button>
         </form>
         <div id="changeTime">
             <h2>Ausfahrt</h2>
@@ -88,8 +88,8 @@
                 <button id="changeTimeBtn" class="button">Change Time</button>
             </form>
 
-            <h2>Admin</h2>
-            <a href="${pageContext.request.contextPath}/admin" class="button">AdminPage</a>
+            <h2>Verwaltung</h2>
+            <a href="${pageContext.request.contextPath}/admin" class="button">Visit</a>
     </div>
 
 </div>
