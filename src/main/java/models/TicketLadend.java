@@ -25,6 +25,7 @@ public class TicketLadend  implements TicketState {
     @Override
     public void endAufladen(TicketIF ticket, LocalDateTime time, int stundenpreis) {
         long ladeStunden = ticket.getStartLadeZeit().until(time, ChronoUnit.HOURS);
+        ticket.setLadend(false);
         ticket.setGesamtpreis(ticket.getGesamtpreis() + stundenpreis * ((int) ladeStunden));
     }
 }

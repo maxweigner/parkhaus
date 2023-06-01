@@ -33,6 +33,7 @@ public class TicketEingefahren  implements TicketState {
     @Override
     public void startAufladen(TicketIF ticket, LocalDateTime time) {
         ticket.setStartLadeZeit(time);
+        ticket.setLadend(true);
     }
 
     @Override

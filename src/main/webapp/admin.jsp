@@ -29,7 +29,7 @@
         </div>
         <div id="adminPreise">
             <h2>💵 Preise 💵</h2>
-            <h3>Preis fuer ein bestimmtes Ticket setzen </h3>
+            <h3>Preis für ein bestimmtes Ticket setzen </h3>
             <form method="POST">
                 <input type="hidden" name="aktion" value="admin">
                 <input type="number" name="preis">

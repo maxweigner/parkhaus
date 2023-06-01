@@ -84,23 +84,26 @@ class ParkhausIFTest {
     @DisplayName("Kulanzfrist von 15 Minuten besteht zwischen Zahlung und Ausfahrt")
     void kulanzfristBeiAusfahrt(){
         TicketIF ticket = parkhaus.einfahrt(schranke);
+        EinnahmenIF einnahmen = new Einnahmen();
+        LocalDateTime jetzt = parkhaus.getAktuelleZeit();
 
-        LocalDateTime jetzt = LocalDateTime.now();
-        LocalDateTime zuLangsam = jetzt.plusMinutes(20);
-        parkhaus.getAutomat().bezahlen(ticket, jetzt);
-        ticket.setAusfahrtsZeit(zuLangsam);
-        assertEquals(false, parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
+        ticket.bezahlen(jetzt, einnahmen);
+        parkhaus.setAktuelleZeit(jetzt.plusMinutes(15));
+        assertTrue(parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
+        parkhaus.setAktuelleZeit(jetzt.plusSeconds(15 * 60 + 1));
+        assertFalse(parkhaus.ausfahrt(ticket, parkhaus.getAusfahrtSchranken()[0]));
     }
 
     @Test
     @DisplayName("Belegte Ladestationen werden richtig ermittelt")
     void belegteLadestationenTest(){
-        TicketIF t1 = new Ticket(1, 1);
-        TicketIF t2 = new Ticket(2, 1);
-        //parkhaus.startLaden(t1);
-        //parkhaus.startLaden(t2);
+        TicketIF t1 = parkhaus.einfahrt(schranke);
+        TicketIF t2 = parkhaus.einfahrt(schranke);
+        parkhaus.startLaden(t1);
+        parkhaus.startLaden(t2);
+
         assertEquals(2, parkhaus.getLadendeTickets().length);
-        //parkhaus.stopLaden(t1);
+        parkhaus.stopLaden(t1, 2);
         assertEquals(1, parkhaus.getLadendeTickets().length);
     }
 
@@ -111,11 +114,10 @@ class ParkhausIFTest {
         TicketIF t2 = parkhaus.einfahrt(schranke);
         assertEquals(0, parkhaus.getLadendeTickets().length);
         assertEquals(2, parkhaus.getNichtLadendeTickets().length);
-        //parkhaus.startLaden(t1, LocalDateTime.now());
+        parkhaus.startLaden(t1);
         assertEquals(1, parkhaus.getLadendeTickets().length);
         assertEquals(1, parkhaus.getNichtLadendeTickets().length);
-        //parkhaus.stopLaden(t1, LocalDateTime.now().plusHours(2), 2);
-        t1.setStartLadeZeit(null);
+        parkhaus.stopLaden(t1, 2);
         assertEquals(0, parkhaus.getLadendeTickets().length);
         assertEquals(2, parkhaus.getNichtLadendeTickets().length);
     }

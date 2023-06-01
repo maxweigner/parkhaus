@@ -28,7 +28,7 @@ public interface ParkhausIF {
 
     /**
      * Ticket prüfen und Schranke öffnen, wenn in den letzten 15 Minuten bezahlt wurde
-     * @param ticket: gültiges Ticket
+     * @return true für Erfolg, sonst false
      */
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
 

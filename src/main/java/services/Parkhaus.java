@@ -6,6 +6,7 @@ import models.TicketIF;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -108,10 +109,12 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
-        ticket.ausfahren(schranke, aktuelleZeit);
-        this.freiePlaetze++;
-
-        return true;
+        boolean versuch = ticket.ausfahren(schranke, aktuelleZeit);
+        if (versuch) { // Ausfahrt erfolgreich
+            this.freiePlaetze++;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -205,25 +208,18 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public TicketIF[] getLadendeTickets(){
-        LinkedList<TicketIF> tickets = new LinkedList<>(ticketListe);
-
-        Iterator<TicketIF> itr = tickets.iterator();
-
-        while (itr.hasNext()) {
-            TicketIF ticket = itr.next();
-            if (ticket.getStartLadeZeit() == null || !ticket.istGueltig()) {
-                itr.remove();
-            }
-        }
-
-        return tickets.toArray(new TicketIF[tickets.size()]);
+        Stream<TicketIF> tickets = ticketListe.stream();
+        return tickets.filter(t -> t.getStartLadeZeit() != null). // Startstempel muss vorhanden sein
+                filter(t -> t.getLadend()). // ladend
+                toArray(Ticket[]::new);
     }
 
     @Override
     public TicketIF[] getNichtLadendeTickets(){
-        LinkedList<TicketIF> tickets = new LinkedList<>(Arrays.asList(getUnbezahlteTickets()));
-        tickets.removeAll(new LinkedList<>(Arrays.asList(getLadendeTickets())));
-        return tickets.toArray(new TicketIF[tickets.size()]);
+        Stream<TicketIF> tickets = ticketListe.stream();
+        return tickets.filter(t -> !t.getLadend()). // nicht ladend
+                filter(t -> !t.istBezahlt()). // nicht bezahlt
+                toArray(TicketIF[]::new);
     }
 
     @Override

@@ -14,6 +14,8 @@ public class Ticket implements TicketIF{
     private LocalDateTime ausfahrtsZeit;
     private boolean bezahlt = false;
     private boolean gueltig = true;
+
+    private boolean ladend = false;
     private int gesamtpreis = 0;
     private LocalDateTime startLadeZeit;
     private boolean monatsTicket = false;
@@ -46,6 +48,10 @@ public class Ticket implements TicketIF{
 
     public int getGesamtpreis(){
         return this.gesamtpreis;
+    }
+
+    public boolean getLadend(){
+        return this.ladend;
     }
 
     public void setGesamtpreis(int gesamtpreis){
@@ -124,6 +130,10 @@ public class Ticket implements TicketIF{
         this.startLadeZeit = start;
     }
 
+    public void setLadend(boolean ladend){
+        this.ladend = ladend;
+    }
+
     public LocalDateTime getStartLadeZeit() {
         return startLadeZeit;
     }
@@ -143,15 +153,16 @@ public class Ticket implements TicketIF{
     }
 
     @Override
-    public void ausfahren(SchrankeIF schranke, LocalDateTime time) {
+    public boolean ausfahren(SchrankeIF schranke, LocalDateTime time) {
         if (time.isAfter(getZahlungsZeit().plusMinutes(15))) {
             changeState(new TicketEingefahren());
             this.bezahlt = false;
-            return;
+            return false;
         }
 
         state.ausfahren(this, schranke, time);
         changeState(new TicketAusgefahren());
+        return true;
     }
 
     @Override

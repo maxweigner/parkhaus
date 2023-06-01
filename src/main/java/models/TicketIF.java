@@ -75,15 +75,22 @@ public interface TicketIF {
     void setStartLadeZeit(LocalDateTime start);
 
     /**
-     * ...and sets start time to null
-     * @return
+     * Gibt aus, ob das Ticket mit einem aktiven Ladevorgang verbunden wird
+     * @return true false ladend, false sonst
      */
+    boolean getLadend();
     LocalDateTime getStartLadeZeit();
     boolean isMonatsTicket();
     void setBezahlung(boolean b);
+
+    /**
+     * Verbindet Ticket mit einem dazugehörigen Ladevorgang
+     * @param ladend: true für ladend, sonst false
+     */
+    void setLadend(boolean ladend);
     void setMonatsTicket(boolean monatsTicket);
 
-    void ausfahren(SchrankeIF schranke, LocalDateTime time);
+    boolean ausfahren(SchrankeIF schranke, LocalDateTime time);
     void bezahlen(LocalDateTime bezahlZeit, EinnahmenIF einnahmen);
     void startAufladen(LocalDateTime time);
     void endAufladen(LocalDateTime time, int stundenpreis);
