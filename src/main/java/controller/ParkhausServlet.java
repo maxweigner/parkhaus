@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +21,13 @@ import services.Parkhaus;
 
 @WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
-    private static ParkhausIF parkhaus;
 
     /**
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
      */
     public void init(){
-        this.parkhaus = new Parkhaus();
-        getServletContext().setAttribute("parkhaus", this.parkhaus);
+        ParkhausIF parkhaus = new Parkhaus();
+        getServletContext().setAttribute("parkhaus", parkhaus);
         getServletContext().setAttribute("globalPreis", 2);
         getServletContext().setAttribute("oeffnungszeit", LocalTime.parse("05:59", ISO_LOCAL_TIME));
         getServletContext().setAttribute("schliesszeit", LocalTime.parse("22:01", ISO_LOCAL_TIME));
@@ -38,7 +39,8 @@ public class ParkhausServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        doOnEveryRequest(req);
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
+        doOnEveryRequest(req, parkhaus);
 
         // das kann nicht in die doOnEveryRequest
         String oeffnungszeit = ((LocalTime)getServletContext().getAttribute("oeffnungszeit"))
@@ -53,6 +55,7 @@ public class ParkhausServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         LocalTime oeffnungszeit = (LocalTime) getServletContext().getAttribute("oeffnungszeit");
         LocalTime schliesszeit = (LocalTime) getServletContext().getAttribute("schliesszeit");
 
@@ -67,7 +70,6 @@ public class ParkhausServlet extends HttpServlet {
         }
 
         String aktion = req.getParameter("aktion");
-
         switch (aktion) {
             case "checkIn":
                 req.getRequestDispatcher("/checkIn").forward(req, res);
@@ -104,7 +106,7 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("schliesszeit", close);
     }
 
-    public static void doOnEveryRequest(HttpServletRequest req){
+    public static void doOnEveryRequest(HttpServletRequest req, ParkhausIF parkhaus){
         TicketIF[] ladendeTickets = parkhaus.getLadendeTickets();
         TicketIF[] nichtLadendeTickets = parkhaus.getNichtLadendeTickets();
 
@@ -129,7 +131,10 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("anzahl-schranken-ausfahrt", parkhaus.getAusfahrtSchranken().length);
     }
 
-    @Override
-    public void destroy() {
+    /**
+     * Setzt das Parkhaus auf Ursrpungszustand
+     */
+    public static void reset(){
+        Parkhaus.resetGlobalID();
     }
 }

@@ -58,6 +58,11 @@
                 <input type="hidden" name="aktion" value="checkInMonat" >
                 <button id="checkInMonBtn" class="button">Erstellen</button> <br>
             </form>
+            <h3>Parkhaus zurücksetzen</h3>
+            <form method="POST">
+                <input type="hidden" name="aktion" value="reset" >
+                <button id="resetBtn" class="button">Reset</button> <br>
+            </form>
             <h3>Parkplatz</h3>
             <a href="${pageContext.request.contextPath}" class="button">Parkhaus</a>
         </div>

@@ -12,11 +12,6 @@ import java.time.LocalDateTime;
 
 @WebServlet(name="controller.BezahlServlet", value="/bezahlen")
 public class BezahlServlet extends HttpServlet {
-    ParkhausIF parkhaus;
-
-    public void init(){
-        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -24,11 +19,12 @@ public class BezahlServlet extends HttpServlet {
     }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         // ticket id holen
         String ticketNr = req.getParameter("ticket");
         if (ticketNr == null) {
             req.setAttribute("bezahlt", false);
-            ParkhausServlet.doOnEveryRequest(req);
+            ParkhausServlet.doOnEveryRequest(req, parkhaus);
             req.getRequestDispatcher("index.jsp").forward(req, res);
             return;
         }
@@ -44,7 +40,7 @@ public class BezahlServlet extends HttpServlet {
         req.setAttribute("bezahlteTickets", parkhaus.getBezahlteTickets());
         req.setAttribute("aktiveTickets", parkhaus.getUnbezahlteTickets());
 
-        ParkhausServlet.doOnEveryRequest(req);
+        ParkhausServlet.doOnEveryRequest(req, parkhaus);
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 }

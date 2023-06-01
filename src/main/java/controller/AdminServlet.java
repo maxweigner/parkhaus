@@ -1,5 +1,6 @@
 package controller;
 
+import services.Parkhaus;
 import services.ParkhausIF;
 import services.EinnahmenIF;
 
@@ -15,18 +16,11 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(name="controller.AdminServlet", value="/admin")
 public class AdminServlet extends HttpServlet {
 
-    EinnahmenIF einnahmen;
-    ParkhausIF parkhaus;
-
-    public void init(){
-        parkhaus = (ParkhausIF)getServletContext().getAttribute("parkhaus");
-        einnahmen = parkhaus.getAutomat().getEinnahmen();
-    }
-
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException, NumberFormatException {
         // benötigte parameter einfügen
-        ParkhausServlet.doOnEveryRequest(req);
+        ParkhausIF parkhaus = (ParkhausIF)getServletContext().getAttribute("parkhaus");
+        ParkhausServlet.doOnEveryRequest(req, parkhaus);
         addParams(req);
 
         req.getRequestDispatcher("admin.jsp").forward(req, res);
@@ -36,7 +30,8 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // benötigte parameter einfügen
-        ParkhausServlet.doOnEveryRequest(req);
+        ParkhausIF parkhaus = (ParkhausIF)getServletContext().getAttribute("parkhaus");
+        ParkhausServlet.doOnEveryRequest(req, parkhaus);
 
         //Monatsticket erstellen
         String aktion = req.getParameter("aktion");
@@ -44,6 +39,13 @@ public class AdminServlet extends HttpServlet {
             addParams(req); // falls die oeffnungszeiten sich nicht ändern, müssen die alten mitgegeben werden
             req.getRequestDispatcher("/checkInMonatsticket").forward(req, res);
             return;
+        } else if (aktion.equals("reset")) { // falls reset geklickt wurde
+            ParkhausIF ph = new Parkhaus(); // erzeugt neues Parkhaus
+
+            getServletContext().setAttribute("parkhaus", ph); // setzt Parkhaus in der DB
+            ParkhausServlet.reset(); // setzt Klassenvariable parkhaus auf das aktuelle
+            ParkhausServlet.doOnEveryRequest(req, parkhaus);
+            req.getRequestDispatcher("admin.jsp").forward(req, res);
         }
 
         // ticket id holen
@@ -68,6 +70,9 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void addParams(HttpServletRequest req) {
+        ParkhausIF parkhaus = (ParkhausIF)getServletContext().getAttribute("parkhaus");
+        EinnahmenIF einnahmen = parkhaus.getAutomat().getEinnahmen();
+
         req.setAttribute("VerkaufteTickets", einnahmen.soldTickets());
         req.setAttribute("DurchschnittlicheEinnahmen", einnahmen.averageIncome());
         req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());

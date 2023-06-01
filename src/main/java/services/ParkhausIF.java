@@ -44,6 +44,7 @@ public interface ParkhausIF {
      */
     void stopLaden(TicketIF ticket, int stundenPreis);
 
+
     /**
      * Gibt die Anzahl an noch verfügbaren Plätzen aus
      * @return Anzahl noch freier Plätze
@@ -106,6 +107,12 @@ public interface ParkhausIF {
     int getKapazitaet();
 
     /**
+     * Gibt aktuelle Zeit aus
+     * @return LocalDateTime der Parkhauszeit
+     */
+    LocalDateTime getAktuelleZeit();
+
+    /**
      * Setzt die Anzahl an verfügbaren Plätzen
      * @param spaces Die neue Anzahl der freien Plätze
      */
@@ -119,5 +126,4 @@ public interface ParkhausIF {
      */
     boolean setAktuelleZeit(LocalDateTime now);
 
-    LocalDateTime getAktuelleZeit();
 }

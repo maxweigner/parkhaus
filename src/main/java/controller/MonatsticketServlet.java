@@ -14,13 +14,9 @@ import java.time.LocalDateTime;
 @WebServlet(name="controller.CheckInMonatsticket", value="/checkInMonatsticket")
 
 public class MonatsticketServlet extends HttpServlet {
-    ParkhausIF parkhaus;
-
-    public void init() {
-        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-    }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         LocalDateTime time = parkhaus.getAktuelleZeit();
 
         TicketIF ticket = parkhaus.einfahrt(
@@ -32,7 +28,7 @@ public class MonatsticketServlet extends HttpServlet {
         ticket.setMonatsTicket(true);
         System.out.println("Monatsticket erstellt: " + ticket);
 
-        ParkhausServlet.doOnEveryRequest(req);
+        ParkhausServlet.doOnEveryRequest(req, parkhaus);
         req.getRequestDispatcher("/admin.jsp").forward(req, res);
     }
 }

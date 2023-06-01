@@ -13,13 +13,9 @@ import java.time.LocalDateTime;
 
 @WebServlet(name="controller.StopLadenServlet", value="/stopLaden")
 public class StopLadenServlet extends HttpServlet {
-    ParkhausIF parkhaus;
-
-    public void init(){
-        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-    }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         String ticketStr = req.getParameter("ticket"); // ausgewähltes Ticket
         String stundenPreis = req.getParameter("preisGlobal");
 
@@ -32,7 +28,7 @@ public class StopLadenServlet extends HttpServlet {
             ticket.setStartLadeZeit(null);
         }
 
-        ParkhausServlet.doOnEveryRequest(req); // Endroutine
+        ParkhausServlet.doOnEveryRequest(req, parkhaus); // Endroutine
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 }

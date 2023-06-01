@@ -3,7 +3,6 @@ package services;
 import models.Ticket;
 import models.TicketIF;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -130,6 +129,7 @@ public class Parkhaus implements ParkhausIF {
      * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
      * @return Array mit Schranken
      */
+
     private SchrankeIF[] getSchranken(String einfahrtAusfahrt) {
         List<SchrankeIF> schrankenList = new ArrayList<>();
         for(SchrankeIF s: schranken) {
@@ -226,6 +226,10 @@ public class Parkhaus implements ParkhausIF {
         return tickets.toArray(new TicketIF[tickets.size()]);
     }
 
+    @Override
+    public LocalDateTime getAktuelleZeit() {
+        return aktuelleZeit;
+    }
 
     @Override
     public void setAnzahlPlaetze(int plaetze) {
@@ -241,9 +245,10 @@ public class Parkhaus implements ParkhausIF {
         return false;
     }
 
-    @Override
-    public LocalDateTime getAktuelleZeit() {
-        return aktuelleZeit;
+    /**
+     * Setzt ID auf Ursprung zurück, um Tickets richtig zu nummerieren, falls Parkhaus neuinitialisert wird.
+     */
+    public static void resetGlobalID(){
+        id = 1;
     }
-
 }

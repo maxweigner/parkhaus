@@ -12,19 +12,15 @@ import java.io.IOException;
 
 @WebServlet(name="controller.LadestationServlet", value="/startLaden")
 public class StartLadenServlet extends HttpServlet {
-    ParkhausIF parkhaus;
-
-    public void init(){
-        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-    }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         String ticketStr = req.getParameter("ticket"); // ausgewähltes Ticket
 
         if (ticketStr != null)
             parkhaus.startLaden(parkhaus.getTicket(Integer.parseInt(ticketStr)));
 
-        ParkhausServlet.doOnEveryRequest(req); // Endroutine
+        ParkhausServlet.doOnEveryRequest(req, parkhaus); // Endroutine
         req.getRequestDispatcher("index.jsp").forward(req, res);
     }
 }

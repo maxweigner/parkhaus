@@ -13,13 +13,9 @@ import java.time.LocalDateTime;
 
 @WebServlet(name="controller.CheckInServlet", value="/checkIn")
 public class CheckInServlet extends HttpServlet {
-    ParkhausIF parkhaus;
-
-    public void init(){
-        parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
-    }
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         LocalDateTime time = parkhaus.getAktuelleZeit();
         int preis = (Integer) getServletContext().getAttribute("globalPreis");
 
@@ -28,7 +24,7 @@ public class CheckInServlet extends HttpServlet {
 
         System.out.println("Ticket erstellt: " + ticket);
 
-        ParkhausServlet.doOnEveryRequest(req);
+        ParkhausServlet.doOnEveryRequest(req, parkhaus);
         req.getRequestDispatcher("/index.jsp").forward(req, res);
     }
 }
