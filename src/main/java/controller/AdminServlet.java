@@ -43,7 +43,7 @@ public class AdminServlet extends HttpServlet {
             ParkhausIF ph = new Parkhaus(); // erzeugt neues Parkhaus
 
             getServletContext().setAttribute("parkhaus", ph); // setzt Parkhaus in der DB
-            ParkhausServlet.reset(); // setzt Klassenvariable parkhaus auf das aktuelle
+            addParams(req);
             ParkhausServlet.doOnEveryRequest(req, parkhaus);
             req.getRequestDispatcher("admin.jsp").forward(req, res);
         }
