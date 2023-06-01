@@ -122,7 +122,6 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("currentTime", aktuelleZeit);
         req.setAttribute("ladendeTickets", ladendeTickets);
         req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
-        System.out.println(bezahlteTickets.length + " " + unbezahlteTickets.length);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);
