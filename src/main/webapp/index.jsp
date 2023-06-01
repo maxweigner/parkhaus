@@ -10,7 +10,7 @@
 </head>
 <body onload="javascript:main(${freiePlaetze}, ${auslastung})">
     <div class="header">
-        <img src="favicon.png" alt="ParkhausFavicon"> <h1 id="ueberschrift"> Parkhaus </h1> <img src="favicon.png" style="width: 40px; height: 40px; margin: 5px;">
+        <img src="favicon.png" alt="ParkhausFavicon"> <h1 id="ueberschrift"> Parkhaus </h1> <img src="favicon.png">
     </div>
     <div id="dashboard">
     <div id="Einfahrt">
