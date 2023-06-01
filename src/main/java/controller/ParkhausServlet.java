@@ -112,10 +112,9 @@ public class ParkhausServlet extends HttpServlet {
 
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
-        TicketIF[] ladendeTicket = parkhaus.getLadendeTickets();
 
         int freiePlaetze = parkhaus.getAnzahlFreiePlaetze();
-        int belegtePlaetze = bezahlteTickets.length + unbezahlteTickets.length + ladendeTicket.length;
+        int belegtePlaetze = parkhaus.getKapazitaet() - parkhaus.getAnzahlFreiePlaetze();
         int auslastung = (int) ( (belegtePlaetze / (float)parkhaus.getKapazitaet()) * 100);
 
         String aktuelleZeit = parkhaus.getAktuelleZeit().toString();
@@ -123,6 +122,7 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("currentTime", aktuelleZeit);
         req.setAttribute("ladendeTickets", ladendeTickets);
         req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
+        System.out.println(bezahlteTickets.length + " " + unbezahlteTickets.length);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);

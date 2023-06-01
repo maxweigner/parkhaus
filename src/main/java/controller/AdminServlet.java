@@ -41,10 +41,9 @@ public class AdminServlet extends HttpServlet {
             return;
         } else if (aktion.equals("reset")) { // falls reset geklickt wurde
             ParkhausIF ph = new Parkhaus(); // erzeugt neues Parkhaus
-
             getServletContext().setAttribute("parkhaus", ph); // setzt Parkhaus in der DB
-            addParams(req);
-            ParkhausServlet.doOnEveryRequest(req, parkhaus);
+            addParams(req); // setze Einnahmen von null auf 0
+            ParkhausServlet.doOnEveryRequest(req, ph); // Endroutine
             req.getRequestDispatcher("admin.jsp").forward(req, res);
         }
 
@@ -78,7 +77,8 @@ public class AdminServlet extends HttpServlet {
         req.setAttribute("Gesamteinnahmen", einnahmen.totalIncome());
         req.setAttribute("AnzahlEinfahrten", einnahmen.soldTickets() + parkhaus.getUnbezahlteTickets().length);
         req.setAttribute("AnzahlAusfahrten", einnahmen.soldTickets() - parkhaus.getBezahlteTickets().length);
-        req.setAttribute("Auslastung", (parkhaus.getUnbezahlteTickets().length + parkhaus.getBezahlteTickets().length) / (float)parkhaus.getKapazitaet() * 100);
+        int belegtePlaetze = parkhaus.getKapazitaet() - parkhaus.getAnzahlFreiePlaetze();
+        req.setAttribute("Auslastung", (int) ( (belegtePlaetze / (float)parkhaus.getKapazitaet()) * 100));
 
         String oeffnungszeit = ((LocalTime)getServletContext().getAttribute("oeffnungszeit"))
                 .plusMinutes(1).toString();
