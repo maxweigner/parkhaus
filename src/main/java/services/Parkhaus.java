@@ -127,45 +127,6 @@ public class Parkhaus implements ParkhausIF {
         ticket.endAufladen(aktuelleZeit,stundenPreis);
     }
 
-    /**
-     * Gibt ein Array mit Schranken aus, die vom angegebenen Typ sind
-     * @param einfahrtAusfahrt Der Typ der Schranken. Entweder "einfahrt" oder "ausfahrt"
-     * @return Array mit Schranken
-     */
-
-    private SchrankeIF[] getSchranken(String einfahrtAusfahrt) {
-        List<SchrankeIF> schrankenList = new ArrayList<>();
-        for(SchrankeIF s: schranken) {
-            if (s.getSchranke().equals(einfahrtAusfahrt)) {
-                schrankenList.add(s);
-            }
-        }
-        return schrankenList.toArray(new SchrankeIF[schrankenList.size()]);
-    }
-
-    /**
-     * Von allen Tickets werden die bezahlten/unbezahlten herausgegeben.
-     * Die unbezahlten sind exklusive der ladenden Tickets.
-     * @return Ticketliste mit allen bezahlten Tickets
-     */
-    private TicketIF[] getTicketListe(String bezahltUnbezahlt) {
-        List<TicketIF> tickets = new LinkedList<>();
-        for (TicketIF ticket: this.ticketListe){ // für jedes existierendes Ticket
-            if (!ticket.istGueltig()) // muss das Ticket gültig sein
-                continue;
-
-            if (ticket.istBezahlt() && "bezahlt".equals(bezahltUnbezahlt)){ // falls die bezahlten gesucht sind
-                tickets.add(ticket);
-            }
-
-            if (!ticket.istBezahlt() && "unbezahlt".equals(bezahltUnbezahlt)){ // falls die unbezahlten gesucht sind
-                if (ticket.getStartLadeZeit() == null)
-                    tickets.add(ticket);
-            }
-        }
-        return tickets.toArray(new TicketIF[tickets.size()]);
-    }
-
     @Override
     public int getAnzahlFreiePlaetze() {
         return this.freiePlaetze;
@@ -188,22 +149,32 @@ public class Parkhaus implements ParkhausIF {
 
     @Override
     public SchrankeIF[] getEinfahrtSchranken() {
-        return getSchranken("einfahrt");
+        Stream<SchrankeIF> schrankenStream = Arrays.stream(schranken);
+        return schrankenStream.filter(s -> s.getSchranke().equals("einfahrt")). // alle Einfahrtsschranken
+                toArray(SchrankeIF[]::new);
     }
 
     @Override
     public SchrankeIF[] getAusfahrtSchranken() {
-        return getSchranken("ausfahrt");
+        Stream<SchrankeIF> schrankenStream = Arrays.stream(schranken);
+        return schrankenStream.filter(s -> s.getSchranke().equals("ausfahrt")). // alle Ausfahrtsschranken
+                toArray(SchrankeIF[]::new);
     }
 
     @Override
     public TicketIF[] getBezahlteTickets(){
-        return getTicketListe("bezahlt");
+        Stream<TicketIF> tickets = ticketListe.stream();
+        return tickets.filter(t -> t.istGueltig()). // befindet sich im Parkhaus
+                filter(t -> t.istBezahlt()). // und hat gezahlt
+                toArray(Ticket[]::new);
     }
 
     @Override
-    public TicketIF[] getUnbezahlteTickets(){
-        return getTicketListe("unbezahlt");
+    public TicketIF[] getUnbezahlteTickets() {
+        Stream<TicketIF> tickets = ticketListe.stream();
+        return tickets.filter(t -> t.istGueltig()). // befindet sich im Parkhaus
+                filter(t -> !t.istBezahlt()). // und hat nicht gezahlt
+                toArray(Ticket[]::new);
     }
 
     @Override
