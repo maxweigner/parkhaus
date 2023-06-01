@@ -123,6 +123,32 @@ img {
 }
 
 
+#progress {
+    width: 100%;
+    height: 20%;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    background-color: #c5c5c5;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#progressBar {
+    width: 1%;
+    height: 100%;
+    background-color: green;
+    bottom: 201%;
+    position: relative;
+    border-radius: 3px;
+}
+
+#auslastungsHeader {
+    margin-top: 0px;
+    z-index: 1;
+    position: relative;
+}
+
+
 /*Admin Page */
 
 #uebersicht{
@@ -147,29 +173,4 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#progress {
-    width: 100%;
-    height: 20%;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: black;
-    background-color: #c5c5c5;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#progressBar {
-    width: 1%;
-    height: 100%;
-    background-color: green;
-    bottom: 201%;
-    position: relative;
-    border-radius: 3px;
-}
-
-#auslastungsHeader {
-    margin-top: 0px;
-    z-index: 1;
-    position: relative;
 }
