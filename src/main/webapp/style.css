@@ -129,22 +129,22 @@ img {
     border-radius: 5px;
     border-style: solid;
     border-color: black;
+    position: relative;
     background-color: #c5c5c5;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    z-index: 0;
 }
 
 #progressBar {
-    width: 1%;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     background-color: green;
-    bottom: 201%;
-    position: relative;
-    border-radius: 3px;
 }
 
 #auslastungsHeader {
     margin-top: 0px;
-    z-index: 1;
     position: relative;
 }
 
