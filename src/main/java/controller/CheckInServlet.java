@@ -20,7 +20,7 @@ public class CheckInServlet extends HttpServlet {
         int preis = (Integer) getServletContext().getAttribute("globalPreis");
 
         String id = req.getParameter("mTicket");
-        if (id != null){ // Monatsticket wurde ausgewählt
+        if (!id.equals("")){ // Monatsticket wurde ausgewählt
             TicketIF ticket = parkhaus.getTicket(Integer.parseInt(id));
             parkhaus.einfahrt(parkhaus.getAusfahrtSchranken()[0], ticket);
         } else {

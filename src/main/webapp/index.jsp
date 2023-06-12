@@ -26,6 +26,7 @@
         <form method="POST">
             <input type="hidden" name="aktion" value="checkIn">
             <select name="mTicket" id="selectMonatsTicket">
+                <option></option>
                 <c:forEach items="${monatstickets}" var="mTickets">
                     <option value="${mTickets.ID}"> Ticket-Nr: ${mTickets.ID}</option>
                 </c:forEach>
