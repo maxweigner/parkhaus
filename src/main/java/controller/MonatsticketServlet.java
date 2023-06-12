@@ -19,14 +19,9 @@ public class MonatsticketServlet extends HttpServlet {
         ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         LocalDateTime time = parkhaus.getAktuelleZeit();
 
-        TicketIF ticket = parkhaus.einfahrt(
-                parkhaus.getEinfahrtSchranken()[0],
-                50,
-                parkhaus.getAktuelleZeit()); //EinfahrtSchranke
-        ticket.setGesamtpreis(50);
-        ticket.setEinfahrtsZeit(time);
-        ticket.setMonatsTicket(true);
+        TicketIF ticket = parkhaus.erstelleMonatsticket(50, time);
         System.out.println("Monatsticket erstellt: " + ticket);
+        System.out.println(parkhaus.getMonatstickets().toString());
 
         ParkhausServlet.doOnEveryRequest(req, parkhaus);
         req.getRequestDispatcher("/admin.jsp").forward(req, res);

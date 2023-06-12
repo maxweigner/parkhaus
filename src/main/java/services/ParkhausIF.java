@@ -24,13 +24,28 @@ public interface ParkhausIF {
      * Erstellt ein neues Ticket zum angegebenen Zeitpunkt
      * @return Ticket
      */
+
     Ticket einfahrt(SchrankeIF schranke, int preis, LocalDateTime aktuelleZeit);
+
+    /**
+     * Bearbeitet Einfahrten mit Monatstickets
+     * @param monatsticket
+     */
+    void einfahrt(SchrankeIF schranke, TicketIF monatsticket);
 
     /**
      * Ticket prüfen und Schranke öffnen, wenn in den letzten 15 Minuten bezahlt wurde
      * @return true für Erfolg, sonst false
      */
     boolean ausfahrt(TicketIF ticket, SchrankeIF schranke);
+
+    /**
+     * Erstellt Monatsticket
+     * @param preis: Preis für die monatliche Nutzung
+     * @param time: Start der Frist
+     * @return Monatsticket
+     */
+    Ticket erstelleMonatsticket(int preis, LocalDateTime time);
 
     /**
      * Startet den Ladevorgang an einer Ladesäule
@@ -93,6 +108,12 @@ public interface ParkhausIF {
      * @return Liste mit Tickets
      */
     TicketIF[] getNichtLadendeTickets();
+
+    /**
+     * Sucht alle Monatstickets, die sich nicht im Parkhaus befinden
+     * @return Liste mit Monatstickets
+     */
+    TicketIF[] getMonatstickets();
 
     /**
      * Gibt den Bezahlautomaten des Parkhauses zurück

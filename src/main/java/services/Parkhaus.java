@@ -76,7 +76,7 @@ public class Parkhaus implements ParkhausIF {
     @Override
     public Ticket einfahrt(SchrankeIF schranke, int preis) {
         if (this.freiePlaetze > 0) {
-            Ticket ticket = new Ticket(id++, preis); // erstellt models.Ticket
+            Ticket ticket = new Ticket(id++, preis); // erstellt Ticket
 
             // Schranke auf/zu
             schranke.open();
@@ -108,6 +108,18 @@ public class Parkhaus implements ParkhausIF {
     }
 
     @Override
+    public void einfahrt(SchrankeIF schranke, TicketIF monatsticket) {
+        if (this.freiePlaetze > 0) {
+            // Schranke auf/zu
+            schranke.open();
+            schranke.close();
+
+            monatsticket.setGueltigkeit(true);
+            this.freiePlaetze--; // freie Plätze anpassen
+        }
+    }
+
+    @Override
     public boolean ausfahrt(TicketIF ticket, SchrankeIF schranke) {
         boolean versuch = ticket.ausfahren(schranke, aktuelleZeit);
         if (versuch) { // Ausfahrt erfolgreich
@@ -115,6 +127,15 @@ public class Parkhaus implements ParkhausIF {
             return true;
         }
         return false;
+    }
+
+    public Ticket erstelleMonatsticket(int preis, LocalDateTime aktuelleZeit){
+        Ticket ticket = new Ticket(id++, preis); // erstellt Ticket
+        ticket.setEinfahrtsZeit(LocalDateTime.parse(aktuelleZeit.toString(), ISO_LOCAL_DATE_TIME));
+        ticket.setMonatsTicket(true);
+        ticket.setGueltigkeit(false);
+        this.ticketListe.add(ticket);
+        return ticket; // ticket ausgeben
     }
 
     @Override
@@ -190,6 +211,14 @@ public class Parkhaus implements ParkhausIF {
         Stream<TicketIF> tickets = ticketListe.stream();
         return tickets.filter(t -> !t.getLadend()). // nicht ladend
                 filter(t -> !t.istBezahlt()). // nicht bezahlt
+                toArray(TicketIF[]::new);
+    }
+
+    @Override
+    public TicketIF[] getMonatstickets(){
+        Stream<TicketIF> tickets = ticketListe.stream();
+        return tickets.filter(t -> t.isMonatsTicket()).
+                filter(t -> !t.istGueltig()).
                 toArray(TicketIF[]::new);
     }
 

@@ -19,10 +19,16 @@ public class CheckInServlet extends HttpServlet {
         LocalDateTime time = parkhaus.getAktuelleZeit();
         int preis = (Integer) getServletContext().getAttribute("globalPreis");
 
-        TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0], preis); //EinfahrtSchranke
-        ticket.setEinfahrtsZeit(time);
+        String id = req.getParameter("mTicket");
+        if (id != null){ // Monatsticket wurde ausgewählt
+            TicketIF ticket = parkhaus.getTicket(Integer.parseInt(id));
+            parkhaus.einfahrt(parkhaus.getAusfahrtSchranken()[0], ticket);
+        } else {
+            TicketIF ticket = parkhaus.einfahrt(parkhaus.getEinfahrtSchranken()[0], preis); //EinfahrtSchranke
+            ticket.setEinfahrtsZeit(time);
+            System.out.println("Ticket erstellt: " + ticket);
+        }
 
-        System.out.println("Ticket erstellt: " + ticket);
 
         ParkhausServlet.doOnEveryRequest(req, parkhaus);
         req.getRequestDispatcher("/index.jsp").forward(req, res);

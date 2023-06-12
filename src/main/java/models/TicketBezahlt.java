@@ -20,8 +20,9 @@ public class TicketBezahlt  implements TicketState {
                 return;
 
             ticket.setBezahlung(false);
-            ticket.setGueltigkeit(true);
+            ticket.setGueltigkeit(false);
             ticket.setGesamtpreis(0);
+
 
         } else {
             ticket.setAusfahrtsZeit(LocalDateTime.parse(time.toString(), ISO_LOCAL_DATE_TIME));

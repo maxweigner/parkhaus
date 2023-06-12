@@ -109,6 +109,7 @@ public class ParkhausServlet extends HttpServlet {
     public static void doOnEveryRequest(HttpServletRequest req, ParkhausIF parkhaus){
         TicketIF[] ladendeTickets = parkhaus.getLadendeTickets();
         TicketIF[] nichtLadendeTickets = parkhaus.getNichtLadendeTickets();
+        TicketIF[] monatstickets = parkhaus.getMonatstickets();
 
         TicketIF[] bezahlteTickets = parkhaus.getBezahlteTickets();
         TicketIF[] unbezahlteTickets = parkhaus.getUnbezahlteTickets();
@@ -122,6 +123,7 @@ public class ParkhausServlet extends HttpServlet {
         req.setAttribute("currentTime", aktuelleZeit);
         req.setAttribute("ladendeTickets", ladendeTickets);
         req.setAttribute("nichtLadendeTickets", nichtLadendeTickets);
+        req.setAttribute("monatstickets", monatstickets);
         req.setAttribute("bezahlteTickets", bezahlteTickets);
         req.setAttribute("aktiveTickets", unbezahlteTickets);
         req.setAttribute("freiePlaetze", freiePlaetze);

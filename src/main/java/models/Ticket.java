@@ -160,6 +160,12 @@ public class Ticket implements TicketIF{
             return false;
         }
 
+        if (isMonatsTicket()) { // falls es ein Monatsticket ist...
+            changeState(new TicketEingefahren()); // ... soll es wiederverwendbar sein
+            this.bezahlt = false; // damit es nicht mehr zur Ausfahrt gewählt werden kann
+            this.gueltig = false;
+            return true;
+        }
         state.ausfahren(this, schranke, time);
         changeState(new TicketAusgefahren());
         return true;
