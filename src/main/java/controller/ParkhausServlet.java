@@ -17,7 +17,7 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 import models.TicketIF;
 import services.ParkhausIF;
-import services.Parkhaus;
+import services.Singleton;
 
 @WebServlet(name="controller.ParkhausServlet", value="")
 public class ParkhausServlet extends HttpServlet {
@@ -26,7 +26,7 @@ public class ParkhausServlet extends HttpServlet {
      * ParkhausServlet wird als erstes aufgerufen und erzeugt dabei initial ein Parkhaus
      */
     public void init(){
-        ParkhausIF parkhaus = new Parkhaus();
+        ParkhausIF parkhaus = Singleton.getInstance().getParkhaus();
         getServletContext().setAttribute("parkhaus", parkhaus);
         getServletContext().setAttribute("globalPreis", 2);
         getServletContext().setAttribute("oeffnungszeit", LocalTime.parse("05:59", ISO_LOCAL_TIME));
