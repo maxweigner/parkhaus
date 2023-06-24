@@ -43,8 +43,7 @@ class ParkhausIFTest {
         assertTrue(ticket.istBezahlt());
     }
 
-    @RepeatedTest(10)
-    @DisplayName("Anzahl freier Plätze wird bei Einfahrt reduziert")
+    @RepeatedTest(value=10, name="Anzahl freier Plätze wird bei Einfahrt reduziert")
     void reduzierungFreierPlaetzeTest() {
         int einfahrten = rd.nextInt(100);
         int kapazitaet = parkhaus.getAnzahlFreiePlaetze();
