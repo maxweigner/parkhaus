@@ -7,17 +7,14 @@ import org.junit.jupiter.api.Test;
 import services.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Random;
-
+import java.security.SecureRandom;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkhausIFTest {
     private ParkhausIF parkhaus;
     private BezahlautomatIF automat;
-    private final Random rd = new Random();
+    private final SecureRandom rd = new SecureRandom();
     SchrankeIF schranke;
-
     @BeforeEach
     void setUp(){
         parkhaus = new Parkhaus();
