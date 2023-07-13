@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 @WebServlet(name="controller.BezahlServlet", value="/bezahlen")
 public class BezahlServlet extends HttpServlet {
 
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.sendRedirect("/");
-    }
-
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
         // ticket id holen
