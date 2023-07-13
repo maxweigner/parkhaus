@@ -15,6 +15,7 @@ public class BezahlServlet extends HttpServlet {
 
     public void doPost (HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         ParkhausIF parkhaus = (ParkhausIF) getServletContext().getAttribute("parkhaus");
+
         // ticket id holen
         String ticketNr = req.getParameter("ticket");
         if (ticketNr == null) {
