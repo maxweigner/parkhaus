@@ -74,6 +74,7 @@ public class ParkhausServlet extends HttpServlet {
             case "checkIn":
                 req.getRequestDispatcher("/checkIn").forward(req, res);
                 break;
+
             case "bezahlen":
                 req.getRequestDispatcher("/bezahlen").forward(req, res);
                 break;
